@@ -882,6 +882,26 @@
             transform: translateX(-50%) translateY(0);
         }
 
+        /* ─── USERNAME FLUTUANTE NO JOGO ─── */
+        .game-username-tag {
+            position: absolute;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-weight: 300;
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.18);
+            pointer-events: none;
+            animation: gameTagFloat 4s ease-in-out forwards;
+            white-space: nowrap;
+        }
+        @keyframes gameTagFloat {
+            0% { opacity: 0; transform: translateY(0); }
+            15% { opacity: 1; }
+            85% { opacity: 0.18; }
+            100% { opacity: 0; transform: translateY(-30px); }
+        }
+
         /* ─── GAME OVERLAY ─── */
         #gameOverlay {
             position: fixed;
@@ -1200,14 +1220,14 @@
 
     <!-- GAME -->
     <div id="gameOverlay">
-        <div id="gameTitle">💖 Coração Espacial</div>
+        <div id="gameTitle">🚀 Nave Espacial</div>
         <div id="gameUI">
             <span id="gameVidasEl">❤️❤️❤️</span>
             <span>⭐ <span id="gameScore">0</span></span>
             <span>🏆 <span id="gameRecord">0</span></span>
         </div>
         <canvas id="gameCanvas"></canvas>
-        <div id="gameMsgEl">Desvie dos ☄️ e colete 💖!</div>
+        <div id="gameMsgEl">Escolha um tema e inicie!</div>
         <div class="game-btns">
             <button class="gbtn primary" id="gameBtnStart" onclick="gameStart()">▶ Iniciar</button>
             <button class="gbtn" onclick="fecharGame()">✕ Fechar</button>
@@ -1387,80 +1407,110 @@
             playNote();
         }
 
-        // ─── OCEAN: ondas + vento ───
+        // ─── OCEAN: ondas suaves + bolhas mágicas ───
         function playOceanAmbience() {
-            // White noise filtrado = ondas
+            // Ruído suave filtrado = profundeza do mar
             const buf = audioCtx.createBuffer(1, audioCtx.sampleRate * 8, audioCtx.sampleRate);
             const data = buf.getChannelData(0);
-            for (let i = 0; i < data.length; i++)data[i] = Math.random() * 2 - 1;
-            const src = audioCtx.createBufferSource();
-            src.buffer = buf; src.loop = true;
-            const filt = audioCtx.createBiquadFilter();
-            filt.type = 'bandpass'; filt.frequency.value = 400; filt.Q.value = .8;
-            const lfo = audioCtx.createOscillator();
-            const lfoG = audioCtx.createGain();
-            lfo.frequency.value = .12; lfo.type = 'sine';
-            lfoG.gain.value = 200;
-            lfo.connect(lfoG); lfoG.connect(filt.frequency);
-            const waveG = audioCtx.createGain(); waveG.gain.value = .18;
-            src.connect(filt); filt.connect(waveG); waveG.connect(bgGain);
-            src.start(); lfo.start();
-            bgNodes.push(src, filt, lfo, lfoG, waveG);
-            // Drone marinho
-            const o = audioCtx.createOscillator();
-            const g = audioCtx.createGain();
-            o.type = 'sine'; o.frequency.value = 82; g.gain.value = .04;
-            o.connect(g); g.connect(bgGain); o.start(); bgNodes.push(o, g);
-            // Gotas/bolhas ocasionais
-            function drop() {
-                if (!bgGain) return;
-                const o2 = audioCtx.createOscillator(); const g2 = audioCtx.createGain();
-                o2.frequency.setValueAtTime(800 + Math.random() * 400, audioCtx.currentTime);
-                o2.frequency.exponentialRampToValueAtTime(200, audioCtx.currentTime + .5);
-                g2.gain.setValueAtTime(0, audioCtx.currentTime);
-                g2.gain.linearRampToValueAtTime(.03, audioCtx.currentTime + .05);
-                g2.gain.exponentialRampToValueAtTime(.001, audioCtx.currentTime + .6);
-                o2.connect(g2); g2.connect(bgGain); o2.start(); o2.stop(audioCtx.currentTime + .7);
-                bgNodes.push(o2, g2);
-                setTimeout(drop, 1500 + Math.random() * 3000);
-            }
-            drop();
-        }
-
-        // ─── WINTER: vento suave + sino ───
-        function playWinterAmbience() {
-            // Vento (ruído filtrado)
-            const buf = audioCtx.createBuffer(1, audioCtx.sampleRate * 6, audioCtx.sampleRate);
-            const data = buf.getChannelData(0);
-            for (let i = 0; i < data.length; i++)data[i] = (Math.random() * 2 - 1) * .7;
+            for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * 0.5;
             const src = audioCtx.createBufferSource(); src.buffer = buf; src.loop = true;
-            const filt = audioCtx.createBiquadFilter(); filt.type = 'highpass'; filt.frequency.value = 1200;
-            const wG = audioCtx.createGain(); wG.gain.value = .06;
-            // LFO para vento
+            const filt = audioCtx.createBiquadFilter();
+            filt.type = 'lowpass'; filt.frequency.value = 320; filt.Q.value = 1.4;
             const lfo = audioCtx.createOscillator(); const lfoG = audioCtx.createGain();
-            lfo.frequency.value = .08; lfo.type = 'sine'; lfoG.gain.value = .04;
-            lfo.connect(lfoG); lfoG.connect(wG.gain);
-            src.connect(filt); filt.connect(wG); wG.connect(bgGain);
-            src.start(); lfo.start(); bgNodes.push(src, filt, wG, lfo, lfoG);
-            // Sinos cristalinos
-            const sNotes = [1046.5, 1174.7, 1318.5, 1396.9, 1568];
-            function sino() {
+            lfo.frequency.value = 0.09; lfo.type = 'sine'; lfoG.gain.value = 80;
+            lfo.connect(lfoG); lfoG.connect(filt.frequency);
+            const waveG = audioCtx.createGain(); waveG.gain.value = 0.07;
+            src.connect(filt); filt.connect(waveG); waveG.connect(bgGain);
+            src.start(); lfo.start(); bgNodes.push(src, filt, lfo, lfoG, waveG);
+            // Melodia subaquática suave (pentatônica menor)
+            const melNotes = [110, 130.81, 146.83, 164.81, 196, 220, 261.63];
+            function melNote() {
                 if (!bgGain) return;
                 const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
-                o.type = 'sine'; o.frequency.value = sNotes[Math.floor(Math.random() * sNotes.length)];
+                o.type = 'sine'; o.frequency.value = melNotes[Math.floor(Math.random() * melNotes.length)];
                 const t = audioCtx.currentTime;
-                g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(.04, t + .02);
-                g.gain.exponentialRampToValueAtTime(.001, t + 3);
-                o.connect(g); g.connect(bgGain); o.start(t); o.stop(t + 3.2);
-                bgNodes.push(o, g);
-                setTimeout(sino, 1800 + Math.random() * 3500);
+                g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(0.045, t + 0.3);
+                g.gain.exponentialRampToValueAtTime(0.001, t + 3.5);
+                o.connect(g); g.connect(bgGain); o.start(t); o.stop(t + 4);
+                bgNodes.push(o, g); setTimeout(melNote, 700 + Math.random() * 1800);
             }
-            sino();
-            // Drone frio
-            const d = audioCtx.createOscillator(); const dG = audioCtx.createGain();
-            d.type = 'sine'; d.frequency.value = 220; dG.gain.value = .025;
-            d.connect(dG); dG.connect(bgGain); d.start(); bgNodes.push(d, dG);
+            melNote();
+            // Bolhas — pop suave ascendente
+            function bubble() {
+                if (!bgGain) return;
+                const o2 = audioCtx.createOscillator(); const g2 = audioCtx.createGain();
+                const baseFreq = 600 + Math.random() * 800;
+                o2.type = 'sine';
+                o2.frequency.setValueAtTime(baseFreq * 0.5, audioCtx.currentTime);
+                o2.frequency.linearRampToValueAtTime(baseFreq, audioCtx.currentTime + 0.08);
+                o2.frequency.exponentialRampToValueAtTime(baseFreq * 1.8, audioCtx.currentTime + 0.25);
+                g2.gain.setValueAtTime(0, audioCtx.currentTime);
+                g2.gain.linearRampToValueAtTime(0.04, audioCtx.currentTime + 0.04);
+                g2.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
+                o2.connect(g2); g2.connect(bgGain); o2.start(); o2.stop(audioCtx.currentTime + 0.4);
+                bgNodes.push(o2, g2);
+                setTimeout(bubble, 800 + Math.random() * 2200);
+            }
+            bubble(); setTimeout(bubble, 600); setTimeout(bubble, 1400);
+            // Drone profundo do mar
+            [55, 82.4].forEach((f, i) => {
+                const od = audioCtx.createOscillator(); const gd = audioCtx.createGain();
+                od.type = 'sine'; od.frequency.value = f; gd.gain.value = 0.022 / (i + 1);
+                od.connect(gd); gd.connect(bgGain); od.start(); bgNodes.push(od, gd);
+            });
         }
+
+        // ─── WINTER: caixinha de música + cristais de gelo ───
+        function playWinterAmbience() {
+            // Vento muito suave de fundo (lowpass, quase inaudível)
+            const buf = audioCtx.createBuffer(1, audioCtx.sampleRate * 6, audioCtx.sampleRate);
+            const data = buf.getChannelData(0);
+            for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * 0.3;
+            const src = audioCtx.createBufferSource(); src.buffer = buf; src.loop = true;
+            const filt = audioCtx.createBiquadFilter(); filt.type = 'lowpass'; filt.frequency.value = 400;
+            const wG = audioCtx.createGain(); wG.gain.value = 0.025;
+            src.connect(filt); filt.connect(wG); wG.connect(bgGain);
+            src.start(); bgNodes.push(src, filt, wG);
+            // Melodia de caixinha de música (escala pentatônica de Dó maior)
+            const boxNotes = [523.25, 587.33, 659.25, 783.99, 880, 1046.5, 880, 783.99, 659.25, 587.33];
+            const boxPattern = [0, 2, 4, 7, 4, 2, 0, 4, 7, 9, 7, 4, 2, 0, 4, 2];
+            let bIdx = 0;
+            function boxNote() {
+                if (!bgGain) return;
+                const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
+                o.type = 'triangle';
+                const freq = boxNotes[boxPattern[bIdx % boxPattern.length]]; bIdx++;
+                o.frequency.value = freq;
+                const t = audioCtx.currentTime;
+                g.gain.setValueAtTime(0, t);
+                g.gain.linearRampToValueAtTime(0.055, t + 0.015);
+                g.gain.exponentialRampToValueAtTime(0.001, t + 1.8);
+                o.connect(g); g.connect(bgGain); o.start(t); o.stop(t + 2);
+                bgNodes.push(o, g);
+                setTimeout(boxNote, 400 + (bIdx % 4 === 0 ? 600 : 0));
+            }
+            setTimeout(boxNote, 300);
+            // Cristais de gelo (notas altas, cristalinas)
+            const crystalNotes = [1318.5, 1396.9, 1568, 1760, 2093];
+            function crystal() {
+                if (!bgGain) return;
+                const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
+                o.type = 'sine'; o.frequency.value = crystalNotes[Math.floor(Math.random() * crystalNotes.length)];
+                const t = audioCtx.currentTime;
+                g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(0.028, t + 0.01);
+                g.gain.exponentialRampToValueAtTime(0.001, t + 2.5);
+                o.connect(g); g.connect(bgGain); o.start(t); o.stop(t + 2.8);
+                bgNodes.push(o, g); setTimeout(crystal, 1200 + Math.random() * 2800);
+            }
+            crystal();
+            // Pad frio suave
+            [261.63, 329.63, 392].forEach(f => {
+                const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
+                o.type = 'sine'; o.frequency.value = f; g.gain.value = 0.015;
+                o.connect(g); g.connect(bgGain); o.start(); bgNodes.push(o, g);
+            });
+        }
+
 
         // ═══════════════════════════════════════
         //  CANVAS PARTÍCULAS
@@ -1931,7 +1981,7 @@
         const gc = $('gameCanvas');
         const gctx = gc.getContext('2d');
         let gameRunning = false, gameAnimId = null;
-        let gScore = 0, gVidas = 6, gRecord = 0; // vidas em meios corações (6 = 3 corações)
+        let gScore = 0, gVidas = 6, gRecord = 0;
         let gPlayer, gObstacles, gCollectibles, gFrame, gSpeed;
         let gTouchX = null, gShield = false, gShieldCooldown = false;
         let gMilestones = [100, 200, 350, 500, 750, 1000];
@@ -1940,15 +1990,137 @@
         let gMessages = ['Incrível! 🎉', 'Vai fundo! 🚀', 'Você é fera! 🔥', 'Sem parar! ⚡', 'Lendário! 👑', '100% viciante! 💖'];
         let gSubMessages = ['Continue acelerando!', 'Ficou ainda mais difícil!', 'Quase impossível...', 'Você consegue!', 'Absurdo!', 'Compartilha no Instagram!'];
 
+        // Partículas decorativas do jogo (por tema)
+        let gBgParticles = [];
+        // Usernames flutuantes no jogo
+        let gUsernameTimer = 0;
+        // Cache do coral (oceano)
+        let coralCache = null;
+
+        // Config por tema do jogo
+        const gameTemas = {
+            galaxia: {
+                titulo: '🚀 Nave Espacial',
+                dica: 'Desvie dos ☄️ — colete ⭐ — Espaço = escudo!',
+                playerColor: '#7c4dff',
+                obstacleEmoji: '☄️',
+                collectEmoji: '⭐',
+                bgColor1: '#04000d', bgColor2: '#100015',
+                particleColor: 'rgba(255,255,255,',
+                gameOverEmoji: ['💫', '🌌'],
+            },
+            romantico: {
+                titulo: '💕 Amor em Queda',
+                dica: 'Colete 💖 — Desvie dos 💔 — Espaço = escudo!',
+                playerColor: '#ff2d87',
+                obstacleEmoji: '💔',
+                collectEmoji: '💖',
+                bgColor1: '#1a000f', bgColor2: '#300018',
+                particleColor: 'rgba(255,80,150,',
+                gameOverEmoji: ['💔', '🌹'],
+            },
+            neve: {
+                titulo: '❄️ Aventura na Neve',
+                dica: 'Colete 🎁 — Desvie das ❄️ — Espaço = escudo!',
+                playerColor: '#90caf9',
+                obstacleEmoji: '🧊',
+                collectEmoji: '🎁',
+                bgColor1: '#060c1a', bgColor2: '#0d1a30',
+                particleColor: 'rgba(200,230,255,',
+                gameOverEmoji: ['⛄', '❄️'],
+            },
+            oceano: {
+                titulo: '🐟 Fundo do Mar',
+                dica: 'Colete 🐠 — Desvie dos 🦈 — Espaço = escudo!',
+                playerColor: '#00e5ff',
+                obstacleEmoji: '🦈',
+                collectEmoji: '🐠',
+                bgColor1: '#001220', bgColor2: '#003050',
+                particleColor: 'rgba(0,200,255,',
+                gameOverEmoji: ['🐋', '🌊'],
+            }
+        };
+
+        // ─── Som de coletar (por tema) ───
+        function playCollectSound() {
+            if (!audioCtx) return;
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const tema = config.tema;
+            const now = audioCtx.currentTime;
+            if (tema === 'galaxia') {
+                // Ping eletrônico de ficção científica
+                const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
+                o.type = 'sine';
+                o.frequency.setValueAtTime(600, now); o.frequency.exponentialRampToValueAtTime(1200, now + 0.08);
+                o.frequency.exponentialRampToValueAtTime(900, now + 0.2);
+                g.gain.setValueAtTime(0, now); g.gain.linearRampToValueAtTime(0.12, now + 0.02);
+                g.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+                o.connect(g); g.connect(audioCtx.destination); o.start(now); o.stop(now + 0.4);
+            } else if (tema === 'romantico') {
+                // Tecla de piano romântica suave
+                const freqs = [523.25, 659.25, 783.99];
+                freqs.forEach((f, i) => {
+                    const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
+                    o.type = 'triangle'; o.frequency.value = f;
+                    const delay = i * 0.05;
+                    g.gain.setValueAtTime(0, now + delay); g.gain.linearRampToValueAtTime(0.09, now + delay + 0.02);
+                    g.gain.exponentialRampToValueAtTime(0.001, now + delay + 1.2);
+                    o.connect(g); g.connect(audioCtx.destination); o.start(now + delay); o.stop(now + delay + 1.4);
+                });
+            } else if (tema === 'neve') {
+                // Xilofone / sino cristalino
+                const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
+                o.type = 'triangle'; o.frequency.value = 880 + Math.random() * 440;
+                g.gain.setValueAtTime(0, now); g.gain.linearRampToValueAtTime(0.14, now + 0.01);
+                g.gain.exponentialRampToValueAtTime(0.001, now + 0.8);
+                o.connect(g); g.connect(audioCtx.destination); o.start(now); o.stop(now + 0.9);
+                // Harmônico
+                const o2 = audioCtx.createOscillator(); const g2 = audioCtx.createGain();
+                o2.type = 'sine'; o2.frequency.value = 1320 + Math.random() * 400;
+                g2.gain.setValueAtTime(0, now + 0.03); g2.gain.linearRampToValueAtTime(0.06, now + 0.06);
+                g2.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+                o2.connect(g2); g2.connect(audioCtx.destination); o2.start(now + 0.03); o2.stop(now + 0.7);
+            } else if (tema === 'oceano') {
+                // Bolha subaquática
+                const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
+                o.type = 'sine';
+                o.frequency.setValueAtTime(300, now); o.frequency.exponentialRampToValueAtTime(900, now + 0.12);
+                o.frequency.exponentialRampToValueAtTime(2000, now + 0.22);
+                g.gain.setValueAtTime(0, now); g.gain.linearRampToValueAtTime(0.1, now + 0.03);
+                g.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+                o.connect(g); g.connect(audioCtx.destination); o.start(now); o.stop(now + 0.35);
+            }
+        }
+
         function abrirGame() {
+            const gt = gameTemas[config.tema] || gameTemas.galaxia;
+            $('gameTitle').textContent = gt.titulo;
+            // Cor da borda do canvas por tema
+            const borderColors = { galaxia: 'rgba(124,77,255,.4)', romantico: 'rgba(255,45,135,.4)', neve: 'rgba(144,202,249,.4)', oceano: 'rgba(0,229,255,.4)' };
+            gc.style.borderColor = borderColors[config.tema] || borderColors.galaxia;
+            const shadowColors = { galaxia: 'rgba(124,77,255,.25)', romantico: 'rgba(255,45,135,.25)', neve: 'rgba(144,202,249,.25)', oceano: 'rgba(0,229,255,.25)' };
+            gc.style.boxShadow = `0 0 50px ${shadowColors[config.tema] || shadowColors.galaxia}`;
             $('gameOverlay').classList.add('ativo');
             const maxW = Math.min(400, innerWidth - 24);
             gc.width = maxW; gc.height = Math.min(520, innerHeight - 180);
             gc.style.setProperty('--gw', maxW + 'px');
             $('gameUI').style.width = maxW + 'px';
             gMilestoneIdx = 0;
+            // Inicializa partículas decorativas do jogo
+            gBgParticles = [];
+            for (let i = 0; i < 30; i++) {
+                gBgParticles.push({
+                    x: Math.random() * maxW,
+                    y: Math.random() * gc.height,
+                    r: 1 + Math.random() * 3,
+                    vy: -(0.3 + Math.random() * 0.8),
+                    vx: (Math.random() - 0.5) * 0.4,
+                    alpha: 0.1 + Math.random() * 0.4,
+                    tw: Math.random() * Math.PI * 2
+                });
+            }
+            gUsernameTimer = 0;
             gameReset(false);
-            // Giroscópio
             if (typeof DeviceOrientationEvent !== 'undefined' && DeviceOrientationEvent.requestPermission) {
                 DeviceOrientationEvent.requestPermission().then(r => { if (r === 'granted') window.addEventListener('deviceorientation', gyroHandler); }).catch(() => { });
             } else window.addEventListener('deviceorientation', gyroHandler);
@@ -1956,7 +2128,9 @@
         function fecharGame() {
             $('gameOverlay').classList.remove('ativo');
             if (gameAnimId) { cancelAnimationFrame(gameAnimId); gameAnimId = null; }
-            gameRunning = false; window.removeEventListener('deviceorientation', gyroHandler);
+            gameRunning = false;
+            window.removeEventListener('deviceorientation', gyroHandler);
+            document.querySelectorAll('.game-username-tag').forEach(el => el.remove());
         }
         function gyroHandler(e) {
             if (!gameRunning || !gPlayer) return;
@@ -1968,41 +2142,48 @@
             gScore = 0; gVidas = 6; gShield = false; gShieldCooldown = false; gMilestoneIdx = 0; gSpeed = 1;
             gPlayer = { x: gc.width / 2, y: gc.height - 70, w: 32, h: 32, vx: 0, speed: 5.5, shieldTimer: 0 };
             gObstacles = []; gCollectibles = []; gFrame = 0;
+            coralCache = null; // Reset coral
+            gUsernameTimer = 0;
             updateGameUI();
             if (start) { gameStart(); }
-            else { gctx.clearRect(0, 0, gc.width, gc.height); drawGameBg(); drawGPlayer(); $('gameBtnStart').textContent = '▶ Iniciar'; }
+            else {
+                gctx.clearRect(0, 0, gc.width, gc.height);
+                drawGameBg();
+                drawGPlayer();
+                $('gameBtnStart').textContent = '▶ Iniciar';
+                const gt = gameTemas[config.tema] || gameTemas.galaxia;
+                $('gameMsgEl').textContent = gt.dica;
+            }
         }
         function gameStart() {
             gameRunning = true; $('gameBtnStart').textContent = '↺ Reiniciar';
-            $('gameMsgEl').textContent = 'Desvie dos ☄️ — colete 💖 — Espaço = escudo!';
+            const gt = gameTemas[config.tema] || gameTemas.galaxia;
+            $('gameMsgEl').textContent = gt.dica;
             if (gameAnimId) { cancelAnimationFrame(gameAnimId); gameAnimId = null; }
             gameLoop();
         }
 
         function gameLoop() {
             if (!gameRunning) return;
-            gFrame++; gctx.clearRect(0, 0, gc.width, gc.height); drawGameBg();
+            gFrame++; gctx.clearRect(0, 0, gc.width, gc.height);
+            drawGameBg();
+            drawGameBgParticles();
 
             // Velocidade crescente
             gSpeed = 1 + gScore * .008;
 
-            // Spawn obstáculos — 3 tamanhos
+            // Spawn obstáculos
             const spawnInterval = Math.max(15, 48 - Math.floor(gScore / 25));
-            if (gFrame % spawnInterval === 0) {
-                const rnd = Math.random();
-                let size, dmg, col;
-                if (rnd < .5) { size = 10 + Math.random() * 5; dmg = 1; col = 'rgba(150,80,220,.75)'; } // pequeno, tira 0.5 corações
-                else if (rnd < .82) { size = 17 + Math.random() * 6; dmg = 2; col = 'rgba(200,60,180,.8)'; }  // médio, 1 coração
-                else { size = 24 + Math.random() * 8; dmg = 4; col = 'rgba(255,40,100,.85)'; }          // grande, 2 corações
-                gObstacles.push({
-                    x: Math.random() * (gc.width - size * 2) + size, y: -size * 2,
-                    r: size, vy: (1.2 + Math.random() * 1.6) * gSpeed, vx: (Math.random() - .5) * .7,
-                    rot: 0, rotS: (Math.random() - .5) * .08, dmg, col
-                });
-            }
+            if (gFrame % spawnInterval === 0) spawnObstacle();
+
             // Spawn coletáveis
-            if (gFrame % 65 === 0) {
-                gCollectibles.push({ x: Math.random() * (gc.width - 40) + 20, y: -30, vy: (1 + Math.random() * 1.2) * gSpeed, tw: 0 });
+            if (gFrame % 65 === 0) spawnCollectible();
+
+            // Username flutuante ocasional no jogo
+            gUsernameTimer++;
+            if (gUsernameTimer >= 480 + Math.floor(Math.random() * 240)) {
+                gUsernameTimer = 0;
+                spawnGameUsername();
             }
 
             // Mover player
@@ -2019,7 +2200,7 @@
             // Obstáculos
             gObstacles = gObstacles.filter(o => {
                 o.x += o.vx; o.y += o.vy; o.rot += o.rotS;
-                drawGAsteroid(o);
+                drawObstacle(o);
                 if (!gShield) {
                     const dx = o.x - gPlayer.x, dy = o.y - gPlayer.y;
                     if (Math.sqrt(dx * dx + dy * dy) < o.r + 13) {
@@ -2035,10 +2216,11 @@
             // Coletáveis
             gCollectibles = gCollectibles.filter(c => {
                 c.y += c.vy; c.tw += .08;
-                drawGHeart(c.x, c.y, 13 * (1 + Math.sin(c.tw) * .1), '#ff69b4', 1);
+                drawCollectible(c);
                 const dx = c.x - gPlayer.x, dy = c.y - gPlayer.y;
                 if (Math.sqrt(dx * dx + dy * dy) < 22) {
                     gScore += 10; updateGameUI(); spawnPopup(c.x, c.y, '+10 ⭐');
+                    playCollectSound();
                     checkMilestone(); return false;
                 }
                 return c.y < gc.height + 40;
@@ -2066,17 +2248,300 @@
         }
 
         function drawGameBg() {
+            const tema = config.tema;
+            const gt = gameTemas[tema] || gameTemas.galaxia;
             const grd = gctx.createLinearGradient(0, 0, 0, gc.height);
-            grd.addColorStop(0, '#04000d'); grd.addColorStop(1, '#100015');
+            grd.addColorStop(0, gt.bgColor1); grd.addColorStop(1, gt.bgColor2);
             gctx.fillStyle = grd; gctx.fillRect(0, 0, gc.width, gc.height);
-            // Estrelas estáticas simples
-            gctx.fillStyle = 'rgba(255,255,255,.3)';
-            for (let i = 0; i < 35; i++) { gctx.fillRect((i * 83.7 + gFrame * .15) % gc.width, ((i * 61.3 + gFrame * .08) % gc.height), 1, 1); }
+
+            if (tema === 'galaxia') {
+                // Estrelas deslizando
+                gctx.fillStyle = 'rgba(255,255,255,.35)';
+                for (let i = 0; i < 40; i++) {
+                    const sx = (i * 83.7 + gFrame * .18) % gc.width;
+                    const sy = (i * 61.3 + gFrame * .09) % gc.height;
+                    gctx.fillRect(sx, sy, i % 5 === 0 ? 2 : 1, i % 5 === 0 ? 2 : 1);
+                }
+                // Nebulosa sutil
+                if (gFrame % 3 === 0) {
+                    const nG = gctx.createRadialGradient(gc.width * .7, gc.height * .3, 10, gc.width * .7, gc.height * .3, 80);
+                    nG.addColorStop(0, 'rgba(100,0,180,0.04)'); nG.addColorStop(1, 'rgba(0,0,0,0)');
+                    gctx.fillStyle = nG; gctx.fillRect(0, 0, gc.width, gc.height);
+                }
+            } else if (tema === 'romantico') {
+                // Fundo com brilho rosado
+                gctx.fillStyle = 'rgba(255,20,80,0.025)';
+                gctx.fillRect(0, 0, gc.width, gc.height);
+                // Luzes vermelhas difusas
+                for (let i = 0; i < 8; i++) {
+                    const lx = ((i * 127.3 + gFrame * .06) % gc.width);
+                    const ly = ((i * 93.7 + gFrame * .04) % gc.height);
+                    gctx.beginPath();
+                    const rg = gctx.createRadialGradient(lx, ly, 0, lx, ly, 18);
+                    rg.addColorStop(0, 'rgba(255,60,120,0.12)'); rg.addColorStop(1, 'rgba(0,0,0,0)');
+                    gctx.fillStyle = rg; gctx.arc(lx, ly, 18, 0, Math.PI * 2); gctx.fill();
+                }
+            } else if (tema === 'neve') {
+                // Gradiente frio + brilho
+                gctx.fillStyle = 'rgba(180,220,255,0.015)';
+                gctx.fillRect(0, 0, gc.width, gc.height);
+                // Chão de neve na base
+                const snowGrd = gctx.createLinearGradient(0, gc.height - 30, 0, gc.height);
+                snowGrd.addColorStop(0, 'rgba(220,240,255,0)'); snowGrd.addColorStop(1, 'rgba(220,240,255,0.08)');
+                gctx.fillStyle = snowGrd; gctx.fillRect(0, gc.height - 30, gc.width, 30);
+            } else if (tema === 'oceano') {
+                // Ondas de luz subaquática
+                for (let i = 0; i < 4; i++) {
+                    const lx = gc.width * (.2 + i * .2) + Math.sin(gFrame * .015 + i) * 20;
+                    const lineG = gctx.createLinearGradient(lx, 0, lx + 8, gc.height);
+                    lineG.addColorStop(0, 'rgba(0,200,255,0.04)'); lineG.addColorStop(.5, 'rgba(0,180,255,0.06)'); lineG.addColorStop(1, 'rgba(0,0,0,0)');
+                    gctx.fillStyle = lineG; gctx.fillRect(lx, 0, 8, gc.height);
+                }
+                // Fundo com coral
+                if (gFrame === 1) drawCoralBg();
+            }
+        }
+
+        function drawCoralBg() {
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = gc.width; tempCanvas.height = 40;
+            const tCtx = tempCanvas.getContext('2d');
+            const coralColors = ['#ff6060', '#ff9040', '#e040fb', '#ff4da6'];
+            for (let i = 0; i < 8; i++) {
+                const cx = gc.width * (i / 8) + Math.random() * 40;
+                const h = 15 + Math.random() * 20;
+                tCtx.strokeStyle = coralColors[i % coralColors.length];
+                tCtx.lineWidth = 2 + Math.random() * 2;
+                tCtx.beginPath(); tCtx.moveTo(cx, 40); tCtx.lineTo(cx, 40 - h);
+                tCtx.lineTo(cx - 8, 40 - h - 8); tCtx.moveTo(cx, 40 - h);
+                tCtx.lineTo(cx + 8, 40 - h - 6); tCtx.stroke();
+            }
+            coralCache = tempCanvas;
+        }
+
+        // Partículas decorativas do fundo do jogo (por tema)
+        function drawGameBgParticles() {
+            const tema = config.tema;
+            gBgParticles.forEach(p => {
+                p.tw += 0.04;
+                p.y += p.vy;
+                p.x += p.vx + Math.sin(p.tw) * 0.3;
+                if (p.y < -10) { p.y = gc.height + 10; p.x = Math.random() * gc.width; }
+                if (p.y > gc.height + 10) { p.y = -10; p.x = Math.random() * gc.width; }
+
+                const a = p.alpha * (0.6 + Math.sin(p.tw) * 0.4);
+                if (tema === 'galaxia') {
+                    // Estrelas pequenas
+                    gctx.save(); gctx.globalAlpha = a * 0.5; gctx.fillStyle = '#ffffff';
+                    gctx.fillRect(p.x, p.y, 1.5, 1.5); gctx.restore();
+                } else if (tema === 'romantico') {
+                    // Corações minúsculos transparentes subindo
+                    gctx.save(); gctx.globalAlpha = a * 0.35; gctx.fillStyle = `rgba(255,100,150,1)`;
+                    gctx.shadowColor = '#ff4488'; gctx.shadowBlur = 4;
+                    gctx.translate(p.x, p.y); gctx.scale(p.r / 14, p.r / 14);
+                    gctx.beginPath(); gctx.moveTo(0, -3);
+                    gctx.bezierCurveTo(0, -6, -6, -6, -6, -2); gctx.bezierCurveTo(-6, 3, 0, 6, 0, 9);
+                    gctx.bezierCurveTo(0, 6, 6, 3, 6, -2); gctx.bezierCurveTo(6, -6, 0, -6, 0, -3);
+                    gctx.fill(); gctx.restore();
+                } else if (tema === 'neve') {
+                    // Flocos decorativos caindo
+                    gctx.save(); gctx.globalAlpha = a * 0.5;
+                    gctx.strokeStyle = 'rgba(200,230,255,0.9)'; gctx.lineWidth = 0.7;
+                    gctx.translate(p.x, p.y); gctx.rotate(p.tw);
+                    for (let i = 0; i < 6; i++) {
+                        gctx.rotate(Math.PI / 3);
+                        gctx.beginPath(); gctx.moveTo(0, 0); gctx.lineTo(0, p.r * 2.5); gctx.stroke();
+                    }
+                    gctx.restore();
+                } else if (tema === 'oceano') {
+                    // Bolhas subindo
+                    gctx.save(); gctx.globalAlpha = a * 0.4;
+                    gctx.strokeStyle = `rgba(150,240,255,0.8)`; gctx.lineWidth = 0.8;
+                    gctx.shadowColor = '#00e5ff'; gctx.shadowBlur = 3;
+                    gctx.beginPath(); gctx.arc(p.x, p.y, p.r * 1.5, 0, Math.PI * 2); gctx.stroke();
+                    gctx.globalAlpha = a * 0.08; gctx.fillStyle = '#00e5ff'; gctx.fill();
+                    gctx.restore();
+                }
+            });
+            // Coral no fundo do oceano
+            if (tema === 'oceano' && coralCache) {
+                gctx.save(); gctx.globalAlpha = 0.4;
+                gctx.drawImage(coralCache, 0, gc.height - 40); gctx.restore();
+            }
+        }
+
+        function spawnObstacle() {
+            const tema = config.tema;
+            const rnd = Math.random();
+            let size, dmg, col, type;
+            if (rnd < .5) { size = 10 + Math.random() * 5; dmg = 1; }
+            else if (rnd < .82) { size = 17 + Math.random() * 6; dmg = 2; }
+            else { size = 24 + Math.random() * 8; dmg = 4; }
+            if (tema === 'galaxia') col = rnd < .5 ? 'rgba(150,80,220,.75)' : rnd < .82 ? 'rgba(200,60,180,.8)' : 'rgba(255,40,100,.85)';
+            else if (tema === 'romantico') col = rnd < .5 ? 'rgba(180,20,80,.75)' : rnd < .82 ? 'rgba(220,40,120,.8)' : 'rgba(255,0,80,.85)';
+            else if (tema === 'neve') col = rnd < .5 ? 'rgba(100,150,220,.75)' : rnd < .82 ? 'rgba(140,180,255,.8)' : 'rgba(80,120,200,.85)';
+            else col = rnd < .5 ? 'rgba(0,140,180,.75)' : rnd < .82 ? 'rgba(0,100,160,.8)' : 'rgba(20,60,140,.85)';
+            gObstacles.push({
+                x: Math.random() * (gc.width - size * 2) + size, y: -size * 2,
+                r: size, vy: (1.2 + Math.random() * 1.6) * gSpeed, vx: (Math.random() - .5) * .7,
+                rot: 0, rotS: (Math.random() - .5) * .08, dmg, col, tema
+            });
+        }
+
+        function spawnCollectible() {
+            gCollectibles.push({ x: Math.random() * (gc.width - 40) + 20, y: -30, vy: (1 + Math.random() * 1.2) * gSpeed, tw: 0 });
+        }
+
+        function drawObstacle(o) {
+            const tema = o.tema || config.tema;
+            gctx.save(); gctx.translate(o.x, o.y); gctx.rotate(o.rot);
+            if (tema === 'galaxia') {
+                // Asteroide irregular
+                gctx.strokeStyle = o.col.replace('.75', '.9').replace('.8', '.9').replace('.85', '.9');
+                gctx.lineWidth = 1.8; gctx.shadowColor = o.col; gctx.shadowBlur = o.r * .8;
+                gctx.fillStyle = o.col.replace('.75', '.4').replace('.8', '.4').replace('.85', '.4');
+                gctx.beginPath();
+                const pts = 6 + Math.floor(o.r / 8);
+                for (let i = 0; i < pts; i++) {
+                    const ang = (i / pts) * Math.PI * 2; const r = o.r * (0.78 + Math.sin(i * 2.7) * .22);
+                    i === 0 ? gctx.moveTo(Math.cos(ang) * r, Math.sin(ang) * r) : gctx.lineTo(Math.cos(ang) * r, Math.sin(ang) * r);
+                }
+                gctx.closePath(); gctx.fill(); gctx.stroke();
+            } else if (tema === 'romantico') {
+                // Coração partido descendo
+                gctx.shadowColor = '#ff0050'; gctx.shadowBlur = o.r;
+                gctx.fillStyle = o.col;
+                const s = o.r;
+                gctx.scale(s / 12, s / 12);
+                gctx.beginPath(); gctx.moveTo(0, -3);
+                gctx.bezierCurveTo(0, -6, -6, -6, -6, -2); gctx.bezierCurveTo(-6, 3, 0, 6, 0, 9);
+                gctx.bezierCurveTo(0, 6, 6, 3, 6, -2); gctx.bezierCurveTo(6, -6, 0, -6, 0, -3);
+                gctx.fill();
+                // Linha de quebra
+                gctx.strokeStyle = 'rgba(0,0,0,0.5)'; gctx.lineWidth = 1.5 * (12 / s);
+                gctx.beginPath(); gctx.moveTo(0, -4); gctx.lineTo(-2, 0); gctx.lineTo(1, 2); gctx.lineTo(-1, 8);
+                gctx.stroke();
+            } else if (tema === 'neve') {
+                // Bloco de gelo
+                gctx.strokeStyle = 'rgba(180,210,255,.9)'; gctx.lineWidth = 1.5;
+                gctx.shadowColor = '#80b0ff'; gctx.shadowBlur = o.r;
+                gctx.fillStyle = 'rgba(140,180,255,0.25)';
+                const s = o.r;
+                gctx.beginPath();
+                gctx.moveTo(-s, -s); gctx.lineTo(s, -s * .85); gctx.lineTo(s * .9, s);
+                gctx.lineTo(-s * .85, s * .9); gctx.closePath();
+                gctx.fill(); gctx.stroke();
+                // Reflexo
+                gctx.strokeStyle = 'rgba(255,255,255,0.5)'; gctx.lineWidth = 0.8;
+                gctx.beginPath(); gctx.moveTo(-s * .5, -s * .5); gctx.lineTo(s * .2, -s * .6); gctx.stroke();
+            } else if (tema === 'oceano') {
+                // Tubarão simplificado
+                gctx.shadowColor = '#006080'; gctx.shadowBlur = o.r * .5;
+                gctx.fillStyle = o.col.replace('.75', '.85').replace('.8', '.85');
+                const s = o.r;
+                // Corpo
+                gctx.beginPath();
+                gctx.ellipse(0, 0, s, s * .5, 0, 0, Math.PI * 2); gctx.fill();
+                // Barbatana dorsal
+                gctx.beginPath(); gctx.moveTo(-s * .1, -s * .45);
+                gctx.lineTo(s * .2, -s); gctx.lineTo(s * .4, -s * .45);
+                gctx.closePath(); gctx.fill();
+                // Olho
+                gctx.fillStyle = 'rgba(255,255,255,0.8)';
+                gctx.beginPath(); gctx.arc(s * .5, -s * .1, s * .12, 0, Math.PI * 2); gctx.fill();
+                gctx.fillStyle = 'rgba(0,0,0,0.9)';
+                gctx.beginPath(); gctx.arc(s * .52, -s * .1, s * .06, 0, Math.PI * 2); gctx.fill();
+                // Cauda
+                gctx.fillStyle = o.col.replace('.75', '.85').replace('.8', '.85');
+                gctx.beginPath(); gctx.moveTo(-s, 0);
+                gctx.lineTo(-s * 1.4, -s * .35); gctx.lineTo(-s * 1.1, 0);
+                gctx.lineTo(-s * 1.4, s * .35); gctx.closePath(); gctx.fill();
+            }
+            gctx.restore();
+        }
+
+        function drawCollectible(c) {
+            const tema = config.tema;
+            const pulse = 1 + Math.sin(c.tw) * 0.12;
+            gctx.save();
+            if (tema === 'galaxia') {
+                // Estrela pulsante
+                gctx.shadowColor = '#ffe082'; gctx.shadowBlur = 14;
+                drawGameStar(c.x, c.y, 10 * pulse, '#ffe082', 1);
+            } else if (tema === 'romantico') {
+                // Coração rosa
+                gctx.shadowColor = '#ff69b4'; gctx.shadowBlur = 14;
+                drawGHeart(c.x, c.y, 13 * pulse, '#ff69b4', 1);
+            } else if (tema === 'neve') {
+                // Presente / caixa de presente
+                const s = 11 * pulse;
+                gctx.fillStyle = '#ff4081'; gctx.shadowColor = '#ff4081'; gctx.shadowBlur = 12;
+                gctx.beginPath(); gctx.roundRect(c.x - s, c.y - s * .7, s * 2, s * 1.4, 3); gctx.fill();
+                gctx.fillStyle = '#fff'; gctx.fillRect(c.x - s, c.y - s * .12, s * 2, s * .24);
+                gctx.fillRect(c.x - s * .12, c.y - s * .7, s * .24, s * 1.4);
+                // Laço
+                gctx.strokeStyle = '#fff'; gctx.lineWidth = 1.5;
+                gctx.beginPath(); gctx.ellipse(c.x - s * .3, c.y - s * .7, s * .3, s * .2, -0.5, 0, Math.PI * 2); gctx.stroke();
+                gctx.beginPath(); gctx.ellipse(c.x + s * .3, c.y - s * .7, s * .3, s * .2, 0.5, 0, Math.PI * 2); gctx.stroke();
+            } else if (tema === 'oceano') {
+                // Peixinho colorido
+                gctx.shadowColor = '#ff6040'; gctx.shadowBlur = 10;
+                const s = 11 * pulse;
+                gctx.fillStyle = '#ff6040';
+                gctx.beginPath(); gctx.ellipse(c.x, c.y, s, s * .55, 0, 0, Math.PI * 2); gctx.fill();
+                // Cauda
+                gctx.beginPath(); gctx.moveTo(c.x - s, c.y);
+                gctx.lineTo(c.x - s * 1.5, c.y - s * .5); gctx.lineTo(c.x - s * 1.5, c.y + s * .5);
+                gctx.closePath(); gctx.fill();
+                // Olho
+                gctx.fillStyle = '#fff'; gctx.beginPath(); gctx.arc(c.x + s * .5, c.y - s * .1, s * .18, 0, Math.PI * 2); gctx.fill();
+                gctx.fillStyle = '#000'; gctx.beginPath(); gctx.arc(c.x + s * .52, c.y - s * .1, s * .09, 0, Math.PI * 2); gctx.fill();
+                // Listras
+                gctx.strokeStyle = 'rgba(255,200,100,0.6)'; gctx.lineWidth = 1.5;
+                gctx.beginPath(); gctx.moveTo(c.x - s * .1, c.y - s * .5); gctx.lineTo(c.x - s * .1, c.y + s * .5); gctx.stroke();
+                gctx.beginPath(); gctx.moveTo(c.x + s * .2, c.y - s * .5); gctx.lineTo(c.x + s * .2, c.y + s * .5); gctx.stroke();
+            }
+            gctx.restore();
+        }
+
+        function drawGameStar(x, y, r, col, a) {
+            gctx.save(); gctx.globalAlpha = a; gctx.fillStyle = col;
+            gctx.shadowColor = col; gctx.shadowBlur = r * 2;
+            gctx.translate(x, y);
+            gctx.beginPath();
+            for (let i = 0; i < 5; i++) {
+                const ang = (i * 4 * Math.PI / 5) - Math.PI / 2;
+                const ir = (i * 4 * Math.PI / 5 + Math.PI / 5) - Math.PI / 2;
+                i === 0 ? gctx.moveTo(Math.cos(-Math.PI / 2) * r, Math.sin(-Math.PI / 2) * r) : null;
+                gctx.lineTo(Math.cos(ang) * r, Math.sin(ang) * r);
+                gctx.lineTo(Math.cos(ir) * r * .45, Math.sin(ir) * r * .45);
+            }
+            gctx.closePath(); gctx.fill(); gctx.restore();
+        }
+
+        // Username flutuante dentro do jogo (via DOM, sobre o canvas)
+        function spawnGameUsername() {
+            const handles = ['@bielmedeiros48', 'dr.medeiros', '@biel_medeiros48'];
+            const txt = handles[Math.floor(Math.random() * handles.length)];
+            const el = document.createElement('div');
+            el.className = 'game-username-tag';
+            el.textContent = txt;
+            const rect = gc.getBoundingClientRect();
+            const px = rect.left + 30 + Math.random() * (rect.width - 100);
+            const py = rect.top + rect.height * 0.12 + Math.random() * rect.height * 0.65;
+            el.style.left = px + 'px';
+            el.style.top = py + 'px';
+            el.style.position = 'fixed';
+            el.style.zIndex = '205';
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 4200);
         }
 
         function drawGPlayer() {
             const { x, y, shieldTimer } = gPlayer;
+            const tema = config.tema;
             gctx.save();
+            // Escudo universal
             if (gShield && shieldTimer > 0) {
                 const pulse = Math.sin(gFrame * .15) * .15 + .85;
                 gctx.beginPath(); gctx.arc(x, y, 28 * pulse, 0, Math.PI * 2);
@@ -2085,14 +2550,74 @@
                 gctx.fillStyle = sg; gctx.fill();
                 gctx.strokeStyle = `rgba(120,200,255,${.5 + Math.sin(gFrame * .2) * .2})`; gctx.lineWidth = 1.5; gctx.stroke();
             }
-            // Propulsão
-            const flameH = 12 + Math.random() * 8;
-            const flameG = gctx.createLinearGradient(x, y + 16, x, y + 16 + flameH);
-            flameG.addColorStop(0, 'rgba(255,120,200,.85)'); flameG.addColorStop(1, 'rgba(255,60,180,0)');
-            gctx.fillStyle = flameG; gctx.beginPath(); gctx.ellipse(x, y + 18, 4, flameH, 0, 0, Math.PI * 2); gctx.fill();
-            // Coração principal
-            gctx.shadowColor = config.corDestaque || '#ff2d87'; gctx.shadowBlur = 16;
-            drawGHeart(x, y, 18, config.corDestaque || '#ff2d87', 1);
+
+            if (tema === 'galaxia') {
+                // Nave espacial
+                gctx.shadowColor = '#7c4dff'; gctx.shadowBlur = 16;
+                // Propulsão
+                const flameH = 10 + Math.random() * 10;
+                const flameG = gctx.createLinearGradient(x, y + 14, x, y + 14 + flameH);
+                flameG.addColorStop(0, 'rgba(120,100,255,.9)'); flameG.addColorStop(1, 'rgba(80,60,255,0)');
+                gctx.fillStyle = flameG;
+                gctx.beginPath(); gctx.ellipse(x, y + 16, 4, flameH, 0, 0, Math.PI * 2); gctx.fill();
+                // Corpo da nave (triângulo)
+                gctx.fillStyle = '#9c6fff';
+                gctx.beginPath(); gctx.moveTo(x, y - 18); gctx.lineTo(x - 12, y + 12); gctx.lineTo(x + 12, y + 12); gctx.closePath(); gctx.fill();
+                // Cabine
+                gctx.fillStyle = '#e0d0ff';
+                gctx.beginPath(); gctx.ellipse(x, y - 4, 5, 7, 0, 0, Math.PI * 2); gctx.fill();
+                // Asas
+                gctx.fillStyle = '#7c4dff';
+                gctx.beginPath(); gctx.moveTo(x - 12, y + 12); gctx.lineTo(x - 20, y + 18); gctx.lineTo(x - 6, y + 8); gctx.closePath(); gctx.fill();
+                gctx.beginPath(); gctx.moveTo(x + 12, y + 12); gctx.lineTo(x + 20, y + 18); gctx.lineTo(x + 6, y + 8); gctx.closePath(); gctx.fill();
+            } else if (tema === 'romantico') {
+                // Coração grande com brilho
+                gctx.shadowColor = '#ff2d87'; gctx.shadowBlur = 20;
+                drawGHeart(x, y, 20, '#ff2d87', 1);
+                // Pequenos corações ao redor
+                if (gFrame % 8 === 0) {
+                    const ox = (Math.random() - .5) * 24, oy = (Math.random() - .5) * 24;
+                    drawGHeart(x + ox, y + oy, 4 + Math.random() * 4, '#ff80c0', 0.5);
+                }
+            } else if (tema === 'neve') {
+                // Boneco de neve
+                gctx.shadowColor = '#b0d4ff'; gctx.shadowBlur = 12;
+                // Corpo (bolas de neve)
+                gctx.fillStyle = 'rgba(230,245,255,0.95)';
+                gctx.beginPath(); gctx.arc(x, y + 8, 11, 0, Math.PI * 2); gctx.fill();
+                gctx.beginPath(); gctx.arc(x, y - 7, 8, 0, Math.PI * 2); gctx.fill();
+                // Olhos
+                gctx.fillStyle = '#001a40';
+                gctx.beginPath(); gctx.arc(x - 3, y - 9, 1.8, 0, Math.PI * 2); gctx.fill();
+                gctx.beginPath(); gctx.arc(x + 3, y - 9, 1.8, 0, Math.PI * 2); gctx.fill();
+                // Nariz
+                gctx.fillStyle = '#ff8030';
+                gctx.beginPath(); gctx.moveTo(x, y - 7); gctx.lineTo(x + 4, y - 6); gctx.lineTo(x, y - 5); gctx.closePath(); gctx.fill();
+                // Botões
+                gctx.fillStyle = '#001a40';
+                [-2, 2, 6].forEach(dy => { gctx.beginPath(); gctx.arc(x, y + dy + 6, 1.2, 0, Math.PI * 2); gctx.fill(); });
+                // Cachecol
+                gctx.strokeStyle = '#ff4081'; gctx.lineWidth = 2.5;
+                gctx.beginPath(); gctx.ellipse(x, y, 8, 3, 0, 0, Math.PI * 2); gctx.stroke();
+            } else if (tema === 'oceano') {
+                // Peixe jogador
+                gctx.shadowColor = '#00e5ff'; gctx.shadowBlur = 14;
+                gctx.fillStyle = '#00bcd4';
+                gctx.beginPath(); gctx.ellipse(x, y, 18, 10, 0, 0, Math.PI * 2); gctx.fill();
+                // Cauda
+                gctx.beginPath(); gctx.moveTo(x - 18, y);
+                gctx.lineTo(x - 28, y - 10); gctx.lineTo(x - 28, y + 10);
+                gctx.closePath(); gctx.fill();
+                // Barbatana superior
+                gctx.fillStyle = '#0097a7';
+                gctx.beginPath(); gctx.moveTo(x - 5, y - 9); gctx.lineTo(x + 5, y - 16); gctx.lineTo(x + 10, y - 9); gctx.closePath(); gctx.fill();
+                // Olho
+                gctx.fillStyle = '#fff'; gctx.beginPath(); gctx.arc(x + 10, y - 2, 4, 0, Math.PI * 2); gctx.fill();
+                gctx.fillStyle = '#001a40'; gctx.beginPath(); gctx.arc(x + 11, y - 2, 2, 0, Math.PI * 2); gctx.fill();
+                // Escamas
+                gctx.strokeStyle = 'rgba(0,200,220,0.4)'; gctx.lineWidth = 1;
+                gctx.beginPath(); gctx.ellipse(x, y, 10, 6, 0, 0, Math.PI * 2); gctx.stroke();
+            }
             gctx.restore();
         }
 
@@ -2106,26 +2631,15 @@
             gctx.fill(); gctx.restore();
         }
 
-        function drawGAsteroid(o) {
-            gctx.save(); gctx.translate(o.x, o.y); gctx.rotate(o.rot);
-            gctx.strokeStyle = o.col.replace('.75', '.9').replace('.8', '.9').replace('.85', '.9');
-            gctx.lineWidth = 1.8; gctx.shadowColor = o.col; gctx.shadowBlur = o.r * .8;
-            gctx.fillStyle = o.col.replace('.75', '.4').replace('.8', '.4').replace('.85', '.4');
-            gctx.beginPath();
-            const pts = 6 + Math.floor(o.r / 8);
-            for (let i = 0; i < pts; i++) {
-                const ang = (i / pts) * Math.PI * 2; const r = o.r * (0.78 + Math.sin(i * 2.7) * .22);
-                i === 0 ? gctx.moveTo(Math.cos(ang) * r, Math.sin(ang) * r) : gctx.lineTo(Math.cos(ang) * r, Math.sin(ang) * r);
-            }
-            gctx.closePath(); gctx.fill(); gctx.stroke(); gctx.restore();
-        }
-
         function drawGHUD() {
+            const gt = gameTemas[config.tema] || gameTemas.galaxia;
             // Barra de velocidade
             const speedPct = Math.min((gSpeed - 1) / 4, 1);
             gctx.fillStyle = 'rgba(255,255,255,.06)'; gctx.beginPath(); gctx.roundRect(8, 8, 90, 5, 3); gctx.fill();
             const cg = gctx.createLinearGradient(8, 0, 98, 0);
-            cg.addColorStop(0, '#ff2d87'); cg.addColorStop(1, '#9b59b6');
+            const c1 = config.tema === 'galaxia' ? '#7c4dff' : config.tema === 'romantico' ? '#ff2d87' : config.tema === 'neve' ? '#90caf9' : '#00bcd4';
+            const c2 = config.tema === 'galaxia' ? '#e040fb' : config.tema === 'romantico' ? '#ff80c0' : config.tema === 'neve' ? '#e0f0ff' : '#00e5ff';
+            cg.addColorStop(0, c1); cg.addColorStop(1, c2);
             gctx.fillStyle = cg; gctx.beginPath(); gctx.roundRect(8, 8, 90 * speedPct, 5, 3); gctx.fill();
             gctx.fillStyle = 'rgba(255,255,255,.2)'; gctx.font = '9px Outfit'; gctx.textAlign = 'left';
             gctx.fillText('velocidade', 8, 22); gctx.textAlign = 'start';
@@ -2167,12 +2681,13 @@
             const isRecord = gScore >= gRecord && gScore > 0;
             $('gameMsgEl').textContent = `Fim de jogo! ${gScore} pontos ${isRecord ? '🏆 Novo recorde!' : ''}`;
             $('gameBtnStart').textContent = '↺ Jogar de novo';
-            // Chuva de corações triste/feliz
+            const gt = gameTemas[config.tema] || gameTemas.galaxia;
+            const emojis = isRecord ? ['🏆', gt.collectEmoji] : [gt.obstacleEmoji, '💔'];
             for (let i = 0; i < 15; i++) {
                 setTimeout(() => {
                     const rect = gc.getBoundingClientRect();
                     const el = document.createElement('div'); el.className = 'heart-particle';
-                    el.textContent = isRecord ? '🏆' : '💔';
+                    el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
                     const ang = Math.random() * Math.PI * 2, d = 80 + Math.random() * 160, dur = 1 + Math.random();
                     el.style.setProperty('--dur', dur + 's'); el.style.setProperty('--sz', '20px');
                     el.style.setProperty('--dx15', Math.cos(ang) * 40 + 'px'); el.style.setProperty('--dy15', Math.sin(ang) * 40 + 'px');
