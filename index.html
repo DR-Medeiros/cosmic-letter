@@ -118,6 +118,8 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Outfit',sans-serif
 /* Score bonuses displayed per theme */
 .score-bonus{position:fixed;font-size:13px;font-weight:700;pointer-events:none;z-index:220;font-family:'Outfit',sans-serif;animation:scorePop .9s cubic-bezier(.22,1,.36,1) forwards}
 @keyframes scorePop{0%{opacity:0;transform:translateY(0) scale(.5)}20%{opacity:1;transform:translateY(-8px) scale(1.2)}100%{opacity:0;transform:translateY(-55px) scale(.8)}}
+.btn-ocasiao{padding:7px 6px;border:1px solid rgba(255,255,255,.1);border-radius:10px;background:rgba(255,255,255,.05);color:rgba(255,255,255,.7);font-size:11px;cursor:pointer;transition:all .25s;font-family:'Outfit',sans-serif;text-align:center}
+.btn-ocasiao:hover,.btn-ocasiao:active{background:rgba(255,45,135,.18);border-color:rgba(255,45,135,.4);color:#fff;transform:translateY(-1px)}
 @media(max-width:480px){#creatorBadge{bottom:12px;right:12px;padding:6px 11px 6px 8px}.ct-name{font-size:9.5px}.ct-sub{font-size:7.5px}.ci{width:22px;height:22px;font-size:11px}#musicaInfo{max-width:150px;font-size:10.5px;bottom:12px;left:12px}#togglePainel{top:11px;right:11px;width:38px;height:38px;font-size:15px}.buttons{gap:6px}}
 </style>
 </head>
@@ -148,13 +150,22 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Outfit',sans-serif
 </div>
 <button id="togglePainel" onclick="togglePainelFn()">⚙️</button>
 <div id="painel">
+  <div class="sep"></div>
+  <h3>Ocasião especial</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+    <button class="btn-ocasiao" onclick="setOcasiao('aniversario')">🎂 Aniversário</button>
+    <button class="btn-ocasiao" onclick="setOcasiao('amor')">💖 Te amo</button>
+    <button class="btn-ocasiao" onclick="setOcasiao('especial')">✨ Especial</button>
+    <button class="btn-ocasiao" onclick="setOcasiao('amizade')">🤝 Amizade</button>
+  </div>
+  <div class="sep"></div>
   <h3>Mensagem</h3>
   <div><label>Nome da pessoa</label><input type="text" id="nome" placeholder="Ex: Ana, meu amor..."></div>
   <div><label>Mensagem</label><textarea id="msgTexto" rows="3" placeholder="Sua mensagem aqui..."></textarea></div>
   <div class="sep"></div>
   <h3>Ícone da carta</h3>
   <div class="emoji-grid" id="emojiGrid">
-    <div class="emoji-opt sel" data-e="💌">💌</div><div class="emoji-opt" data-e="💖">💖</div><div class="emoji-opt" data-e="🐱">🐱</div><div class="emoji-opt" data-e="🌹">🌹</div><div class="emoji-opt" data-e="🦋">🦋</div><div class="emoji-opt" data-e="⭐">⭐</div><div class="emoji-opt" data-e="🌙">🌙</div><div class="emoji-opt" data-e="🫶">🫶</div><div class="emoji-opt" data-e="🌸">🌸</div><div class="emoji-opt" data-e="🐶">🐶</div><div class="emoji-opt" data-e="🦄">🦄</div><div class="emoji-opt" data-e="🔥">🔥</div><div class="emoji-opt" data-e="🎂">🎂</div><div class="emoji-opt" data-e="🎁">🎁</div><div class="emoji-opt" data-e="🥰">🥰</div><div class="emoji-opt" data-e="💍">💍</div><div class="emoji-opt" data-e="🌻">🌻</div><div class="emoji-opt" data-e="✨">✨</div>
+    <div class="emoji-opt sel" data-e="💌">💌</div><div class="emoji-opt" data-e="💖">💖</div><div class="emoji-opt" data-e="🐱">🐱</div><div class="emoji-opt" data-e="🌹">🌹</div><div class="emoji-opt" data-e="🦋">🦋</div><div class="emoji-opt" data-e="⭐">⭐</div><div class="emoji-opt" data-e="🌙">🌙</div><div class="emoji-opt" data-e="🫶">🫶</div><div class="emoji-opt" data-e="🌸">🌸</div><div class="emoji-opt" data-e="🐶">🐶</div><div class="emoji-opt" data-e="🦄">🦄</div><div class="emoji-opt" data-e="🔥">🔥</div><div class="emoji-opt" data-e="🎂">🎂</div><div class="emoji-opt" data-e="🎁">🎁</div><div class="emoji-opt" data-e="🥰">🥰</div><div class="emoji-opt" data-e="💍">💍</div><div class="emoji-opt" data-e="🌻">🌻</div><div class="emoji-opt" data-e="✨">✨</div><div class="emoji-opt" data-e="🎈">🎈</div><div class="emoji-opt" data-e="🎊">🎊</div><div class="emoji-opt" data-e="🥕">🥕</div><div class="emoji-opt" data-e="🌈">🌈</div><div class="emoji-opt" data-e="💫">💫</div><div class="emoji-opt" data-e="🫂">🫂</div>
   </div>
   <div class="sep"></div>
   <h3>Visual</h3>
@@ -229,7 +240,7 @@ let pAnimId = null;
 //  TEMAS
 // ══════════════════════════════════════
 const temas = {
-  galaxia:{overlay:'radial-gradient(ellipse at 30% 50%,rgba(20,0,70,.95),rgba(0,0,14,.98))',cores:['#fff','#b388ff','#7c4dff','#e040fb','#40c4ff','#fff9c4','#ce93d8'],modo:'warp',burst:'galaxy',musicType:'space'},
+  galaxia:{overlay:'radial-gradient(ellipse at 30% 50%,rgba(10,0,40,.97),rgba(0,0,10,.99))',cores:['#fff','#b388ff','#7c4dff','#e040fb','#40c4ff','#fff9c4','#ce93d8'],modo:'warp',burst:'galaxy',musicType:'space'},
   romantico:{overlay:'radial-gradient(ellipse at 50% 80%,rgba(75,0,38,.94),rgba(16,0,16,.98))',cores:['#ff69b4','#ff2d87','#ff9999','#ffb3d9','#fff','#ffcdd2','#f48fb1'],modo:'float',burst:'hearts',musicType:'piano'},
   oceano:{overlay:'radial-gradient(ellipse at 50% 0%,rgba(0,18,55,.94),rgba(0,3,24,.98))',cores:['#00e5ff','#00bcd4','#80deea','#fff','#b2ebf2','#4dd0e1','#006064'],modo:'float',burst:'bubbles',musicType:'ocean'},
   neve:{overlay:'radial-gradient(ellipse at 50% 0%,rgba(30,40,70,.93),rgba(8,10,28,.98))',cores:['#fff','#e0f4ff','#b3d9f5','#cce8f4','#ddeeff','#f0f8ff','#aad4f0'],modo:'snow',burst:'snowflakes',musicType:'winter'}
@@ -394,49 +405,47 @@ function resize(){pCanvas.width=innerWidth;pCanvas.height=innerHeight}
 window.addEventListener('resize',()=>{resize();criarParticulas()});
 resize();
 
+// Galaxy celestial bodies state (planet, black hole, nebula)
+const galaxiaCelestial={phase:0,planetAngle:0,bhPulse:0,nebulaOff:0};
+
 function criarParticulas(){
   particulas=[];
   const t=temas[config.tema];
-  // Reduced counts for better performance
-  const n=config.tema==='neve'?70:config.tema==='romantico'?45:80;
+  const n=config.tema==='neve'?80:config.tema==='romantico'?45:config.tema==='galaxia'?180:80;
   for(let i=0;i<n;i++){
-    particulas.push({
-      x:Math.random()*pCanvas.width,y:Math.random()*pCanvas.height,
-      z:Math.random()*pCanvas.width,
-      vx:(Math.random()-.5)*.4,vy:-Math.random()*.6-.1,
-      size:Math.random()*2.8+.7,
-      cor:t.cores[Math.floor(Math.random()*t.cores.length)],
-      alpha:Math.random()*.6+.3,
-      tw:Math.random()*Math.PI*2,tws:Math.random()*.03+.007,
-      rot:Math.random()*Math.PI*2,rotS:(Math.random()-.5)*.02,
-      swing:Math.random()*Math.PI*2,swingS:Math.random()*.02+.005
-    });
+    if(config.tema==='galaxia'){
+      // Warp starfield: stars positioned in 3D z-space, streaming toward viewer
+      const z=Math.random()*pCanvas.width;
+      particulas.push({
+        x:(Math.random()-.5)*pCanvas.width*2.5,
+        y:(Math.random()-.5)*pCanvas.height*2.5,
+        z:z,
+        sz:Math.random()*1.8+.2,
+        cor:t.cores[Math.floor(Math.random()*t.cores.length)],
+        alpha:Math.random()*.8+.2,
+        tw:Math.random()*Math.PI*2,tws:Math.random()*.02+.004,
+        speed:Math.random()*3+1.2
+      });
+    } else {
+      particulas.push({
+        x:Math.random()*pCanvas.width,y:Math.random()*pCanvas.height,
+        z:Math.random()*pCanvas.width,
+        vx:(Math.random()-.5)*.4,vy:config.tema==='neve'?0:-(Math.random()*.4+.08),
+        size:Math.random()*2.8+.7,
+        cor:t.cores[Math.floor(Math.random()*t.cores.length)],
+        alpha:Math.random()*.6+.3,
+        tw:Math.random()*Math.PI*2,tws:Math.random()*.03+.007,
+        rot:Math.random()*Math.PI*2,rotS:(Math.random()-.5)*.025,
+        swing:Math.random()*Math.PI*2,swingS:Math.random()*.018+.004
+      });
+    }
   }
 }
 
-// Pre-render snow offscreen canvas for perf
-let snowOffscreen=null,snowOffCtx=null;
-function buildSnowOffscreen(r,color){
-  const size=Math.ceil(r*2*2+8);
-  const oc=document.createElement('canvas');oc.width=size;oc.height=size;
-  const ctx=oc.getContext('2d');
-  const cx=size/2,cy=size/2;
-  ctx.strokeStyle=color||'rgba(220,240,255,.85)';ctx.lineWidth=.9;
-  for(let i=0;i<6;i++){
-    ctx.save();ctx.translate(cx,cy);ctx.rotate(i*Math.PI/3);
-    ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(0,r*2.2);ctx.stroke();
-    ctx.restore();
-  }
-  return oc;
-}
 
-function drawStar(x,y,r,c,a){
-  pCtx.save();pCtx.globalAlpha=a;pCtx.fillStyle=c;
-  pCtx.shadowColor=c;pCtx.shadowBlur=r*5;
-  pCtx.beginPath();pCtx.arc(x,y,r,0,Math.PI*2);pCtx.fill();
-  if(r>1.8){pCtx.globalAlpha=a*.28;pCtx.strokeStyle=c;pCtx.lineWidth=.4;const l=r*5;pCtx.beginPath();pCtx.moveTo(x-l,y);pCtx.lineTo(x+l,y);pCtx.moveTo(x,y-l);pCtx.lineTo(x,y+l);pCtx.stroke()}
-  pCtx.restore();
-}
+// Pre-render snow offscreen (kept for potential external use)
+let snowOffscreen=null;
+
 function drawHeart(x,y,s,c,a){
   pCtx.save();pCtx.globalAlpha=a;pCtx.fillStyle=c;pCtx.shadowColor=c;pCtx.shadowBlur=s*3;
   pCtx.translate(x,y);pCtx.scale(s/12,s/12);
@@ -445,49 +454,223 @@ function drawHeart(x,y,s,c,a){
   pCtx.bezierCurveTo(0,6,6,3,6,-2);pCtx.bezierCurveTo(6,-6,0,-6,0,-3);
   pCtx.fill();pCtx.restore();
 }
-function drawCircle(x,y,r,c,a){
-  pCtx.save();pCtx.globalAlpha=a*.45;pCtx.strokeStyle=c;pCtx.lineWidth=.8;
-  pCtx.shadowColor=c;pCtx.shadowBlur=r*3;
-  pCtx.beginPath();pCtx.arc(x,y,r*2.5,0,Math.PI*2);pCtx.stroke();
-  pCtx.globalAlpha=a*.1;pCtx.fillStyle=c;pCtx.fill();pCtx.restore();
-}
-// Optimized snowflake using offscreen canvas
-function drawSnowflakeFast(x,y,r,a,rot){
-  if(!snowOffscreen)snowOffscreen=buildSnowOffscreen(r*2);
-  pCtx.save();pCtx.globalAlpha=a*.8;
-  pCtx.translate(x,y);pCtx.rotate(rot);
-  const sz=snowOffscreen.width;pCtx.drawImage(snowOffscreen,-sz/2,-sz/2);
+
+// ── Galaxy deep-space celestial bodies (planet + black hole, always visible far away) ──
+const gCelestial={
+  // Gas giant (Jupiter-like) — top-left area, distant
+  planet:{x:.12,y:.18,r:38,angle:0,ringAngle:.42},
+  // Black hole — right side far, subtle
+  bh:{x:.82,y:.72,r:22,pulse:0}
+};
+
+function drawGalaxyCelestials(){
+  const W=pCanvas.width,H=pCanvas.height;
+  // ── Nebula cloud far background ──
+  const nX=W*.55,nY=H*.35;
+  const nbG=pCtx.createRadialGradient(nX,nY,0,nX,nY,W*.28);
+  nbG.addColorStop(0,'rgba(90,30,160,.055)');
+  nbG.addColorStop(.5,'rgba(50,0,120,.03)');
+  nbG.addColorStop(1,'rgba(0,0,0,0)');
+  pCtx.fillStyle=nbG;pCtx.fillRect(0,0,W,H);
+
+  // ── Gas giant planet (top-left, always distant) ──
+  const pX=W*gCelestial.planet.x,pY=H*gCelestial.planet.y,pR=W*.028+16;
+  gCelestial.planet.angle+=.0005;
+  // Planet glow aura
+  const pgA=pCtx.createRadialGradient(pX,pY,pR*.2,pX,pY,pR*2.8);
+  pgA.addColorStop(0,'rgba(210,130,60,.09)');pgA.addColorStop(1,'rgba(0,0,0,0)');
+  pCtx.fillStyle=pgA;pCtx.fillRect(0,0,W,H);
+  // Planet body
+  const pbG=pCtx.createRadialGradient(pX-pR*.28,pY-pR*.3,0,pX,pY,pR);
+  pbG.addColorStop(0,'rgba(255,200,100,.72)');
+  pbG.addColorStop(.35,'rgba(200,120,50,.65)');
+  pbG.addColorStop(.7,'rgba(160,80,30,.6)');
+  pbG.addColorStop(1,'rgba(100,40,10,.55)');
+  pCtx.save();pCtx.beginPath();pCtx.ellipse(pX,pY,pR,pR,0,0,Math.PI*2);
+  pCtx.fillStyle=pbG;pCtx.fill();
+  // Band stripes
+  pCtx.globalAlpha=.22;
+  [-pR*.22,-pR*.05,pR*.14,pR*.28].forEach((dy,i)=>{
+    pCtx.fillStyle=i%2===0?'rgba(255,170,60,.6)':'rgba(140,60,20,.5)';
+    pCtx.beginPath();pCtx.ellipse(pX,pY+dy,pR,pR*.15,0,0,Math.PI*2);pCtx.fill();
+  });
+  pCtx.globalAlpha=1;
+  // Ring system
+  pCtx.save();pCtx.translate(pX,pY);pCtx.scale(1,.25);
+  const ringG=pCtx.createRadialGradient(0,0,pR*.95,0,0,pR*2.1);
+  ringG.addColorStop(0,'rgba(255,200,100,0)');
+  ringG.addColorStop(.2,'rgba(255,185,80,.35)');
+  ringG.addColorStop(.55,'rgba(200,140,60,.22)');
+  ringG.addColorStop(1,'rgba(150,100,40,0)');
+  pCtx.strokeStyle=ringG;pCtx.lineWidth=pR*.55;
+  pCtx.beginPath();pCtx.arc(0,0,pR*1.55,0,Math.PI*2);pCtx.stroke();
+  pCtx.restore();
+  pCtx.restore();
+
+  // ── Black hole (bottom-right area, distant, subtle) ──
+  gCelestial.bh.pulse=(gCelestial.bh.pulse+.008)%(Math.PI*2);
+  const bX=W*gCelestial.bh.x,bY=H*gCelestial.bh.y,bR=W*.015+8;
+  const bhPulse=Math.sin(gCelestial.bh.pulse);
+  pCtx.save();
+  // Accretion disk (glowing ring)
+  const adG=pCtx.createRadialGradient(bX,bY,bR*.4,bX,bY,bR*3.5);
+  adG.addColorStop(0,'rgba(0,0,0,0)');
+  adG.addColorStop(.28,'rgba(255,140,20,'+(.09+bhPulse*.025)+')');
+  adG.addColorStop(.5,'rgba(255,80,0,'+(.06+bhPulse*.015)+')');
+  adG.addColorStop(.75,'rgba(180,40,180,'+(.04+bhPulse*.01)+')');
+  adG.addColorStop(1,'rgba(0,0,0,0)');
+  pCtx.fillStyle=adG;
+  pCtx.save();pCtx.translate(bX,bY);pCtx.scale(2.2,.55);
+  pCtx.beginPath();pCtx.arc(0,0,bR*3.5,0,Math.PI*2);pCtx.fillStyle=adG;
+  // Recompute gradient for scaled context
+  const adG2=pCtx.createRadialGradient(0,0,bR*.4,0,0,bR*3.5);
+  adG2.addColorStop(0,'rgba(0,0,0,0)');
+  adG2.addColorStop(.28,'rgba(255,140,20,'+(.12+bhPulse*.03)+')');
+  adG2.addColorStop(.55,'rgba(255,60,0,'+(.08+bhPulse*.02)+')');
+  adG2.addColorStop(.78,'rgba(150,30,150,'+(.05+bhPulse*.01)+')');
+  adG2.addColorStop(1,'rgba(0,0,0,0)');
+  pCtx.fillStyle=adG2;pCtx.fill();pCtx.restore();
+  // Event horizon (black void)
+  const evG=pCtx.createRadialGradient(bX,bY,0,bX,bY,bR*1.3);
+  evG.addColorStop(0,'rgba(0,0,0,.96)');
+  evG.addColorStop(.7,'rgba(0,0,0,.85)');
+  evG.addColorStop(1,'rgba(0,0,0,0)');
+  pCtx.fillStyle=evG;pCtx.beginPath();pCtx.arc(bX,bY,bR*1.3,0,Math.PI*2);pCtx.fill();
+  // Gravitational lensing glow
+  const lensG=pCtx.createRadialGradient(bX,bY,bR*1.2,bX,bY,bR*2.4);
+  lensG.addColorStop(0,'rgba(100,30,255,'+(.07+bhPulse*.02)+')');
+  lensG.addColorStop(.5,'rgba(60,10,180,'+(.04+bhPulse*.01)+')');
+  lensG.addColorStop(1,'rgba(0,0,0,0)');
+  pCtx.fillStyle=lensG;pCtx.beginPath();pCtx.arc(bX,bY,bR*2.4,0,Math.PI*2);pCtx.fill();
   pCtx.restore();
 }
 
 let lastPFrame=0;
+let warpCX=.5,warpCY=.5; // warp vanishing point (center)
 function animarParticulas(ts=0){
   pAnimId=requestAnimationFrame(animarParticulas);
-  // Throttle to ~30fps for background particles
-  if(ts-lastPFrame<33)return;lastPFrame=ts;
+  if(ts-lastPFrame<28)return;lastPFrame=ts; // ~36fps
   pCtx.clearRect(0,0,pCanvas.width,pCanvas.height);
   const tema=config.tema;const vel=config.velocidade;
-  const isSnow=tema==='neve';
-  particulas.forEach(p=>{
-    p.tw+=p.tws;p.swing+=p.swingS;
-    if(isSnow){
-      p.vy=Math.max(.2,Math.abs(p.vy*vel));
-      p.y+=p.vy;p.x+=Math.sin(p.swing)*.7;
-      p.rot+=p.rotS;
-      if(p.y>pCanvas.height+10){p.y=-10;p.x=Math.random()*pCanvas.width;p.vy=.4+Math.random()*.7}
-    } else {
-      p.y+=p.vy*vel;p.x+=p.vx*vel;
-      if(p.y<-20)p.y=pCanvas.height+10;
-      if(p.y>pCanvas.height+20)p.y=-10;
-      if(p.x<-20)p.x=pCanvas.width+10;
-      if(p.x>pCanvas.width+20)p.x=-10;
+  const W=pCanvas.width,H=pCanvas.height;
+  const cx=W*warpCX,cy=H*warpCY;
+
+  if(tema==='galaxia'){
+    // Draw celestial background first
+    drawGalaxyCelestials();
+    // Warp starfield — stars stream from center vanishing point outward
+    const warpSpeed=vel*1.8;
+    particulas.forEach(p=>{
+      p.z-=warpSpeed*(p.speed*0.7);
+      p.tw+=p.tws;
+      if(p.z<=0){
+        // Reset star to far distance
+        p.x=(Math.random()-.5)*W*2.5;
+        p.y=(Math.random()-.5)*H*2.5;
+        p.z=W;
+      }
+      // Project 3D position to 2D screen
+      const scale=W/Math.max(1,p.z);
+      const sx=cx+p.x*scale;
+      const sy=cy+p.y*scale;
+      if(sx<-10||sx>W+10||sy<-10||sy>H+10)return;
+      const projR=Math.max(.35,p.sz*scale*1.6);
+      // Trail/streak for faster stars
+      const trailScale=W/Math.max(1,p.z+warpSpeed*(p.speed*0.7)*4);
+      const tx=cx+p.x*trailScale,ty=cy+p.y*trailScale;
+      const brightness=Math.min(1,(W-p.z)/W*2.5);
+      const a=p.alpha*brightness*(0.6+Math.sin(p.tw)*.4);
+      if(a<.03)return;
+      const starCol=p.cor||'#fff';
+      // Draw trail
+      if(projR>0.7){
+        pCtx.save();pCtx.globalAlpha=a*.55;
+        pCtx.strokeStyle=starCol;pCtx.lineWidth=projR*.9;
+        pCtx.lineCap='round';
+        pCtx.beginPath();pCtx.moveTo(tx,ty);pCtx.lineTo(sx,sy);pCtx.stroke();
+        pCtx.restore();
+      }
+      // Draw star point
+      pCtx.save();pCtx.globalAlpha=a;
+      pCtx.fillStyle=starCol;pCtx.shadowColor=starCol;pCtx.shadowBlur=projR*4;
+      pCtx.beginPath();pCtx.arc(sx,sy,projR,0,Math.PI*2);pCtx.fill();
+      pCtx.restore();
+    });
+  } else {
+    const isSnow=tema==='neve';
+    particulas.forEach(p=>{
+      p.tw+=p.tws;
+      if(isSnow){
+        p.swing+=p.swingS;
+        const fallSpeed=(.3+Math.random()*.04)*vel;
+        p.vy=Math.max(.18,fallSpeed);
+        p.y+=p.vy;p.x+=Math.sin(p.swing)*.55;
+        p.rot+=p.rotS;
+        if(p.y>H+14){p.y=-14;p.x=Math.random()*W;p.size=Math.random()*3+.6}
+        // Elegant snowflake: multi-arm with barbs
+        const a=p.alpha*(.65+Math.sin(p.tw)*.35);
+        pCtx.save();pCtx.globalAlpha=a*.88;
+        pCtx.translate(p.x,p.y);pCtx.rotate(p.rot);
+        const r=p.size*2.4;
+        pCtx.strokeStyle='rgba(220,240,255,.9)';pCtx.lineWidth=.85;pCtx.shadowColor='rgba(180,220,255,.6)';pCtx.shadowBlur=3;
+        for(let i=0;i<6;i++){
+          pCtx.save();pCtx.rotate(i*Math.PI/3);
+          pCtx.beginPath();pCtx.moveTo(0,0);pCtx.lineTo(0,r);pCtx.stroke();
+          // Small barbs
+          pCtx.beginPath();pCtx.moveTo(0,r*.5);pCtx.lineTo(r*.25,r*.72);pCtx.stroke();
+          pCtx.beginPath();pCtx.moveTo(0,r*.5);pCtx.lineTo(-r*.25,r*.72);pCtx.stroke();
+          pCtx.restore();
+        }
+        pCtx.restore();
+      } else {
+        p.swing+=p.swingS;
+        p.y+=p.vy*vel;p.x+=p.vx*vel;
+        if(p.y<-20)p.y=H+10;if(p.y>H+20)p.y=-10;
+        if(p.x<-20)p.x=W+10;if(p.x>W+20)p.x=-10;
+        const a=p.alpha*((.7+Math.sin(p.tw)*.3));
+        if(tema==='romantico')drawHeart(p.x,p.y,p.size*2.8,p.cor,a*.75);
+        else if(tema==='oceano')drawOceanBubble(p.x,p.y,p.size,p.cor,a);
+      }
+    });
+    // Ocean: add ambient caustic light beams
+    if(tema==='oceano'){
+      drawOceanAmbience();
     }
-    const a=p.alpha*((.7+Math.sin(p.tw)*.3));
-    if(tema==='galaxia')drawStar(p.x,p.y,p.size,p.cor,a);
-    else if(tema==='romantico')drawHeart(p.x,p.y,p.size*2.8,p.cor,a*.75);
-    else if(tema==='oceano')drawCircle(p.x,p.y,p.size,p.cor,a);
-    else if(tema==='neve')drawSnowflakeFast(p.x,p.y,p.size,a,p.rot);
-  });
+  }
+}
+
+// Improved ocean bubble
+function drawOceanBubble(x,y,r,c,a){
+  pCtx.save();pCtx.globalAlpha=a*.5;
+  pCtx.strokeStyle=c;pCtx.lineWidth=.7;pCtx.shadowColor=c;pCtx.shadowBlur=r*2;
+  pCtx.beginPath();pCtx.arc(x,y,r*2.2,0,Math.PI*2);pCtx.stroke();
+  pCtx.globalAlpha=a*.08;pCtx.fillStyle=c;pCtx.fill();
+  // Specular highlight
+  pCtx.globalAlpha=a*.25;pCtx.fillStyle='rgba(255,255,255,.8)';
+  pCtx.beginPath();pCtx.arc(x-r*.6,y-r*.6,r*.5,0,Math.PI*2);pCtx.fill();
+  pCtx.restore();
+}
+
+// Ocean ambient: subtle light shafts from above
+let oceanAmbFrame=0;
+function drawOceanAmbience(){
+  oceanAmbFrame+=.005;
+  const W=pCanvas.width,H=pCanvas.height;
+  // Light shafts (godray effect)
+  for(let i=0;i<5;i++){
+    const lx=W*(.15+i*.18+Math.sin(oceanAmbFrame+i)*0.04);
+    const a=.03+Math.sin(oceanAmbFrame*.7+i*1.3)*.015;
+    pCtx.save();pCtx.globalAlpha=a;
+    const lg=pCtx.createLinearGradient(lx,0,lx+30,H);
+    lg.addColorStop(0,'rgba(0,200,255,.5)');lg.addColorStop(1,'rgba(0,0,0,0)');
+    pCtx.fillStyle=lg;
+    pCtx.beginPath();pCtx.moveTo(lx-18,0);pCtx.lineTo(lx+18,0);pCtx.lineTo(lx+60,H);pCtx.lineTo(lx-30,H);pCtx.fill();
+    pCtx.restore();
+  }
+  // Deep glow at bottom
+  const dg=pCtx.createLinearGradient(0,H*.7,0,H);
+  dg.addColorStop(0,'rgba(0,30,80,0)');dg.addColorStop(1,'rgba(0,10,40,.18)');
+  pCtx.fillStyle=dg;pCtx.fillRect(0,H*.7,W,H*.3);
 }
 
 // ══════════════════════════════════════
@@ -639,6 +822,41 @@ dz.addEventListener('drop',e=>{
 });
 $('videoInput').addEventListener('change',e=>{const f=e.target.files[0];if(f){video.src=URL.createObjectURL(f);video.style.opacity='.35';toast('🎬 Vídeo carregado!')}});
 
+// ── Presets de ocasião especial ──
+const ocasiaoPresets={
+  aniversario:{
+    titulo:'Feliz Aniversário! 🎂',
+    msg:'Que este dia seja tão especial quanto você é para mim. Que a vida te traga alegria, saúde e muito amor. Feliz aniversário! 🎈🎊',
+    emoji:'🎂',tema:'romantico'
+  },
+  amor:{
+    titulo:'Para você, meu amor 💖',
+    msg:'Cada dia ao seu lado é um presente que nunca termina. Você é a razão do meu sorriso e a luz da minha vida. Te amo demais! 🥰',
+    emoji:'💖',tema:'romantico'
+  },
+  especial:{
+    titulo:'Você é especial ✨',
+    msg:'Algumas pessoas chegam na nossa vida e fazem tudo mais bonito. Você é uma dessas pessoas. Saiba que é especial e muito amada! 💫',
+    emoji:'✨',tema:'galaxia'
+  },
+  amizade:{
+    titulo:'Para meu grande amigo 🫂',
+    msg:'Obrigado por estar sempre aqui, por cada riso compartilhado e por ser exatamente quem você é. Você é incrível! 🌟',
+    emoji:'🫶',tema:'romantico'
+  }
+};
+
+function setOcasiao(tipo){
+  const p=ocasiaoPresets[tipo];if(!p)return;
+  $('msgTexto').value=p.msg;
+  $('nome').value='';
+  $('tema').value=p.tema;
+  // Select emoji
+  document.querySelectorAll('.emoji-opt').forEach(b=>{b.classList.toggle('sel',b.dataset.e===p.emoji)});
+  emojiAtual=p.emoji;$('envEmoji').textContent=p.emoji;$('envCartaInterna').textContent=p.emoji;
+  toast('🎉 Preset aplicado! Clique em Aplicar ✨');
+}
+
 function aplicar(){
   config.tema=$('tema').value;config.velocidade=parseFloat($('velocidade').value);
   config.corDestaque=$('corDestaque').value;config.nome=$('nome').value;config.mensagem=$('msgTexto').value;
@@ -647,9 +865,21 @@ function aplicar(){
   snowOffscreen=null; // reset snow cache
   criarParticulas();
   const link=$('linkMusica').value.trim(),ytId=extrairYTid(link);
+
+  // ── Bug fix: stop ALL audio sources before switching ──
+  stopBgMusic();
+  if(!ytId&&!link){
+    // Pausa áudio customizado se estava tocando
+    if(!audioCustom.paused){audioCustom.pause();audioCustom.src='';customAudioActive=false}
+    // Pausa YouTube se ativo
+    if(ytPlayer&&typeof ytPlayer.pauseVideo==='function'){try{ytPlayer.pauseVideo()}catch(e){}}
+    customAudioActive=false;
+  }
+
   if(ytId)tocarYT(ytId).catch(()=>{});
   else if(link&&link!==''){customAudioActive=true;stopBgMusic();audioCustom.src=link;audioCustom.play().then(()=>{musicaTocando=true;mostrarMusicaInfo()}).catch(()=>toast('⚠️ Link inválido.'))}
   else{customAudioActive=false;initAudio();startBgMusic(temas[config.tema].musicType)}
+
   if(cartaAberta){if(config.nome)digitar('Para '+config.nome+' ❤️',$('titulo'),48);if(config.mensagem)setTimeout(()=>digitar(config.mensagem,$('mensagem'),34),600)}
   salvar();togglePainelFn();toast('✨ Aplicado!');
 }
@@ -707,6 +937,8 @@ let gMessages=['Incrível! 🎉','Vai fundo! 🚀','Você é fera! 🔥','Sem pa
 let gSubMessages=['Continue acelerando!','Ficou ainda mais difícil!','Quase impossível...','Você consegue!','Absurdo!','Compartilha no Instagram!'];
 let gBgParticles=[];
 let gUsernameTimer=0;
+let gCarrots=[]; // neve: cenouras para recuperar vida
+let gLastLifeRecover=0; // pontuação no último recover de vida
 // Oceano: modo barco
 let oceanWaves=[];let oceanFrame=0;
 // Neve: acumulo de neve (pontuação por tempo)
@@ -828,15 +1060,20 @@ function fecharGame(){
 
 function gyroHandler(e){
   if(!gameRunning||!gPlayer)return;
-  const tilt=e.gamma;if(tilt!==null)gTouchX=gc.width/2+(tilt/45)*gc.width*.4;
+  // Increased sensitivity: was /45 * .4, now /25 * .7 for much more responsive tilt
+  const tilt=e.gamma;if(tilt===null)return;
+  // Clamp tilt to ±60 degrees for full screen width mapping
+  const clampedTilt=Math.max(-60,Math.min(60,tilt));
+  gTouchX=gc.width/2+(clampedTilt/30)*gc.width*.55;
 }
 
 let gMultiplier=1,gComboCount=0,gLastCollect=0;
 
 function gameReset(start=true){
-  gScore=0;gVidas=6;gShield=false;gShieldCooldown=false;gMilestoneIdx=0;gSpeed=1;gMultiplier=1;gComboCount=0;snowTimeBonus=0;
+  gScore=0;gVidas=8;gShield=false;gShieldCooldown=false;gMilestoneIdx=0;gSpeed=1;gMultiplier=1;gComboCount=0;snowTimeBonus=0;
+  gLastLifeRecover=0;
   gPlayer={x:gc.width/2,y:gc.height-70,w:32,h:32,vx:0,speed:5.5,shieldTimer:0,sway:0};
-  gObstacles=[];gCollectibles=[];gFrame=0;
+  gObstacles=[];gCollectibles=[];gCarrots=[];gFrame=0;
   gUsernameTimer=0;
   updateGameUI();
   if(start)gameStart();
@@ -864,6 +1101,10 @@ function gameLoop(){
   drawGameBgParticles();
   gSpeed=1+gScore*.007;
 
+  // ── Life recovery by score thresholds ──
+  // Every 200pts = +½ heart, 500pts = +1, 1000pts = +1½, 2000pts = full reset
+  checkLifeRecovery();
+
   // Survival bonus (neve)
   if(config.tema==='neve'&&gFrame%300===0&&gameRunning){
     gScore+=5;updateGameUI();spawnPopup(gPlayer.x,gPlayer.y-20,'+5 ❄️ Sobrevivência!','#90caf9');
@@ -873,22 +1114,24 @@ function gameLoop(){
   const spawnInterval=Math.max(14,48-Math.floor(gScore/22));
   if(gFrame%spawnInterval===0)spawnObstacle();
 
-  // Coletáveis: barco coleta menos frequente mas vale mais
+  // Coletáveis
   const collectInterval=config.tema==='oceano'?55:65;
   if(gFrame%collectInterval===0)spawnCollectible();
 
-  // Username
+  // Cenouras (apenas neve) — ~a cada 12s
+  if(config.tema==='neve'&&gFrame%360===0)spawnCarrot();
+
+  // Username tag
   gUsernameTimer++;
   if(gUsernameTimer>=480+Math.floor(Math.random()*240)){gUsernameTimer=0;spawnGameUsername()}
 
-  // Player move
-  // Oceano: sway lateral extra para barco
-  if(config.tema==='oceano'){
-    gPlayer.sway=(gPlayer.sway||0)+Math.sin(gFrame*.04)*.06;
-  }
+  // Player movement
+  if(config.tema==='oceano')gPlayer.sway=(gPlayer.sway||0)+Math.sin(gFrame*.04)*.06;
   if(gTouchX!==null){
-    const dx=gTouchX-gPlayer.x;gPlayer.vx+=dx*.08;gPlayer.vx*=.82;
-  } else gPlayer.vx*=.85;
+    const dx=gTouchX-gPlayer.x;
+    const pull=Math.abs(dx)>40?.14:.10;
+    gPlayer.vx+=dx*pull;gPlayer.vx*=.78;
+  } else gPlayer.vx*=.84;
   gPlayer.vx=Math.max(-gPlayer.speed*gSpeed,Math.min(gPlayer.speed*gSpeed,gPlayer.vx));
   gPlayer.x=Math.max(gPlayer.w/2,Math.min(gc.width-gPlayer.w/2,gPlayer.x+gPlayer.vx));
 
@@ -902,7 +1145,7 @@ function gameLoop(){
     if(!gShield){
       const dx=o.x-gPlayer.x,dy=o.y-gPlayer.y;
       if(Math.sqrt(dx*dx+dy*dy)<o.r+14){
-        gVidas=Math.max(0,gVidas-o.dmg);updateGameUI();blinkCanvas();
+        gVidas=Math.max(0,gVidas-o.dmg);updateGameUI();blinkCanvas();playDamageSound();
         gMultiplier=1;gComboCount=0; // reset combo
         if(gVidas<=0){gameOver();return false}
         return false;
@@ -919,7 +1162,6 @@ function gameLoop(){
     if(Math.sqrt(dx*dx+dy*dy)<24){
       const gt=gameTemas[config.tema]||gameTemas.galaxia;
       let pts=gt.collectPts;
-      // Combo/multiplier mechanics
       if(config.tema==='romantico'){
         gComboCount++;if(gComboCount>=3)gMultiplier=Math.min(5,gMultiplier+1);
         pts*=gMultiplier;
@@ -928,8 +1170,7 @@ function gameLoop(){
         gComboCount++;pts=15+(gComboCount>5?10:0);
         if(gComboCount>5)spawnPopup(c.x,c.y-10,`COMBO x${gComboCount}!`,'#b388ff');
       } else if(config.tema==='oceano'){
-        pts=20; // sempre 20 pts por âncora
-        spawnPopup(c.x,c.y-10,'+20 ⚓','#00e5ff');
+        pts=20;spawnPopup(c.x,c.y-10,'+20 ⚓','#00e5ff');
       }
       gScore+=pts;updateGameUI();
       if(config.tema!=='oceano')spawnPopup(c.x,c.y,'+'+pts+' ⭐','#ffe082');
@@ -938,9 +1179,47 @@ function gameLoop(){
     return c.y<gc.height+40;
   });
 
+  // Cenouras (neve) — recuperam 1 coração ao pegar
+  if(config.tema==='neve'){
+    gCarrots=gCarrots.filter(c=>{
+      c.y+=c.vy;c.tw+=.06;
+      drawCarrot(c);
+      const dx=c.x-gPlayer.x,dy=c.y-gPlayer.y;
+      if(Math.sqrt(dx*dx+dy*dy)<22){
+        const recovered=Math.min(8,gVidas+2);
+        if(recovered>gVidas){gVidas=recovered;updateGameUI()}
+        spawnPopup(c.x,c.y-14,'🥕 +1 ❤️','#ff8c30');
+        playCarrotSound();
+        return false;
+      }
+      return c.y<gc.height+40;
+    });
+  }
+
   drawGPlayer();
   drawGHUD();
   gameAnimId=requestAnimationFrame(gameLoop);
+}
+
+// ── Life recovery system: pontos → vida ──
+function checkLifeRecovery(){
+  // Cada 200 pontos desde o último recover = +½ vida (1 half-heart)
+  // Limites: 200=+½, 500=+1, 1000=+1½, 2000=vida cheia
+  const thresholds=[{pts:2000,gain:8,full:true},{pts:1000,gain:3},{pts:500,gain:2},{pts:200,gain:1}];
+  for(const t of thresholds){
+    if(gScore-gLastLifeRecover>=t.pts&&gVidas<8){
+      gLastLifeRecover+=t.pts;
+      if(t.full){
+        const diff=8-gVidas;gVidas=8;
+        if(diff>0){updateGameUI();spawnPopup(gPlayer.x,gPlayer.y-28,'💖 VIDA CHEIA!','#ff4488');toast('💖 Vida totalmente recuperada!')}
+      } else {
+        gVidas=Math.min(8,gVidas+t.gain);updateGameUI();
+        const labels={3:'❤️ +1½',2:'❤️ +1',1:'🩷 +½'};
+        spawnPopup(gPlayer.x,gPlayer.y-24,labels[t.gain]||'+vida','#ff80b0');
+      }
+      break;
+    }
+  }
 }
 
 function checkMilestone(){
@@ -966,11 +1245,34 @@ function drawGameBg(){
   gctx.fillStyle=grd;gctx.fillRect(0,0,gc.width,gc.height);
 
   if(tema==='galaxia'){
-    gctx.fillStyle='rgba(255,255,255,.3)';
-    for(let i=0;i<35;i++){
-      const sx=(i*83.7+gFrame*.18)%gc.width,sy=(i*61.3+gFrame*.09)%gc.height;
-      gctx.fillRect(sx,sy,i%5===0?2:1,i%5===0?2:1);
+    // Warp starfield inside game canvas (simplified)
+    const cx=gc.width/2,cy=gc.height*.45;
+    gctx.fillStyle='rgba(255,255,255,.28)';
+    for(let i=0;i<55;i++){
+      const t=((i*83.7+gFrame*.22)%1000)/1000;
+      const angle=(i*137.508)*(Math.PI/180);
+      const dist=t*Math.max(gc.width,gc.height)*.72;
+      const sx=cx+Math.cos(angle)*dist,sy=cy+Math.sin(angle)*dist;
+      if(sx<0||sx>gc.width||sy<0||sy>gc.height)continue;
+      const sz=t*2.2+.3;
+      // Trail
+      if(t>.15){
+        gctx.save();gctx.globalAlpha=t*.15;gctx.strokeStyle='rgba(180,160,255,.6)';gctx.lineWidth=sz*.6;
+        gctx.beginPath();const prevT=t-.08;const pd=prevT*Math.max(gc.width,gc.height)*.72;
+        gctx.moveTo(cx+Math.cos(angle)*pd,cy+Math.sin(angle)*pd);gctx.lineTo(sx,sy);gctx.stroke();gctx.restore();
+      }
+      gctx.globalAlpha=t*.75;gctx.fillRect(sx,sy,sz,sz);gctx.globalAlpha=1;
     }
+    // Distant planet hint (top-left)
+    const pR=gc.width*.045;
+    const pG=gctx.createRadialGradient(gc.width*.08,gc.height*.09,0,gc.width*.1,gc.height*.1,pR);
+    pG.addColorStop(0,'rgba(255,190,80,.65)');pG.addColorStop(.5,'rgba(200,110,40,.5)');pG.addColorStop(1,'rgba(100,40,10,.3)');
+    gctx.save();gctx.beginPath();gctx.arc(gc.width*.1,gc.height*.1,pR,0,Math.PI*2);gctx.fillStyle=pG;gctx.fill();
+    // Ring
+    gctx.save();gctx.translate(gc.width*.1,gc.height*.1);gctx.scale(1,.28);
+    gctx.strokeStyle='rgba(255,185,70,.3)';gctx.lineWidth=pR*.5;
+    gctx.beginPath();gctx.arc(0,0,pR*1.55,0,Math.PI*2);gctx.stroke();gctx.restore();
+    gctx.restore();
   } else if(tema==='romantico'){
     for(let i=0;i<6;i++){
       const lx=((i*127.3+gFrame*.06)%gc.width),ly=((i*93.7+gFrame*.04)%gc.height);
@@ -979,26 +1281,46 @@ function drawGameBg(){
       gctx.beginPath();gctx.arc(lx,ly,18,0,Math.PI*2);gctx.fillStyle=rg;gctx.fill();
     }
   } else if(tema==='neve'){
-    // Chão nevado
-    const sg=gctx.createLinearGradient(0,gc.height-25,0,gc.height);
-    sg.addColorStop(0,'rgba(220,240,255,0)');sg.addColorStop(1,'rgba(220,240,255,.06)');
-    gctx.fillStyle=sg;gctx.fillRect(0,gc.height-25,gc.width,25);
+    // Snow falling in background (using bg particles differently)
+    // Chão nevado com camadas
+    const sg=gctx.createLinearGradient(0,gc.height-40,0,gc.height);
+    sg.addColorStop(0,'rgba(200,230,255,0)');sg.addColorStop(.5,'rgba(220,240,255,.05)');sg.addColorStop(1,'rgba(230,245,255,.1)');
+    gctx.fillStyle=sg;gctx.fillRect(0,gc.height-40,gc.width,40);
+    // Subtle blue ambient top
+    const ag=gctx.createLinearGradient(0,0,0,gc.height*.3);
+    ag.addColorStop(0,'rgba(30,50,100,.06)');ag.addColorStop(1,'rgba(0,0,0,0)');
+    gctx.fillStyle=ag;gctx.fillRect(0,0,gc.width,gc.height*.3);
   } else if(tema==='oceano'){
-    // Ondas animadas no oceano
+    // Caustic light rays from surface
+    for(let i=0;i<4;i++){
+      const lx=gc.width*(.15+i*.22+Math.sin(gFrame*.018+i)*0.06);
+      const a=.04+Math.sin(gFrame*.012+i*1.4)*.02;
+      gctx.save();gctx.globalAlpha=a;
+      const lg=gctx.createLinearGradient(lx,0,lx+20,gc.height);
+      lg.addColorStop(0,'rgba(0,220,255,.6)');lg.addColorStop(1,'rgba(0,0,0,0)');
+      gctx.fillStyle=lg;
+      gctx.beginPath();gctx.moveTo(lx-14,0);gctx.lineTo(lx+14,0);gctx.lineTo(lx+50,gc.height);gctx.lineTo(lx-24,gc.height);gctx.fill();
+      gctx.restore();
+    }
+    // Ondas animadas
     oceanWaves.forEach(w=>{
       w.x=(w.x+w.speed)%gc.width;
       const wg=gctx.createRadialGradient(w.x,w.y,0,w.x,w.y,w.r);
-      wg.addColorStop(0,`rgba(0,180,255,${w.alpha})`);wg.addColorStop(1,'rgba(0,0,0,0)');
+      wg.addColorStop(0,`rgba(0,200,255,${w.alpha})`);wg.addColorStop(1,'rgba(0,0,0,0)');
       gctx.beginPath();gctx.arc(w.x,w.y,w.r,0,Math.PI*2);gctx.fillStyle=wg;gctx.fill();
     });
     // Linha d'água sutil
-    gctx.strokeStyle='rgba(0,200,255,.07)';gctx.lineWidth=1;
+    gctx.strokeStyle='rgba(0,200,255,.08)';gctx.lineWidth=1.2;
     gctx.beginPath();
     for(let x=0;x<=gc.width;x+=4){
-      const y=gc.height*.15+Math.sin((x+gFrame*.5)*.04)*6;
+      const y=gc.height*.14+Math.sin((x+gFrame*.5)*.04)*7;
       x===0?gctx.moveTo(x,y):gctx.lineTo(x,y);
     }
     gctx.stroke();
+    // Deep glow at bottom
+    const dg=gctx.createLinearGradient(0,gc.height*.8,0,gc.height);
+    dg.addColorStop(0,'rgba(0,20,60,0)');dg.addColorStop(1,'rgba(0,5,30,.2)');
+    gctx.fillStyle=dg;gctx.fillRect(0,gc.height*.8,gc.width,gc.height*.2);
   }
 }
 
@@ -1015,10 +1337,17 @@ function drawGameBgParticles(){
       gctx.translate(p.x,p.y);gctx.scale(p.r/14,p.r/14);
       gctx.beginPath();gctx.moveTo(0,-3);gctx.bezierCurveTo(0,-6,-6,-6,-6,-2);gctx.bezierCurveTo(-6,3,0,6,0,9);gctx.bezierCurveTo(0,6,6,3,6,-2);gctx.bezierCurveTo(6,-6,0,-6,0,-3);gctx.fill();gctx.restore();
     } else if(tema==='neve'){
-      // Flocos simples para performance
-      gctx.save();gctx.globalAlpha=a*.45;gctx.strokeStyle='rgba(200,230,255,.9)';gctx.lineWidth=.7;
+      // Elegant snowflakes in game background
+      gctx.save();gctx.globalAlpha=a*.4;gctx.strokeStyle='rgba(200,230,255,.85)';gctx.lineWidth=.7;
       gctx.translate(p.x,p.y);gctx.rotate(p.tw);
-      for(let i=0;i<6;i++){gctx.rotate(Math.PI/3);gctx.beginPath();gctx.moveTo(0,0);gctx.lineTo(0,p.r*2.2);gctx.stroke()}
+      const r=p.r*2.4;
+      for(let i=0;i<6;i++){
+        gctx.save();gctx.rotate(i*Math.PI/3);
+        gctx.beginPath();gctx.moveTo(0,0);gctx.lineTo(0,r);gctx.stroke();
+        gctx.beginPath();gctx.moveTo(0,r*.45);gctx.lineTo(r*.22,r*.65);gctx.stroke();
+        gctx.beginPath();gctx.moveTo(0,r*.45);gctx.lineTo(-r*.22,r*.65);gctx.stroke();
+        gctx.restore();
+      }
       gctx.restore();
     } else if(tema==='oceano'){
       gctx.save();gctx.globalAlpha=a*.35;gctx.strokeStyle='rgba(150,240,255,.8)';gctx.lineWidth=.8;
@@ -1066,11 +1395,22 @@ function drawObstacle(o){
     gctx.beginPath();gctx.moveTo(0,-3);gctx.bezierCurveTo(0,-6,-6,-6,-6,-2);gctx.bezierCurveTo(-6,3,0,6,0,9);gctx.bezierCurveTo(0,6,6,3,6,-2);gctx.bezierCurveTo(6,-6,0,-6,0,-3);gctx.fill();
     gctx.strokeStyle='rgba(0,0,0,0.5)';gctx.lineWidth=1.5*(12/s);gctx.beginPath();gctx.moveTo(0,-4);gctx.lineTo(-2,0);gctx.lineTo(1,2);gctx.lineTo(-1,8);gctx.stroke();
   } else if(tema==='neve'){
-    // Bloco de gelo
-    gctx.strokeStyle='rgba(180,210,255,.9)';gctx.lineWidth=1.5;gctx.shadowColor='#80b0ff';gctx.shadowBlur=o.r;
-    gctx.fillStyle='rgba(140,180,255,0.25)';const s=o.r;
-    gctx.beginPath();gctx.moveTo(-s,-s*.85);gctx.lineTo(s,-s*.85);gctx.lineTo(s*.9,s);gctx.lineTo(-s*.85,s*.9);gctx.closePath();gctx.fill();gctx.stroke();
-    gctx.strokeStyle='rgba(255,255,255,0.5)';gctx.lineWidth=.8;gctx.beginPath();gctx.moveTo(-s*.5,-s*.5);gctx.lineTo(s*.2,-s*.6);gctx.stroke();
+    // Bola de neve — esférica e realista
+    const s=o.r;
+    gctx.shadowColor='#aad4f0';gctx.shadowBlur=s*.8;
+    // Base sphere gradient
+    const sg=gctx.createRadialGradient(-s*.3,-s*.35,0,0,0,s);
+    sg.addColorStop(0,'rgba(255,255,255,.95)');
+    sg.addColorStop(.45,'rgba(210,235,255,.85)');
+    sg.addColorStop(.8,'rgba(160,200,240,.75)');
+    sg.addColorStop(1,'rgba(120,170,220,.6)');
+    gctx.fillStyle=sg;gctx.beginPath();gctx.arc(0,0,s,0,Math.PI*2);gctx.fill();
+    // Specular highlight
+    gctx.fillStyle='rgba(255,255,255,.65)';
+    gctx.beginPath();gctx.ellipse(-s*.3,-s*.35,s*.22,s*.16,-.5,0,Math.PI*2);gctx.fill();
+    // Subtle outline
+    gctx.strokeStyle='rgba(160,200,240,.4)';gctx.lineWidth=.8;
+    gctx.beginPath();gctx.arc(0,0,s,0,Math.PI*2);gctx.stroke();
   } else if(tema==='oceano'){
     // Navio grande — o obstáculo vem de cima
     gctx.shadowColor='#003060';gctx.shadowBlur=o.r*.6;
@@ -1238,15 +1578,91 @@ function spawnPopup(x,y,txt,color='#ffb3d9'){
 }
 
 function updateGameUI(){
+  // Max 4 corações (8 meias-vidas)
   const full=Math.floor(gVidas/2),half=gVidas%2;
   let str='';
   for(let i=0;i<full;i++)str+='❤️';
   if(half)str+='🩷';
-  for(let i=0;i<3-full-(half?1:0);i++)str+='🖤';
+  for(let i=0;i<4-full-(half?1:0);i++)str+='🖤';
   $('gameVidasEl').textContent=str;
   $('gameScore').textContent=gScore;
   if(gScore>gRecord)gRecord=gScore;
   $('gameRecord').textContent=gRecord;
+}
+
+// ── Damage sound: unique per theme ──
+function playDamageSound(){
+  if(!audioCtx)return;if(audioCtx.state==='suspended')audioCtx.resume();
+  const now=audioCtx.currentTime,tema=config.tema;
+  if(tema==='neve'){
+    // Som suave de neve batendo
+    const buf=audioCtx.createBuffer(1,audioCtx.sampleRate*.18,audioCtx.sampleRate);
+    const data=buf.getChannelData(0);
+    for(let i=0;i<data.length;i++)data[i]=(Math.random()*2-1)*(1-i/data.length)*.55;
+    const src=audioCtx.createBufferSource(),g=audioCtx.createGain();
+    const filt=audioCtx.createBiquadFilter();filt.type='bandpass';filt.frequency.value=800;
+    src.buffer=buf;g.gain.value=.45;
+    src.connect(filt);filt.connect(g);g.connect(audioCtx.destination);src.start(now);
+  } else if(tema==='galaxia'){
+    // Impacto espacial — descida de frequência
+    const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='sawtooth';
+    o.frequency.setValueAtTime(220,now);o.frequency.exponentialRampToValueAtTime(55,now+.35);
+    g.gain.setValueAtTime(.18,now);g.gain.exponentialRampToValueAtTime(.001,now+.45);
+    o.connect(g);g.connect(audioCtx.destination);o.start(now);o.stop(now+.5);
+  } else if(tema==='romantico'){
+    // Coração partido — dois tons dissonantes
+    [440,466].forEach((f,i)=>{
+      const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='triangle';o.frequency.value=f;
+      g.gain.setValueAtTime(0,now+i*.03);g.gain.linearRampToValueAtTime(.1,now+i*.03+.04);g.gain.exponentialRampToValueAtTime(.001,now+.6);
+      o.connect(g);g.connect(audioCtx.destination);o.start(now+i*.03);o.stop(now+.7);
+    });
+  } else if(tema==='oceano'){
+    // Borbulha de colisão
+    const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='sine';
+    o.frequency.setValueAtTime(500,now);o.frequency.exponentialRampToValueAtTime(150,now+.22);
+    g.gain.setValueAtTime(.14,now);g.gain.exponentialRampToValueAtTime(.001,now+.3);
+    o.connect(g);g.connect(audioCtx.destination);o.start(now);o.stop(now+.35);
+  }
+}
+
+// ── Carrot spawn & draw (neve only) ──
+function spawnCarrot(){
+  gCarrots.push({x:Math.random()*(gc.width-40)+20,y:-30,vy:(.7+Math.random()*.5)*gSpeed,tw:0});
+}
+
+function drawCarrot(c){
+  const pulse=1+Math.sin(c.tw)*.14;
+  gctx.save();gctx.translate(c.x,c.y);
+  // Glow
+  gctx.shadowColor='#ff8020';gctx.shadowBlur=14;
+  // Carrot body
+  const s=10*pulse;
+  gctx.fillStyle='#ff6010';
+  gctx.beginPath();gctx.moveTo(0,-s);gctx.lineTo(s*.45,s*.55);gctx.lineTo(0,s*.9);gctx.lineTo(-s*.45,s*.55);gctx.closePath();gctx.fill();
+  // Carrot stripes
+  gctx.strokeStyle='rgba(255,120,0,.5)';gctx.lineWidth=.9;
+  for(let i=1;i<4;i++){const yy=-s+(s*1.9*i/4);gctx.beginPath();gctx.moveTo(-s*.3+s*.15*i/3,yy);gctx.lineTo(s*.3-s*.15*i/3,yy);gctx.stroke()}
+  // Leaves
+  gctx.fillStyle='#44cc44';gctx.shadowColor='#22aa22';gctx.shadowBlur=6;
+  [-.35,0,.35].forEach(ox=>{
+    gctx.beginPath();gctx.ellipse(ox*s,-s*.85,s*.18,s*.55,.2+ox*.4,0,Math.PI*2);gctx.fill();
+  });
+  gctx.restore();
+}
+
+// ── Obstacle collision with damage sound ──
+
+function playCarrotSound(){
+  if(!audioCtx)return;if(audioCtx.state==='suspended')audioCtx.resume();
+  const now=audioCtx.currentTime;
+  // Bright ascending ding — cenoura coletada!
+  [880,1108,1320].forEach((f,i)=>{
+    const o=audioCtx.createOscillator(),g=audioCtx.createGain();
+    o.type='triangle';o.frequency.value=f;
+    g.gain.setValueAtTime(0,now+i*.055);g.gain.linearRampToValueAtTime(.1,now+i*.055+.02);
+    g.gain.exponentialRampToValueAtTime(.001,now+i*.055+.55);
+    o.connect(g);g.connect(audioCtx.destination);o.start(now+i*.055);o.stop(now+i*.055+.6);
+  });
 }
 
 function gameOver(){
