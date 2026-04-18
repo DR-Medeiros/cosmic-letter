@@ -38,7 +38,7 @@
             touch-action: manipulation;
         }
 
-        /* ─── VIDEO BG ─── */
+        /* ─── BG ─── */
         #bgVideo {
             position: fixed;
             inset: 0;
@@ -63,7 +63,6 @@
             transition: background 1.8s ease;
         }
 
-        /* ─── WATERMARK ─── */
         #watermark {
             position: fixed;
             bottom: 3px;
@@ -71,78 +70,78 @@
             z-index: 999;
             font-size: 5px;
             color: rgba(255, 255, 255, .04);
-            letter-spacing: .3px;
             pointer-events: none;
             user-select: none;
             font-family: monospace;
         }
 
-        /* ─── CREATOR BADGE (fixo, clicável, vai pro Instagram) ─── */
+        /* ─── CREATOR BADGE ─── */
         #creatorBadge {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 18px;
+            right: 18px;
             z-index: 50;
             display: flex;
             align-items: center;
             gap: 8px;
             background: rgba(255, 255, 255, .06);
-            backdrop-filter: blur(14px);
-            border: 1px solid rgba(255, 255, 255, .12);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, .11);
             border-radius: 40px;
-            padding: 7px 14px 7px 10px;
+            padding: 7px 14px 7px 9px;
             cursor: pointer;
             text-decoration: none;
-            transition: all .3s;
-            opacity: .7;
+            transition: all .35s;
+            opacity: .65;
         }
 
-        #creatorBadge:hover {
+        #creatorBadge:hover,
+        #creatorBadge:active {
             opacity: 1;
-            background: rgba(255, 45, 135, .15);
-            border-color: rgba(255, 45, 135, .4);
-            box-shadow: 0 4px 24px rgba(255, 45, 135, .25);
+            background: rgba(255, 45, 135, .14);
+            border-color: rgba(255, 45, 135, .38);
+            box-shadow: 0 4px 24px rgba(255, 45, 135, .22);
             transform: translateY(-2px);
         }
 
-        .creator-icon {
-            width: 28px;
-            height: 28px;
+        .ci {
+            width: 26px;
+            height: 26px;
             border-radius: 50%;
             background: linear-gradient(135deg, #f9ce34, #ee2a7b, #6228d7);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
+            font-size: 13px;
             flex-shrink: 0;
         }
 
-        .creator-text {
+        .ct {
             display: flex;
             flex-direction: column;
-            line-height: 1.2;
+            line-height: 1.25;
         }
 
-        .creator-name {
-            font-size: 11px;
+        .ct-name {
+            font-size: 10.5px;
             font-weight: 600;
-            color: rgba(255, 255, 255, .9);
+            color: rgba(255, 255, 255, .88);
         }
 
-        .creator-sub {
-            font-size: 9px;
-            color: rgba(255, 255, 255, .45);
-            letter-spacing: .5px;
+        .ct-sub {
+            font-size: 8.5px;
+            color: rgba(255, 255, 255, .38);
+            letter-spacing: .4px;
         }
 
-        /* ─── FLOATING USERNAME (passa como estrela) ─── */
+        /* ─── FLOATING USERNAME ─── */
         .floating-username {
             position: fixed;
-            font-size: clamp(9px, 1.2vw, 13px);
+            font-size: clamp(8px, 1.1vw, 12px);
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
             font-weight: 300;
-            color: rgba(255, 255, 255, .18);
+            color: rgba(255, 255, 255, .16);
             pointer-events: none;
             z-index: 2;
             white-space: nowrap;
@@ -152,7 +151,6 @@
 
         @keyframes usernameFloat {
             0% {
-                transform: translate(0, 0) scale(1);
                 opacity: 0;
             }
 
@@ -161,7 +159,7 @@
             }
 
             92% {
-                opacity: .15;
+                opacity: .12;
             }
 
             100% {
@@ -170,7 +168,7 @@
             }
         }
 
-        /* ─── ENVELOPE SCENE ─── */
+        /* ─── ENVELOPE ─── */
         #cartaWrap {
             position: fixed;
             top: 50%;
@@ -180,7 +178,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
+            gap: clamp(14px, 3vw, 22px);
             animation: floatCard 3.5s ease-in-out infinite;
             transition: opacity .6s, transform .6s;
         }
@@ -193,16 +191,16 @@
             }
 
             50% {
-                transform: translate(-50%, -50%) translateY(-16px);
+                transform: translate(-50%, -50%) translateY(-14px);
             }
         }
 
         .envelope-scene {
-            width: clamp(180px, 45vw, 230px);
-            height: clamp(132px, 33vw, 168px);
+            width: clamp(160px, 44vw, 220px);
+            height: clamp(118px, 32vw, 162px);
             position: relative;
             cursor: pointer;
-            filter: drop-shadow(0 0 44px rgba(255, 45, 135, .8));
+            filter: drop-shadow(0 0 40px rgba(255, 45, 135, .75));
             transition: transform .5s cubic-bezier(.4, 0, .2, 1), opacity .5s;
         }
 
@@ -263,19 +261,19 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -38%);
-            font-size: clamp(36px, 10vw, 54px);
+            font-size: clamp(32px, 9vw, 52px);
             z-index: 4;
             pointer-events: none;
             transition: transform .5s, opacity .4s;
-            filter: drop-shadow(0 0 14px rgba(255, 255, 255, .5));
+            filter: drop-shadow(0 0 12px rgba(255, 255, 255, .5));
         }
 
         .env-carta-interna {
             position: absolute;
-            bottom: 10px;
-            left: 14px;
-            right: 14px;
-            height: 100px;
+            bottom: 8px;
+            left: 12px;
+            right: 12px;
+            height: 96px;
             background: linear-gradient(160deg, #fff9fc, #fce4ec);
             border-radius: 6px;
             z-index: 3;
@@ -285,7 +283,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
+            font-size: 26px;
             box-shadow: 0 4px 24px rgba(0, 0, 0, .4);
         }
 
@@ -295,7 +293,7 @@
 
         .envelope-scene.abrindo .env-carta-interna {
             opacity: 1;
-            transform: translateY(-85px);
+            transform: translateY(-80px);
         }
 
         .envelope-scene.abrindo .env-emoji {
@@ -304,8 +302,8 @@
         }
 
         #cartaHint {
-            font-size: 11px;
-            color: rgba(255, 255, 255, .55);
+            font-size: clamp(9px, 2vw, 11px);
+            color: rgba(255, 255, 255, .5);
             letter-spacing: 3px;
             text-transform: uppercase;
             animation: pulse 2s ease-in-out infinite;
@@ -324,7 +322,7 @@
             }
         }
 
-        /* ─── CONTAINER CONTEÚDO ─── */
+        /* ─── CONTEÚDO ─── */
         #container {
             position: fixed;
             top: 50%;
@@ -337,8 +335,6 @@
             opacity: 0;
             pointer-events: none;
             transition: opacity 1.2s ease;
-            cursor: move;
-            user-select: none;
         }
 
         #container.visible {
@@ -348,77 +344,75 @@
 
         #titulo {
             font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(28px, 6.5vw, 72px);
+            font-size: clamp(24px, 5.5vw, 66px);
             font-weight: 600;
             letter-spacing: -1px;
             line-height: 1.1;
-            margin-bottom: clamp(12px, 2vw, 22px);
+            margin-bottom: clamp(10px, 2vw, 20px);
             background: linear-gradient(135deg, #fff 0%, #ffb3d9 50%, var(--accent) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            filter: drop-shadow(0 0 26px rgba(255, 105, 180, .85));
-            min-height: 36px;
+            filter: drop-shadow(0 0 24px rgba(255, 105, 180, .8));
+            min-height: 32px;
         }
 
         #mensagem {
-            font-size: clamp(14px, 2.2vw, 22px);
+            font-size: clamp(13px, 2vw, 20px);
             line-height: 1.9;
-            color: rgba(255, 255, 255, .85);
-            text-shadow: 0 0 20px rgba(255, 255, 255, .15);
-            max-width: 520px;
-            margin: 0 auto clamp(20px, 3vw, 34px);
-            min-height: 28px;
+            color: rgba(255, 255, 255, .82);
+            max-width: 500px;
+            margin: 0 auto clamp(18px, 3vw, 32px);
+            min-height: 24px;
             font-weight: 300;
         }
 
         .buttons {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             justify-content: center;
             flex-wrap: wrap;
+            padding: 0 8px;
         }
 
         .btn {
-            padding: clamp(9px, 1.5vw, 13px) clamp(16px, 3vw, 26px);
-            border: 1px solid rgba(255, 255, 255, .2);
+            padding: clamp(8px, 1.5vw, 12px) clamp(14px, 2.5vw, 24px);
+            border: 1px solid rgba(255, 255, 255, .18);
             border-radius: 50px;
             background: rgba(255, 255, 255, .07);
             backdrop-filter: blur(10px);
             color: #fff;
-            font-size: clamp(12px, 1.5vw, 14px);
+            font-size: clamp(11px, 1.4vw, 13px);
             cursor: pointer;
             transition: all .3s;
             letter-spacing: .3px;
             font-family: 'Outfit', sans-serif;
+            white-space: nowrap;
         }
 
-        .btn:hover {
-            background: rgba(255, 255, 255, .15);
-            border-color: rgba(255, 255, 255, .4);
+        .btn:hover,
+        .btn:active {
+            background: rgba(255, 255, 255, .14);
+            border-color: rgba(255, 255, 255, .38);
             transform: translateY(-2px);
-            box-shadow: 0 8px 28px rgba(255, 105, 180, .22);
+            box-shadow: 0 6px 24px rgba(255, 105, 180, .2);
         }
 
         .btn.primary {
             background: linear-gradient(135deg, var(--accent), #ff69b4);
             border-color: transparent;
-            box-shadow: 0 0 28px rgba(255, 45, 135, .45);
+            box-shadow: 0 0 26px rgba(255, 45, 135, .42);
         }
 
         .btn.primary:hover {
-            box-shadow: 0 0 50px rgba(255, 45, 135, .8);
+            box-shadow: 0 0 44px rgba(255, 45, 135, .75);
             transform: translateY(-3px) scale(1.02);
         }
 
         .btn.game-btn {
             background: linear-gradient(135deg, #7c3aed, #4f46e5);
             border-color: transparent;
-            box-shadow: 0 0 20px rgba(124, 58, 237, .4);
-        }
-
-        .btn.game-btn:hover {
-            box-shadow: 0 0 40px rgba(124, 58, 237, .7);
+            box-shadow: 0 0 18px rgba(124, 58, 237, .35);
         }
 
         /* ─── PAINEL ─── */
@@ -427,18 +421,18 @@
             right: 0;
             top: 0;
             height: 100%;
-            width: min(290px, 85vw);
-            background: rgba(5, 3, 16, .94);
-            backdrop-filter: blur(28px);
+            width: min(285px, 88vw);
+            background: rgba(4, 2, 14, .95);
+            backdrop-filter: blur(30px);
             border-left: 1px solid rgba(255, 255, 255, .07);
             z-index: 20;
             transform: translateX(100%);
-            transition: transform .42s cubic-bezier(.25, .46, .45, .94);
+            transition: transform .4s cubic-bezier(.25, .46, .45, .94);
             overflow-y: auto;
-            padding: 20px 16px;
+            padding: 18px 15px;
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 13px;
         }
 
         #painel.aberto {
@@ -450,7 +444,7 @@
         }
 
         #painel::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, .1);
+            background: rgba(255, 255, 255, .09);
             border-radius: 2px;
         }
 
@@ -458,15 +452,15 @@
             font-size: 9px;
             letter-spacing: 3px;
             text-transform: uppercase;
-            color: rgba(255, 255, 255, .3);
+            color: rgba(255, 255, 255, .28);
             margin-bottom: -4px;
         }
 
         #painel label {
             display: block;
-            font-size: 11.5px;
-            color: rgba(255, 255, 255, .45);
-            margin-bottom: 5px;
+            font-size: 11px;
+            color: rgba(255, 255, 255, .42);
+            margin-bottom: 4px;
         }
 
         #painel input[type="text"],
@@ -474,11 +468,11 @@
         #painel textarea,
         #painel select {
             width: 100%;
-            background: rgba(255, 255, 255, .055);
-            border: 1px solid rgba(255, 255, 255, .09);
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid rgba(255, 255, 255, .08);
             border-radius: 10px;
             color: #fff;
-            padding: 9px 12px;
+            padding: 8px 11px;
             font-size: 13px;
             font-family: 'Outfit', sans-serif;
             outline: none;
@@ -489,7 +483,7 @@
         #painel input:focus,
         #painel textarea:focus,
         #painel select:focus {
-            border-color: rgba(255, 45, 135, .5);
+            border-color: rgba(255, 45, 135, .45);
         }
 
         #painel select option {
@@ -498,9 +492,9 @@
 
         #painel input[type="color"] {
             width: 100%;
-            height: 40px;
+            height: 38px;
             border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, .1);
+            border: 1px solid rgba(255, 255, 255, .09);
             background: none;
             cursor: pointer;
             padding: 2px;
@@ -512,8 +506,8 @@
         }
 
         #painel input[type="file"] {
-            color: rgba(255, 255, 255, .45);
-            font-size: 11.5px;
+            color: rgba(255, 255, 255, .4);
+            font-size: 11px;
             width: 100%;
         }
 
@@ -525,13 +519,13 @@
         .emoji-grid {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
-            gap: 5px;
+            gap: 4px;
         }
 
         .emoji-opt {
-            font-size: 19px;
+            font-size: 18px;
             text-align: center;
-            padding: 5px 0;
+            padding: 4px 0;
             border-radius: 8px;
             cursor: pointer;
             transition: background .2s;
@@ -540,21 +534,21 @@
         }
 
         .emoji-opt:hover {
-            background: rgba(255, 45, 135, .22);
+            background: rgba(255, 45, 135, .2);
         }
 
         .emoji-opt.sel {
-            background: rgba(255, 45, 135, .35);
-            border-color: rgba(255, 45, 135, .65);
+            background: rgba(255, 45, 135, .32);
+            border-color: rgba(255, 45, 135, .6);
         }
 
         #dropZone {
-            border: 1px dashed rgba(255, 255, 255, .16);
+            border: 1px dashed rgba(255, 255, 255, .14);
             border-radius: 10px;
-            padding: 12px;
+            padding: 11px;
             text-align: center;
-            font-size: 12px;
-            color: rgba(255, 255, 255, .3);
+            font-size: 11.5px;
+            color: rgba(255, 255, 255, .28);
             cursor: pointer;
             transition: all .3s;
         }
@@ -567,7 +561,7 @@
 
         .btn-aplicar {
             width: 100%;
-            padding: 12px;
+            padding: 11px;
             background: linear-gradient(135deg, var(--accent), #9b59b6);
             border: none;
             border-radius: 12px;
@@ -576,77 +570,108 @@
             font-weight: 600;
             cursor: pointer;
             transition: all .3s;
-            letter-spacing: .3px;
             font-family: 'Outfit', sans-serif;
         }
 
         .btn-aplicar:hover {
-            opacity: .88;
+            opacity: .86;
             transform: translateY(-1px);
-            box-shadow: 0 8px 28px rgba(255, 45, 135, .4);
+            box-shadow: 0 8px 28px rgba(255, 45, 135, .38);
         }
 
-        /* creator link no painel */
         .painel-creator {
             display: flex;
             align-items: center;
             gap: 8px;
-            padding: 10px 12px;
+            padding: 9px 11px;
             border-radius: 12px;
             background: rgba(255, 255, 255, .04);
-            border: 1px solid rgba(255, 255, 255, .07);
+            border: 1px solid rgba(255, 255, 255, .06);
             text-decoration: none;
             transition: all .3s;
         }
 
         .painel-creator:hover {
-            background: rgba(255, 45, 135, .1);
-            border-color: rgba(255, 45, 135, .3);
+            background: rgba(255, 45, 135, .09);
+            border-color: rgba(255, 45, 135, .28);
         }
 
-        .painel-creator .pc-icon {
-            width: 32px;
-            height: 32px;
+        .pc-icon {
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             background: linear-gradient(135deg, #f9ce34, #ee2a7b, #6228d7);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
+            font-size: 15px;
         }
 
-        .painel-creator .pc-text {
+        .pc-text {
             display: flex;
             flex-direction: column;
             line-height: 1.3;
         }
 
-        .painel-creator .pc-name {
-            font-size: 12px;
+        .pc-name {
+            font-size: 11.5px;
             font-weight: 600;
-            color: rgba(255, 255, 255, .85);
+            color: rgba(255, 255, 255, .82);
         }
 
-        .painel-creator .pc-label {
-            font-size: 10px;
-            color: rgba(255, 255, 255, .35);
-            letter-spacing: .4px;
+        .pc-label {
+            font-size: 9.5px;
+            color: rgba(255, 255, 255, .32);
+            letter-spacing: .3px;
+        }
+
+        /* Indicador de música tocando no painel */
+        .music-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 10px;
+            border-radius: 10px;
+            background: rgba(255, 45, 135, .08);
+            border: 1px solid rgba(255, 45, 135, .18);
+            font-size: 11px;
+            color: rgba(255, 255, 255, .55);
+        }
+
+        .music-status .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+            animation: blink-dot 1.4s ease-in-out infinite;
+        }
+
+        @keyframes blink-dot {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: .2;
+            }
         }
 
         /* ─── TOGGLE ─── */
         #togglePainel {
             position: fixed;
-            top: 16px;
-            right: 16px;
+            top: 15px;
+            right: 15px;
             z-index: 30;
-            width: 44px;
-            height: 44px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
-            border: 1px solid rgba(255, 255, 255, .15);
+            border: 1px solid rgba(255, 255, 255, .14);
             background: rgba(255, 255, 255, .07);
             backdrop-filter: blur(10px);
             color: #fff;
-            font-size: 18px;
+            font-size: 17px;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -655,31 +680,31 @@
         }
 
         #togglePainel:hover {
-            background: rgba(255, 45, 135, .25);
-            border-color: rgba(255, 45, 135, .5);
+            background: rgba(255, 45, 135, .24);
+            border-color: rgba(255, 45, 135, .48);
             transform: scale(1.06);
         }
 
         /* ─── MÚSICA ─── */
         #musicaInfo {
             position: fixed;
-            bottom: 20px;
-            left: 20px;
+            bottom: 18px;
+            left: 18px;
             z-index: 20;
             display: flex;
             align-items: center;
-            gap: 9px;
+            gap: 8px;
             background: rgba(255, 255, 255, .07);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, .1);
             border-radius: 50px;
-            padding: 8px 15px;
-            font-size: 12px;
-            color: rgba(255, 255, 255, .6);
+            padding: 8px 14px;
+            font-size: 11.5px;
+            color: rgba(255, 255, 255, .58);
             opacity: 0;
             transition: opacity .5s;
             pointer-events: none;
-            max-width: 200px;
+            max-width: 190px;
         }
 
         #musicaInfo.visivel {
@@ -692,7 +717,7 @@
             display: flex;
             gap: 3px;
             align-items: flex-end;
-            height: 14px;
+            height: 13px;
         }
 
         .eq-bar {
@@ -722,11 +747,11 @@
             }
 
             50% {
-                height: 14px
+                height: 13px
             }
         }
 
-        /* ─── HEART PARTICLES ─── */
+        /* ─── PARTÍCULAS TEMA ─── */
         .heart-particle {
             position: fixed;
             pointer-events: none;
@@ -742,17 +767,16 @@
             }
 
             12% {
-                transform: translate(var(--dx15), var(--dy15)) scale(1.4);
+                transform: translate(var(--dx15), var(--dy15)) scale(1.3);
                 opacity: 1;
             }
 
             100% {
-                transform: translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(.15);
+                transform: translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(.1);
                 opacity: 0;
             }
         }
 
-        /* ─── BURST RING ─── */
         .burst-ring {
             position: fixed;
             top: 50%;
@@ -763,7 +787,7 @@
             border-radius: 50%;
             pointer-events: none;
             z-index: 9;
-            animation: burstRing .8s ease-out forwards;
+            animation: burstRing .85s ease-out forwards;
         }
 
         @keyframes burstRing {
@@ -778,7 +802,6 @@
             }
         }
 
-        /* ─── SVG CARTA EXPLODINDO ─── */
         .card-shard {
             position: fixed;
             pointer-events: none;
@@ -798,15 +821,52 @@
             }
         }
 
+        /* ─── MASCOTE ─── */
+        #mascote {
+            position: fixed;
+            z-index: 150;
+            pointer-events: none;
+            font-size: 28px;
+            bottom: -60px;
+            transition: bottom .5s cubic-bezier(.34, 1.56, .64, 1);
+            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, .5));
+        }
+
+        #mascote.visivel {
+            bottom: 80px;
+        }
+
+        #mascote-msg {
+            position: fixed;
+            z-index: 151;
+            pointer-events: none;
+            background: rgba(255, 255, 255, .12);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, .18);
+            border-radius: 16px;
+            padding: 8px 14px;
+            font-size: 12px;
+            color: #fff;
+            white-space: nowrap;
+            bottom: 130px;
+            opacity: 0;
+            transition: opacity .4s;
+            border-bottom-left-radius: 4px;
+        }
+
+        #mascote-msg.visivel {
+            opacity: 1;
+        }
+
         /* ─── TOAST ─── */
         #toast {
             position: fixed;
-            bottom: 70px;
+            bottom: 68px;
             left: 50%;
             transform: translateX(-50%) translateY(14px);
             background: rgba(255, 255, 255, .1);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, .14);
+            border: 1px solid rgba(255, 255, 255, .13);
             border-radius: 50px;
             padding: 8px 20px;
             font-size: 12px;
@@ -822,18 +882,18 @@
             transform: translateX(-50%) translateY(0);
         }
 
-        /* ─── MINI GAME ─── */
+        /* ─── GAME OVERLAY ─── */
         #gameOverlay {
             position: fixed;
             inset: 0;
             z-index: 200;
-            background: rgba(0, 0, 10, .96);
-            backdrop-filter: blur(20px);
+            background: rgba(0, 0, 10, .97);
+            backdrop-filter: blur(22px);
             display: none;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 16px;
+            gap: 12px;
         }
 
         #gameOverlay.ativo {
@@ -841,25 +901,17 @@
         }
 
         #gameCanvas {
-            border: 1px solid rgba(255, 45, 135, .3);
-            border-radius: 16px;
-            box-shadow: 0 0 60px rgba(255, 45, 135, .25);
+            border: 1px solid rgba(255, 45, 135, .28);
+            border-radius: 14px;
+            box-shadow: 0 0 50px rgba(255, 45, 135, .2);
             max-width: 100%;
             touch-action: none;
-        }
-
-        #gameUI {
-            display: flex;
-            justify-content: space-between;
-            width: min(420px, 90vw);
-            font-size: 13px;
-            color: rgba(255, 255, 255, .6);
-            font-family: 'Outfit', sans-serif;
+            display: block;
         }
 
         #gameTitle {
             font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(20px, 5vw, 32px);
+            font-size: clamp(18px, 4vw, 28px);
             background: linear-gradient(135deg, #fff, var(--accent3));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -867,29 +919,40 @@
             letter-spacing: 1px;
         }
 
-        #gameMsg {
-            font-size: clamp(13px, 2.5vw, 16px);
+        #gameUI {
+            display: flex;
+            justify-content: space-between;
+            width: var(--gw, 320px);
+            font-size: 12px;
             color: rgba(255, 255, 255, .55);
+            font-family: 'Outfit', sans-serif;
+            padding: 0 4px;
+        }
+
+        #gameMsgEl {
+            font-size: clamp(11px, 2.2vw, 14px);
+            color: rgba(255, 255, 255, .5);
             text-align: center;
-            max-width: 340px;
-            line-height: 1.6;
+            max-width: 300px;
+            line-height: 1.5;
+            min-height: 20px;
         }
 
         .game-btns {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
             justify-content: center;
         }
 
         .gbtn {
-            padding: 10px 22px;
-            border: 1px solid rgba(255, 255, 255, .2);
+            padding: 9px 20px;
+            border: 1px solid rgba(255, 255, 255, .18);
             border-radius: 50px;
             background: rgba(255, 255, 255, .07);
             backdrop-filter: blur(8px);
             color: #fff;
-            font-size: 13px;
+            font-size: 12px;
             cursor: pointer;
             transition: all .3s;
             font-family: 'Outfit', sans-serif;
@@ -898,67 +961,128 @@
         .gbtn.primary {
             background: linear-gradient(135deg, var(--accent), #ff69b4);
             border-color: transparent;
-            box-shadow: 0 0 20px rgba(255, 45, 135, .4);
+            box-shadow: 0 0 18px rgba(255, 45, 135, .38);
         }
 
-        .gbtn:hover {
+        .gbtn:hover,
+        .gbtn:active {
             transform: translateY(-2px);
-            opacity: .9;
+            opacity: .88;
         }
 
-        /* ─── RESPONSIVE ─── */
+        .game-hint {
+            font-size: 10px;
+            color: rgba(255, 255, 255, .25);
+            text-align: center;
+            max-width: 280px;
+            line-height: 1.5;
+        }
+
+        /* milestone banner */
+        #milestoneBanner {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(.5);
+            z-index: 180;
+            background: rgba(0, 0, 0, .7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, .15);
+            border-radius: 24px;
+            padding: 20px 32px;
+            text-align: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: all .4s cubic-bezier(.34, 1.56, .64, 1);
+        }
+
+        #milestoneBanner.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        #milestoneBanner .mb-emoji {
+            font-size: 48px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        #milestoneBanner .mb-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            color: #fff;
+        }
+
+        #milestoneBanner .mb-sub {
+            font-size: 12px;
+            color: rgba(255, 255, 255, .45);
+            margin-top: 4px;
+        }
+
         @media(max-width:480px) {
             #creatorBadge {
-                bottom: 14px;
-                right: 14px;
-                padding: 6px 12px 6px 8px;
+                bottom: 12px;
+                right: 12px;
+                padding: 6px 11px 6px 8px;
             }
 
-            .creator-name {
-                font-size: 10px;
+            .ct-name {
+                font-size: 9.5px;
             }
 
-            .creator-sub {
-                font-size: 8px;
+            .ct-sub {
+                font-size: 7.5px;
             }
 
-            .creator-icon {
-                width: 24px;
-                height: 24px;
-                font-size: 12px;
+            .ci {
+                width: 22px;
+                height: 22px;
+                font-size: 11px;
             }
 
             #musicaInfo {
-                max-width: 160px;
-                font-size: 11px;
-                bottom: 14px;
-                left: 14px;
+                max-width: 150px;
+                font-size: 10.5px;
+                bottom: 12px;
+                left: 12px;
             }
 
             #togglePainel {
-                top: 12px;
-                right: 12px;
-                width: 40px;
-                height: 40px;
-                font-size: 16px;
+                top: 11px;
+                right: 11px;
+                width: 38px;
+                height: 38px;
+                font-size: 15px;
+            }
+
+            .buttons {
+                gap: 6px;
             }
         }
     </style>
 </head>
 
 <body>
-
     <video id="bgVideo" autoplay muted loop playsinline></video>
     <canvas id="particleCanvas"></canvas>
     <div class="overlay" id="overlay"></div>
     <div id="watermark">biel_Medeiros48 · MedeirosCA.M</div>
 
+    <!-- MASCOTE -->
+    <div id="mascote">🐱</div>
+    <div id="mascote-msg">Uau! Você chegou longe! 🎉</div>
+
+    <!-- MILESTONE BANNER -->
+    <div id="milestoneBanner">
+        <span class="mb-emoji" id="mb-emoji">🐱</span>
+        <div class="mb-text" id="mb-text">100 pontos!</div>
+        <div class="mb-sub" id="mb-sub">Continue assim!</div>
+    </div>
+
     <!-- CREATOR BADGE -->
     <a id="creatorBadge" href="https://www.instagram.com/biel_medeiros48/" target="_blank" rel="noopener">
-        <div class="creator-icon">📸</div>
-        <div class="creator-text">
-            <span class="creator-name">@biel_medeiros48</span>
-            <span class="creator-sub">criador · instagram</span>
+        <div class="ci">📸</div>
+        <div class="ct"><span class="ct-name">@biel_medeiros48</span><span class="ct-sub">criador · instagram</span>
         </div>
     </a>
 
@@ -982,28 +1106,22 @@
         <h1 id="titulo"></h1>
         <p id="mensagem"></p>
         <div class="buttons">
-            <button class="btn primary" onclick="explosaoCoracoes()">💖 Explosão</button>
+            <button class="btn primary" onclick="explodir()">✨ Explosão</button>
             <button class="btn" onclick="toggleMusica()">🎵 Música</button>
             <button class="btn game-btn" onclick="abrirGame()">🎮 Jogar</button>
             <button class="btn" onclick="reabrirCarta()">💌 Recomeçar</button>
         </div>
     </div>
 
-    <!-- TOGGLE PAINEL -->
+    <!-- TOGGLE -->
     <button id="togglePainel" onclick="togglePainelFn()">⚙️</button>
 
     <!-- PAINEL -->
     <div id="painel">
         <h3>Mensagem</h3>
-        <div>
-            <label>Nome da pessoa</label>
-            <input type="text" id="nome" placeholder="Ex: Ana, meu amor...">
+        <div><label>Nome da pessoa</label><input type="text" id="nome" placeholder="Ex: Ana, meu amor..."></div>
+        <div><label>Mensagem</label><textarea id="msgTexto" rows="3" placeholder="Sua mensagem aqui..."></textarea>
         </div>
-        <div>
-            <label>Mensagem</label>
-            <textarea id="msgTexto" rows="3" placeholder="Sua mensagem aqui..."></textarea>
-        </div>
-
         <div class="sep"></div>
         <h3>Ícone da carta</h3>
         <div class="emoji-grid" id="emojiGrid">
@@ -1026,60 +1144,37 @@
             <div class="emoji-opt" data-e="🌻">🌻</div>
             <div class="emoji-opt" data-e="✨">✨</div>
         </div>
-
         <div class="sep"></div>
         <h3>Visual</h3>
-        <div>
-            <label>Tema</label>
+        <div><label>Tema</label>
             <select id="tema">
                 <option value="galaxia">🌌 Galáxia</option>
                 <option value="romantico">💕 Romântico</option>
                 <option value="oceano">🌊 Oceano</option>
+                <option value="neve">❄️ Neve</option>
             </select>
         </div>
-        <div>
-            <label>Partículas</label>
-            <select id="particula">
-                <option value="star">⭐ Estrelas</option>
-                <option value="heart">💗 Corações</option>
-                <option value="circle">● Bolhas</option>
-                <option value="snow">❄ Neve</option>
-            </select>
-        </div>
-        <div>
-            <label>Velocidade</label>
-            <input type="range" id="velocidade" min=".2" max="4" step=".1" value="1">
-        </div>
-        <div>
-            <label>Cor de destaque</label>
-            <input type="color" id="corDestaque" value="#ff2d87">
-        </div>
-
+        <div><label>Velocidade das partículas</label><input type="range" id="velocidade" min=".2" max="4" step=".1"
+                value="1"></div>
+        <div><label>Cor de destaque</label><input type="color" id="corDestaque" value="#ff2d87"></div>
         <div class="sep"></div>
-        <h3>Mídia</h3>
-        <div>
-            <label>Vídeo de fundo</label>
-            <input type="file" id="videoInput" accept="video/*">
+        <h3>Música</h3>
+        <div id="musicStatusPanel" class="music-status" style="display:none">
+            <div class="dot"></div><span id="musicStatusLabel">Tocando música de fundo</span>
         </div>
-        <div>
-            <label>Música — YouTube ou link .mp3</label>
-            <input type="url" id="linkMusica" placeholder="https://youtube.com/watch?v=...">
-        </div>
-        <div>
-            <label>Ou arraste um arquivo de áudio</label>
+        <div><label>YouTube ou link .mp3 (substitui música de fundo)</label><input type="url" id="linkMusica"
+                placeholder="https://youtube.com/watch?v=..."></div>
+        <div><label>Ou arraste um arquivo de áudio</label>
             <div id="dropZone">🎵 Arraste aqui</div>
         </div>
-
+        <div><label>Vídeo de fundo</label><input type="file" id="videoInput" accept="video/*"></div>
         <button class="btn-aplicar" onclick="aplicar()">✨ Aplicar</button>
-
         <div class="sep"></div>
         <h3>Criador</h3>
         <a class="painel-creator" href="https://www.instagram.com/biel_medeiros48/" target="_blank" rel="noopener">
             <div class="pc-icon">📸</div>
-            <div class="pc-text">
-                <span class="pc-name">@biel_medeiros48</span>
-                <span class="pc-label">Abrir no Instagram</span>
-            </div>
+            <div class="pc-text"><span class="pc-name">@biel_medeiros48</span><span class="pc-label">Abrir no
+                    Instagram</span></div>
         </a>
     </div>
 
@@ -1092,455 +1187,639 @@
             <div class="eq-bar"></div>
         </div>
         <span id="musicaLabel"
-            style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:110px">Tocando</span>
-        <span style="opacity:.4;font-size:11px">⏸</span>
+            style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:105px">Tocando</span>
+        <span style="opacity:.38;font-size:10px">⏸</span>
     </div>
 
     <div id="toast"></div>
-    <audio id="audio" loop></audio>
 
     <!-- YouTube hidden -->
     <div style="position:fixed;top:-9999px;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none">
         <div id="ytPlayer"></div>
     </div>
 
-    <!-- GAME OVERLAY -->
+    <!-- GAME -->
     <div id="gameOverlay">
-        <div id="gameTitle">✨ Coração Espacial</div>
-        <div id="gameMsg">Desvie dos asteroides e colete corações!</div>
+        <div id="gameTitle">💖 Coração Espacial</div>
         <div id="gameUI">
-            <span>❤️ <span id="gameVidas">3</span></span>
+            <span id="gameVidasEl">❤️❤️❤️</span>
             <span>⭐ <span id="gameScore">0</span></span>
             <span>🏆 <span id="gameRecord">0</span></span>
         </div>
-        <canvas id="gameCanvas" width="420" height="500"></canvas>
+        <canvas id="gameCanvas"></canvas>
+        <div id="gameMsgEl">Desvie dos ☄️ e colete 💖!</div>
         <div class="game-btns">
             <button class="gbtn primary" id="gameBtnStart" onclick="gameStart()">▶ Iniciar</button>
             <button class="gbtn" onclick="fecharGame()">✕ Fechar</button>
         </div>
-        <div id="gameMsg2" style="font-size:11px;color:rgba(255,255,255,.3);margin-top:-8px">
-            Toque/Clique para mover · Espaço para escudo
-        </div>
+        <div class="game-hint">Mova o dedo/mouse · Incline o celular · Espaço = escudo (5s cooldown)</div>
     </div>
 
-    <script>
-        // ════════════════════════
-        //  ESTADO GLOBAL
-        // ════════════════════════
-        const $ = id => document.getElementById(id);
-        const audio = $('audio');
-        const video = $('bgVideo');
-        const canvas = $('particleCanvas');
-        const ctx = canvas.getContext('2d');
+    <audio id="audioCustom" loop></audio>
 
-        let config = {
-            tema: 'galaxia', particula: 'star',
-            velocidade: 1, corDestaque: '#ff2d87',
-            nome: '', mensagem: '', emoji: '💌'
-        };
+    <script>
+        // ═══════════════════════════════════════
+        //  ESTADO
+        // ═══════════════════════════════════════
+        const $ = id => document.getElementById(id);
+        const pCanvas = $('particleCanvas');
+        const pCtx = pCanvas.getContext('2d');
+        const audioCustom = $('audioCustom');
+        const video = $('bgVideo');
+
+        // Web Audio para música de fundo gerada
+        let audioCtx = null, bgNodes = [], bgGain = null;
+        let customAudioActive = false;
+        let ytPlayer = null, ytReady = false;
+        let musicaTocando = false;
+
+        let config = { tema: 'galaxia', velocidade: 1, corDestaque: '#ff2d87', nome: '', mensagem: '', emoji: '💌' };
         let particulas = [];
         let cartaAberta = false;
-        let musicaTocando = false;
-        let ytPlayer = null, ytReady = false;
         let emojiAtual = '💌';
 
-        // ════════════════════════
-        //  CANVAS RESIZE
-        // ════════════════════════
-        function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
-        window.addEventListener('resize', () => { resize(); criarParticulas(); });
-        resize();
-
-        // ════════════════════════
+        // ═══════════════════════════════════════
         //  TEMAS
-        // ════════════════════════
+        // ═══════════════════════════════════════
         const temas = {
             galaxia: {
-                overlay: 'radial-gradient(ellipse at 30% 50%,rgba(30,0,80,.93),rgba(0,0,18,.98))',
+                overlay: 'radial-gradient(ellipse at 30% 50%,rgba(20,0,70,.95),rgba(0,0,14,.98))',
                 cores: ['#fff', '#b388ff', '#7c4dff', '#e040fb', '#40c4ff', '#fff9c4', '#ce93d8'],
-                modo: 'warp'
+                modo: 'warp',
+                burst: 'galaxy', // tipo de explosão
+                musicType: 'space'
             },
             romantico: {
-                overlay: 'radial-gradient(ellipse at 50% 80%,rgba(80,0,40,.93),rgba(18,0,18,.98))',
+                overlay: 'radial-gradient(ellipse at 50% 80%,rgba(75,0,38,.94),rgba(16,0,16,.98))',
                 cores: ['#ff69b4', '#ff2d87', '#ff9999', '#ffb3d9', '#fff', '#ffcdd2', '#f48fb1'],
-                modo: 'float'
+                modo: 'float',
+                burst: 'hearts',
+                musicType: 'piano'
             },
             oceano: {
-                overlay: 'radial-gradient(ellipse at 50% 0%,rgba(0,20,60,.93),rgba(0,4,28,.98))',
-                cores: ['#00e5ff', '#00bcd4', '#80deea', '#fff', '#b2ebf2', '#e0f7fa', '#4dd0e1'],
-                modo: 'float'
+                overlay: 'radial-gradient(ellipse at 50% 0%,rgba(0,18,55,.94),rgba(0,3,24,.98))',
+                cores: ['#00e5ff', '#00bcd4', '#80deea', '#fff', '#b2ebf2', '#4dd0e1', '#006064'],
+                modo: 'float',
+                burst: 'bubbles',
+                musicType: 'ocean'
+            },
+            neve: {
+                overlay: 'radial-gradient(ellipse at 50% 0%,rgba(30,40,70,.93),rgba(8,10,28,.98))',
+                cores: ['#fff', '#e0f4ff', '#b3d9f5', '#cce8f4', '#ddeeff', '#f0f8ff', '#aad4f0'],
+                modo: 'snow',
+                burst: 'snowflakes',
+                musicType: 'winter'
             }
         };
 
-        // ════════════════════════
-        //  PARTÍCULAS
-        // ════════════════════════
+        // ═══════════════════════════════════════
+        //  WEB AUDIO — MÚSICAS PROCEDURAIS POR TEMA
+        // ═══════════════════════════════════════
+        function initAudio() {
+            if (audioCtx) return;
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+
+        function stopBgMusic() {
+            bgNodes.forEach(n => { try { n.stop(); } catch (e) { } });
+            bgNodes = [];
+            if (bgGain) { bgGain.disconnect(); bgGain = null; }
+        }
+
+        function startBgMusic(type) {
+            if (customAudioActive) return;
+            stopBgMusic();
+            if (!audioCtx) return;
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+
+            bgGain = audioCtx.createGain();
+            bgGain.gain.value = 0;
+            bgGain.connect(audioCtx.destination);
+            bgGain.gain.linearRampToValueAtTime(.18, audioCtx.currentTime + 2);
+
+            if (type === 'space') playSpaceAmbience();
+            else if (type === 'piano') playPianoAmbience();
+            else if (type === 'ocean') playOceanAmbience();
+            else if (type === 'winter') playWinterAmbience();
+
+            // Mostra info
+            $('musicaInfo').classList.add('visivel');
+            const labels = { space: '🌌 Espaço', piano: '🎹 Piano Romântico', ocean: '🌊 Oceano', winter: '❄️ Neve' };
+            $('musicaLabel').textContent = labels[type] || 'Tocando';
+            const panel = $('musicStatusPanel');
+            if (panel) { panel.style.display = 'flex'; $('musicStatusLabel').textContent = labels[type] || 'Tocando'; }
+            musicaTocando = true;
+        }
+
+        // ─── SPACE: drones + pulsos alienígenas ───
+        function playSpaceAmbience() {
+            const now = audioCtx.currentTime;
+            // Drone base
+            [55, 82.4, 110].forEach((f, i) => {
+                const o = audioCtx.createOscillator();
+                const g = audioCtx.createGain();
+                o.type = 'sine'; o.frequency.value = f;
+                g.gain.value = .04 / (i + 1);
+                o.connect(g); g.connect(bgGain);
+                o.start(now); bgNodes.push(o); bgNodes.push(g);
+            });
+            // Pulso etéreo
+            function pulse() {
+                if (!bgGain) return;
+                const o = audioCtx.createOscillator();
+                const g = audioCtx.createGain();
+                const freq = 220 + Math.random() * 660;
+                o.type = 'sine'; o.frequency.value = freq;
+                g.gain.setValueAtTime(0, audioCtx.currentTime);
+                g.gain.linearRampToValueAtTime(.025, audioCtx.currentTime + .5);
+                g.gain.exponentialRampToValueAtTime(.001, audioCtx.currentTime + 4);
+                o.connect(g); g.connect(bgGain);
+                o.start(audioCtx.currentTime);
+                o.stop(audioCtx.currentTime + 4.5);
+                bgNodes.push(o); bgNodes.push(g);
+                setTimeout(pulse, 2000 + Math.random() * 4000);
+            }
+            setTimeout(pulse, 1000);
+            // Reverb noise suave
+            const buf = audioCtx.createBuffer(1, audioCtx.sampleRate * 4, audioCtx.sampleRate);
+            const data = buf.getChannelData(0);
+            for (let i = 0; i < data.length; i++)data[i] = (Math.random() * 2 - 1) * .012;
+            const src = audioCtx.createBufferSource();
+            const filt = audioCtx.createBiquadFilter();
+            src.buffer = buf; src.loop = true;
+            filt.type = 'lowpass'; filt.frequency.value = 280;
+            src.connect(filt); filt.connect(bgGain);
+            src.start(); bgNodes.push(src); bgNodes.push(filt);
+        }
+
+        // ─── PIANO: melodia simples em loop ───
+        function playPianoAmbience() {
+            // Notas de C maior (pentatônica) em Hz
+            const notes = [261.63, 293.66, 329.63, 392, 440, 523.25, 587.33, 659.25];
+            const pattern = [0, 2, 4, 7, 4, 2, 0, 4, 2, 7, 4, 0]; // índices
+            let idx = 0;
+            function playNote() {
+                if (!bgGain) return;
+                const o = audioCtx.createOscillator();
+                const g = audioCtx.createGain();
+                // Piano sintético: onda triangular + fade
+                o.type = 'triangle';
+                o.frequency.value = notes[pattern[idx % pattern.length]] * (idx % 24 < 12 ? 1 : .5);
+                idx++;
+                const t = audioCtx.currentTime;
+                g.gain.setValueAtTime(0, t);
+                g.gain.linearRampToValueAtTime(.06, t + .04);
+                g.gain.exponentialRampToValueAtTime(.001, t + 2.2);
+                o.connect(g); g.connect(bgGain);
+                o.start(t); o.stop(t + 2.5);
+                bgNodes.push(o); bgNodes.push(g);
+                setTimeout(playNote, 600 + Math.random() * 400);
+            }
+            // Pad suave
+            [130.8, 164.8, 196].forEach(f => {
+                const o = audioCtx.createOscillator();
+                const g = audioCtx.createGain();
+                o.type = 'sine'; o.frequency.value = f;
+                g.gain.value = .025;
+                o.connect(g); g.connect(bgGain);
+                o.start(); bgNodes.push(o); bgNodes.push(g);
+            });
+            playNote();
+        }
+
+        // ─── OCEAN: ondas + vento ───
+        function playOceanAmbience() {
+            // White noise filtrado = ondas
+            const buf = audioCtx.createBuffer(1, audioCtx.sampleRate * 8, audioCtx.sampleRate);
+            const data = buf.getChannelData(0);
+            for (let i = 0; i < data.length; i++)data[i] = Math.random() * 2 - 1;
+            const src = audioCtx.createBufferSource();
+            src.buffer = buf; src.loop = true;
+            const filt = audioCtx.createBiquadFilter();
+            filt.type = 'bandpass'; filt.frequency.value = 400; filt.Q.value = .8;
+            const lfo = audioCtx.createOscillator();
+            const lfoG = audioCtx.createGain();
+            lfo.frequency.value = .12; lfo.type = 'sine';
+            lfoG.gain.value = 200;
+            lfo.connect(lfoG); lfoG.connect(filt.frequency);
+            const waveG = audioCtx.createGain(); waveG.gain.value = .18;
+            src.connect(filt); filt.connect(waveG); waveG.connect(bgGain);
+            src.start(); lfo.start();
+            bgNodes.push(src, filt, lfo, lfoG, waveG);
+            // Drone marinho
+            const o = audioCtx.createOscillator();
+            const g = audioCtx.createGain();
+            o.type = 'sine'; o.frequency.value = 82; g.gain.value = .04;
+            o.connect(g); g.connect(bgGain); o.start(); bgNodes.push(o, g);
+            // Gotas/bolhas ocasionais
+            function drop() {
+                if (!bgGain) return;
+                const o2 = audioCtx.createOscillator(); const g2 = audioCtx.createGain();
+                o2.frequency.setValueAtTime(800 + Math.random() * 400, audioCtx.currentTime);
+                o2.frequency.exponentialRampToValueAtTime(200, audioCtx.currentTime + .5);
+                g2.gain.setValueAtTime(0, audioCtx.currentTime);
+                g2.gain.linearRampToValueAtTime(.03, audioCtx.currentTime + .05);
+                g2.gain.exponentialRampToValueAtTime(.001, audioCtx.currentTime + .6);
+                o2.connect(g2); g2.connect(bgGain); o2.start(); o2.stop(audioCtx.currentTime + .7);
+                bgNodes.push(o2, g2);
+                setTimeout(drop, 1500 + Math.random() * 3000);
+            }
+            drop();
+        }
+
+        // ─── WINTER: vento suave + sino ───
+        function playWinterAmbience() {
+            // Vento (ruído filtrado)
+            const buf = audioCtx.createBuffer(1, audioCtx.sampleRate * 6, audioCtx.sampleRate);
+            const data = buf.getChannelData(0);
+            for (let i = 0; i < data.length; i++)data[i] = (Math.random() * 2 - 1) * .7;
+            const src = audioCtx.createBufferSource(); src.buffer = buf; src.loop = true;
+            const filt = audioCtx.createBiquadFilter(); filt.type = 'highpass'; filt.frequency.value = 1200;
+            const wG = audioCtx.createGain(); wG.gain.value = .06;
+            // LFO para vento
+            const lfo = audioCtx.createOscillator(); const lfoG = audioCtx.createGain();
+            lfo.frequency.value = .08; lfo.type = 'sine'; lfoG.gain.value = .04;
+            lfo.connect(lfoG); lfoG.connect(wG.gain);
+            src.connect(filt); filt.connect(wG); wG.connect(bgGain);
+            src.start(); lfo.start(); bgNodes.push(src, filt, wG, lfo, lfoG);
+            // Sinos cristalinos
+            const sNotes = [1046.5, 1174.7, 1318.5, 1396.9, 1568];
+            function sino() {
+                if (!bgGain) return;
+                const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
+                o.type = 'sine'; o.frequency.value = sNotes[Math.floor(Math.random() * sNotes.length)];
+                const t = audioCtx.currentTime;
+                g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(.04, t + .02);
+                g.gain.exponentialRampToValueAtTime(.001, t + 3);
+                o.connect(g); g.connect(bgGain); o.start(t); o.stop(t + 3.2);
+                bgNodes.push(o, g);
+                setTimeout(sino, 1800 + Math.random() * 3500);
+            }
+            sino();
+            // Drone frio
+            const d = audioCtx.createOscillator(); const dG = audioCtx.createGain();
+            d.type = 'sine'; d.frequency.value = 220; dG.gain.value = .025;
+            d.connect(dG); dG.connect(bgGain); d.start(); bgNodes.push(d, dG);
+        }
+
+        // ═══════════════════════════════════════
+        //  CANVAS PARTÍCULAS
+        // ═══════════════════════════════════════
+        function resize() { pCanvas.width = innerWidth; pCanvas.height = innerHeight; }
+        window.addEventListener('resize', () => { resize(); criarParticulas(); });
+        resize();
+
         function criarParticulas() {
             particulas = [];
             const t = temas[config.tema];
-            const n = config.particula === 'heart' ? 55 : 130;
+            const n = config.tema === 'neve' ? 120 : (config.tema === 'romantico' ? 60 : 130);
             for (let i = 0; i < n; i++) {
                 particulas.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    z: Math.random() * canvas.width,
-                    vx: (Math.random() - .5) * .4,
-                    vy: -Math.random() * .5 - .1,
-                    size: Math.random() * 2.8 + .8,
+                    x: Math.random() * pCanvas.width, y: Math.random() * pCanvas.height,
+                    z: Math.random() * pCanvas.width,
+                    vx: (Math.random() - .5) * .4, vy: -Math.random() * .6 - .1,
+                    size: Math.random() * 2.8 + .7,
                     cor: t.cores[Math.floor(Math.random() * t.cores.length)],
-                    alpha: Math.random() * .6 + .35,
-                    tw: Math.random() * Math.PI * 2,
-                    tws: Math.random() * .03 + .008
+                    alpha: Math.random() * .6 + .3,
+                    tw: Math.random() * Math.PI * 2, tws: Math.random() * .03 + .007,
+                    // Para neve: flocos
+                    rot: Math.random() * Math.PI * 2, rotS: (Math.random() - .5) * .02,
+                    swing: Math.random() * Math.PI * 2, swingS: Math.random() * .02 + .005
                 });
             }
         }
 
         function drawStar(x, y, r, c, a) {
-            ctx.save(); ctx.globalAlpha = a; ctx.fillStyle = c;
-            ctx.shadowColor = c; ctx.shadowBlur = r * 5;
-            ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+            pCtx.save(); pCtx.globalAlpha = a; pCtx.fillStyle = c;
+            pCtx.shadowColor = c; pCtx.shadowBlur = r * 5;
+            pCtx.beginPath(); pCtx.arc(x, y, r, 0, Math.PI * 2); pCtx.fill();
             if (r > 1.8) {
-                ctx.globalAlpha = a * .32; ctx.strokeStyle = c; ctx.lineWidth = .4;
-                const l = r * 5; ctx.beginPath();
-                ctx.moveTo(x - l, y); ctx.lineTo(x + l, y);
-                ctx.moveTo(x, y - l); ctx.lineTo(x, y + l); ctx.stroke();
+                pCtx.globalAlpha = a * .28; pCtx.strokeStyle = c; pCtx.lineWidth = .4;
+                const l = r * 5; pCtx.beginPath(); pCtx.moveTo(x - l, y); pCtx.lineTo(x + l, y); pCtx.moveTo(x, y - l); pCtx.lineTo(x, y + l); pCtx.stroke();
             }
-            ctx.restore();
+            pCtx.restore();
         }
         function drawHeart(x, y, s, c, a) {
-            ctx.save(); ctx.globalAlpha = a; ctx.fillStyle = c;
-            ctx.shadowColor = c; ctx.shadowBlur = s * 3;
-            ctx.translate(x, y); ctx.scale(s / 12, s / 12);
-            ctx.beginPath(); ctx.moveTo(0, -3);
-            ctx.bezierCurveTo(0, -6, -6, -6, -6, -2);
-            ctx.bezierCurveTo(-6, 3, 0, 6, 0, 9);
-            ctx.bezierCurveTo(0, 6, 6, 3, 6, -2);
-            ctx.bezierCurveTo(6, -6, 0, -6, 0, -3);
-            ctx.fill(); ctx.restore();
+            pCtx.save(); pCtx.globalAlpha = a; pCtx.fillStyle = c; pCtx.shadowColor = c; pCtx.shadowBlur = s * 3;
+            pCtx.translate(x, y); pCtx.scale(s / 12, s / 12);
+            pCtx.beginPath(); pCtx.moveTo(0, -3);
+            pCtx.bezierCurveTo(0, -6, -6, -6, -6, -2); pCtx.bezierCurveTo(-6, 3, 0, 6, 0, 9);
+            pCtx.bezierCurveTo(0, 6, 6, 3, 6, -2); pCtx.bezierCurveTo(6, -6, 0, -6, 0, -3);
+            pCtx.fill(); pCtx.restore();
         }
         function drawCircle(x, y, r, c, a) {
-            ctx.save(); ctx.globalAlpha = a * .5; ctx.strokeStyle = c;
-            ctx.lineWidth = .8; ctx.shadowColor = c; ctx.shadowBlur = r * 3;
-            ctx.beginPath(); ctx.arc(x, y, r * 2.5, 0, Math.PI * 2); ctx.stroke();
-            ctx.globalAlpha = a * .12; ctx.fillStyle = c; ctx.fill(); ctx.restore();
+            pCtx.save(); pCtx.globalAlpha = a * .45; pCtx.strokeStyle = c; pCtx.lineWidth = .8;
+            pCtx.shadowColor = c; pCtx.shadowBlur = r * 3;
+            pCtx.beginPath(); pCtx.arc(x, y, r * 2.5, 0, Math.PI * 2); pCtx.stroke();
+            pCtx.globalAlpha = a * .1; pCtx.fillStyle = c; pCtx.fill(); pCtx.restore();
         }
-        function drawSnow(x, y, r, c, a) {
-            ctx.save(); ctx.globalAlpha = a; ctx.strokeStyle = c; ctx.lineWidth = .7;
-            ctx.translate(x, y);
-            for (let i = 0; i < 6; i++) { ctx.rotate(Math.PI / 3); ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(0, r * 3); ctx.stroke(); }
-            ctx.restore();
+        function drawSnowflake(x, y, r, c, a, rot) {
+            pCtx.save(); pCtx.globalAlpha = a; pCtx.strokeStyle = c; pCtx.lineWidth = .8;
+            pCtx.shadowColor = c; pCtx.shadowBlur = 4;
+            pCtx.translate(x, y); pCtx.rotate(rot);
+            for (let i = 0; i < 6; i++) {
+                pCtx.rotate(Math.PI / 3); pCtx.beginPath(); pCtx.moveTo(0, 0); pCtx.lineTo(0, r * 3.5); pCtx.stroke();
+                // Raminhos
+                pCtx.beginPath(); pCtx.moveTo(0, r); pCtx.lineTo(r * .7, r * .3); pCtx.stroke();
+                pCtx.beginPath(); pCtx.moveTo(0, r); pCtx.lineTo(-r * .7, r * .3); pCtx.stroke();
+            }
+            pCtx.restore();
+        }
+        function drawBubble(x, y, r, c, a) {
+            pCtx.save(); pCtx.globalAlpha = a * .35;
+            const g = pCtx.createRadialGradient(x - r * .3, y - r * .3, r * .1, x, y, r * 2.5);
+            g.addColorStop(0, 'rgba(255,255,255,.6)'); g.addColorStop(.5, c + '44'); g.addColorStop(1, c + '11');
+            pCtx.fillStyle = g; pCtx.beginPath(); pCtx.arc(x, y, r * 2.5, 0, Math.PI * 2); pCtx.fill();
+            pCtx.globalAlpha = a * .5; pCtx.strokeStyle = c; pCtx.lineWidth = .7; pCtx.stroke(); pCtx.restore();
         }
 
         function animarParticulas() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            pCtx.clearRect(0, 0, pCanvas.width, pCanvas.height);
             const modo = temas[config.tema].modo;
             particulas.forEach(p => {
                 p.tw += p.tws;
                 const tw = Math.sin(p.tw) * .3 + .7;
-                if (modo === 'warp' && config.particula === 'star') {
+                if (modo === 'warp') {
                     p.z -= config.velocidade * 2.2;
-                    if (p.z <= 0) { p.z = canvas.width; p.x = Math.random() * canvas.width; p.y = Math.random() * canvas.height; }
-                    const sc = canvas.width / p.z;
-                    const sx = (p.x - canvas.width / 2) * sc + canvas.width / 2;
-                    const sy = (p.y - canvas.height / 2) * sc + canvas.height / 2;
+                    if (p.z <= 0) { p.z = pCanvas.width; p.x = Math.random() * pCanvas.width; p.y = Math.random() * pCanvas.height; }
+                    const sc = pCanvas.width / p.z;
+                    const sx = (p.x - pCanvas.width / 2) * sc + pCanvas.width / 2;
+                    const sy = (p.y - pCanvas.height / 2) * sc + pCanvas.height / 2;
                     const sr = Math.max(.4, p.size * sc * .45);
-                    if (sx > -10 && sx < canvas.width + 10 && sy > -10 && sy < canvas.height + 10)
+                    if (sx > -10 && sx < pCanvas.width + 10 && sy > -10 && sy < pCanvas.height + 10)
                         drawStar(sx, sy, sr, p.cor, p.alpha * tw);
+                } else if (modo === 'snow') {
+                    p.swing += p.swingS;
+                    p.x += Math.sin(p.swing) * .8 * config.velocidade;
+                    p.y += p.vy * config.velocidade * .4;
+                    p.rot += p.rotS;
+                    if (p.y < -30) { p.y = pCanvas.height + 30; p.x = Math.random() * pCanvas.width; }
+                    drawSnowflake(p.x, p.y, p.size, p.cor, p.alpha * tw, p.rot);
                 } else {
                     p.x += p.vx * config.velocidade; p.y += p.vy * config.velocidade;
-                    if (p.y < -25) { p.y = canvas.height + 25; p.x = Math.random() * canvas.width; }
-                    if (p.x < -25) p.x = canvas.width + 25; if (p.x > canvas.width + 25) p.x = -25;
-                    if (config.particula === 'star') drawStar(p.x, p.y, p.size, p.cor, p.alpha * tw);
-                    else if (config.particula === 'heart') drawHeart(p.x, p.y, p.size * 3.5, p.cor, p.alpha * tw);
-                    else if (config.particula === 'circle') drawCircle(p.x, p.y, p.size, p.cor, p.alpha * tw);
-                    else if (config.particula === 'snow') drawSnow(p.x, p.y, p.size, p.cor, p.alpha * tw);
+                    if (p.y < -25) { p.y = pCanvas.height + 25; p.x = Math.random() * pCanvas.width; }
+                    if (p.x < -25) p.x = pCanvas.width + 25; if (p.x > pCanvas.width + 25) p.x = -25;
+                    if (config.tema === 'romantico') drawHeart(p.x, p.y, p.size * 3.5, p.cor, p.alpha * tw);
+                    else if (config.tema === 'oceano') drawBubble(p.x, p.y, p.size, p.cor, p.alpha * tw);
+                    else drawStar(p.x, p.y, p.size, p.cor, p.alpha * tw);
                 }
             });
             requestAnimationFrame(animarParticulas);
         }
 
-        // ════════════════════════
-        //  FLOATING USERNAME
-        //  Passa como estrela 3D
-        // ════════════════════════
-        function spawnUsername() {
-            const el = document.createElement('div');
-            el.className = 'floating-username';
-            el.textContent = '@biel_medeiros48';
-            // Posição inicial: borda lateral ou superior
-            const side = Math.random();
-            let startX, startY;
-            if (side < .5) { startX = -200; startY = Math.random() * innerHeight; }
-            else { startX = Math.random() * innerWidth; startY = -40; }
-            el.style.left = startX + 'px';
-            el.style.top = startY + 'px';
-            const dur = 8 + Math.random() * 10;
-            // Move para o lado oposto, simulando perspectiva
-            const tx = (Math.random() - .3) * innerWidth * 1.5;
-            const ty = (Math.random() - .3) * innerHeight * 1.5;
-            const scale = .4 + Math.random() * .7;
-            el.style.setProperty('--ux', tx + 'px');
-            el.style.setProperty('--uy', ty + 'px');
-            el.style.setProperty('--us', scale);
-            el.style.animationDuration = dur + 's';
-            document.body.appendChild(el);
-            setTimeout(() => el.remove(), (dur + .5) * 1000);
-        }
-        // Spawn periódico
-        setInterval(spawnUsername, 7000);
-        setTimeout(spawnUsername, 2000);
-
-        // ════════════════════════
-        //  EXPLOSÃO CARTA (shards SVG → corações coloridos)
-        // ════════════════════════
-        function explodir_carta() {
+        // ═══════════════════════════════════════
+        //  EXPLOSÕES POR TEMA
+        // ═══════════════════════════════════════
+        function explodir(fromCarta = false) {
             const cx = innerWidth / 2, cy = innerHeight / 2;
+            const tipo = temas[config.tema].burst;
             const cor = config.corDestaque || '#ff2d87';
 
-            // Gera corações coloridos que saem da posição da carta
-            // Cores derivadas da cor de destaque + variações
-            const cores = gerarVariacoesCor(cor, 6);
-            const emojis = ['💖', '💗', '💝', '💕', '💞'];
-
-            // Fase 1: carta cresce e vira shards (retângulos rosas)
-            for (let i = 0; i < 18; i++) {
-                const shard = document.createElement('div');
-                shard.className = 'card-shard';
-                const ang = (i / 18) * Math.PI * 2;
-                const dist = 180 + Math.random() * 260;
-                const rot = (Math.random() - .5) * 720;
-                const dur = .9 + Math.random() * .7;
-                // Usar corações SVG como shards
-                shard.innerHTML = `<svg width="${14 + Math.random() * 12}" height="${14 + Math.random() * 12}" viewBox="0 0 20 18">
-      <path d="M10,15 C10,15 2,9 2,5 C2,2.5 4,1 6,1 C7.5,1 9,2 10,3.5 C11,2 12.5,1 14,1 C16,1 18,2.5 18,5 C18,9 10,15 10,15Z" fill="${cores[i % cores.length]}" opacity=".9"/>
-    </svg>`;
-                shard.style.left = cx + 'px'; shard.style.top = cy + 'px';
-                shard.style.setProperty('--dx', Math.cos(ang) * dist + (Math.random() - .5) * 60 + 'px');
-                shard.style.setProperty('--dy', Math.sin(ang) * dist - 50 + 'px');
-                shard.style.setProperty('--rot', rot + 'deg');
-                shard.style.setProperty('--dur', dur + 's');
-                document.body.appendChild(shard);
-                setTimeout(() => shard.remove(), (dur + .2) * 1000);
+            if (tipo === 'galaxy') {
+                // Estrelas e pontos de luz dourados
+                const cols = ['#fff', '#ffe082', '#b388ff', '#80d8ff', '#f48fb1', '#e1bee7'];
+                for (let i = 0; i < 60; i++) {
+                    setTimeout(() => {
+                        const el = document.createElement('div');
+                        el.className = 'heart-particle';
+                        const ang = Math.random() * Math.PI * 2;
+                        const d1 = 60 + Math.random() * 120, d2 = 180 + Math.random() * 500;
+                        const dur = 1.2 + Math.random() * 1.8, sz = 6 + Math.random() * 18;
+                        const c = cols[Math.floor(Math.random() * cols.length)];
+                        el.innerHTML = `<svg width="${sz}" height="${sz}" viewBox="0 0 20 20"><polygon points="10,2 11.8,8 18,8 12.9,11.8 14.7,18 10,14.2 5.3,18 7.1,11.8 2,8 8.2,8" fill="${c}" opacity=".92"/></svg>`;
+                        el.style.setProperty('--dur', dur + 's'); el.style.setProperty('--sz', sz + 'px');
+                        el.style.setProperty('--dx15', Math.cos(ang) * d1 + 'px'); el.style.setProperty('--dy15', Math.sin(ang) * d1 + 'px');
+                        el.style.setProperty('--dx', Math.cos(ang) * d2 + (Math.random() - .5) * 80 + 'px'); el.style.setProperty('--dy', Math.sin(ang) * d2 - 60 + 'px');
+                        el.style.setProperty('--rot', (Math.random() - .5) * 720 + 'deg');
+                        el.style.left = (cx + (Math.random() - .5) * 30) + 'px'; el.style.top = (cy + (Math.random() - .5) * 30) + 'px';
+                        document.body.appendChild(el); setTimeout(() => el.remove(), (dur + .3) * 1000);
+                    }, i * 25);
+                }
+                // Anel burst
+                const ring = document.createElement('div'); ring.className = 'burst-ring';
+                ring.style.background = 'radial-gradient(circle,rgba(200,170,255,.9),rgba(100,60,200,.15))';
+                document.body.appendChild(ring); setTimeout(() => ring.remove(), 950);
             }
-
-            // Fase 2: emojis maiores voando
-            for (let i = 0; i < 40; i++) {
-                setTimeout(() => {
-                    const el = document.createElement('div');
-                    el.className = 'heart-particle';
-                    const ang = Math.random() * Math.PI * 2;
-                    const d1 = 60 + Math.random() * 100, d2 = 200 + Math.random() * 420;
-                    const dur = 1.2 + Math.random() * 1.4, sz = 14 + Math.random() * 24;
-                    el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-                    el.style.setProperty('--dur', dur + 's'); el.style.setProperty('--sz', sz + 'px');
-                    el.style.setProperty('--dx15', Math.cos(ang) * d1 + 'px');
-                    el.style.setProperty('--dy15', Math.sin(ang) * d1 + 'px');
-                    el.style.setProperty('--dx', Math.cos(ang) * d2 + (Math.random() - .5) * 80 + 'px');
-                    el.style.setProperty('--dy', Math.sin(ang) * d2 - 60 + 'px');
-                    el.style.setProperty('--rot', (Math.random() - .5) * 360 + 'deg');
-                    el.style.left = cx + 'px'; el.style.top = cy + 'px';
-                    document.body.appendChild(el);
-                    setTimeout(() => el.remove(), (dur + .3) * 1000);
-                }, i * 28);
+            else if (tipo === 'hearts') {
+                const heartCols = ['#ff69b4', '#ff2d87', '#ff9999', '#ffb3d9', '#fff', '#ffcdd2', '#f48fb1', '#ff4081'];
+                for (let w = 0; w < 3; w++) {
+                    setTimeout(() => {
+                        for (let i = 0; i < 20; i++) {
+                            setTimeout(() => {
+                                const el = document.createElement('div'); el.className = 'heart-particle';
+                                const ang = Math.random() * Math.PI * 2;
+                                const d1 = 70 + Math.random() * 130, d2 = 200 + Math.random() * 440;
+                                const dur = 1.4 + Math.random() * 1.6, sz = 12 + Math.random() * 28;
+                                const hc = heartCols[Math.floor(Math.random() * heartCols.length)];
+                                el.innerHTML = `<svg width="${sz}" height="${sz * .9}" viewBox="0 0 20 18"><path d="M10,15 C10,15 2,9 2,5 C2,2.2 4,1 6,1 C7.6,1 9,2 10,3.5 C11,2 12.4,1 14,1 C16,1 18,2.2 18,5 C18,9 10,15 10,15Z" fill="${hc}"/></svg>`;
+                                el.style.setProperty('--dur', dur + 's'); el.style.setProperty('--sz', sz + 'px');
+                                el.style.setProperty('--dx15', Math.cos(ang) * d1 + 'px'); el.style.setProperty('--dy15', Math.sin(ang) * d1 + 'px');
+                                el.style.setProperty('--dx', Math.cos(ang) * d2 + (Math.random() - .5) * 100 + 'px'); el.style.setProperty('--dy', Math.sin(ang) * d2 - 70 + 'px');
+                                el.style.setProperty('--rot', (Math.random() - .5) * 360 + 'deg');
+                                el.style.left = (cx + (Math.random() - .5) * 50) + 'px'; el.style.top = (cy + (Math.random() - .5) * 50) + 'px';
+                                document.body.appendChild(el); setTimeout(() => el.remove(), (dur + .3) * 1000);
+                            }, i * 30);
+                        }
+                    }, w * 240);
+                }
+                const ring = document.createElement('div'); ring.className = 'burst-ring';
+                ring.style.background = 'radial-gradient(circle,rgba(255,200,220,.9),rgba(255,45,135,.1))';
+                document.body.appendChild(ring); setTimeout(() => ring.remove(), 900);
+            }
+            else if (tipo === 'bubbles') {
+                // Bolhas e gotas azuis
+                for (let i = 0; i < 50; i++) {
+                    setTimeout(() => {
+                        const el = document.createElement('div'); el.className = 'heart-particle';
+                        const ang = Math.random() * Math.PI * 2;
+                        const d1 = 50 + Math.random() * 110, d2 = 160 + Math.random() * 420;
+                        const dur = 1.3 + Math.random() * 1.8, sz = 10 + Math.random() * 22;
+                        const op = .5 + Math.random() * .5;
+                        el.innerHTML = `<svg width="${sz}" height="${sz}" viewBox="0 0 30 30"><circle cx="15" cy="15" r="13" fill="none" stroke="rgba(0,220,255,${op})" stroke-width="1.5"/><circle cx="10" cy="9" r="3" fill="rgba(255,255,255,.25)"/></svg>`;
+                        el.style.setProperty('--dur', dur + 's'); el.style.setProperty('--sz', sz + 'px');
+                        el.style.setProperty('--dx15', Math.cos(ang) * d1 + 'px'); el.style.setProperty('--dy15', Math.sin(ang) * d1 + 'px');
+                        el.style.setProperty('--dx', Math.cos(ang) * d2 + (Math.random() - .5) * 60 + 'px'); el.style.setProperty('--dy', Math.sin(ang) * d2 - 50 + 'px');
+                        el.style.setProperty('--rot', (Math.random() - .5) * 180 + 'deg');
+                        el.style.left = cx + 'px'; el.style.top = cy + 'px';
+                        document.body.appendChild(el); setTimeout(() => el.remove(), (dur + .3) * 1000);
+                    }, i * 28);
+                }
+                const ring = document.createElement('div'); ring.className = 'burst-ring';
+                ring.style.background = 'radial-gradient(circle,rgba(100,240,255,.85),rgba(0,150,200,.08))';
+                document.body.appendChild(ring); setTimeout(() => ring.remove(), 900);
+            }
+            else if (tipo === 'snowflakes') {
+                // Flocos de neve
+                for (let i = 0; i < 48; i++) {
+                    setTimeout(() => {
+                        const el = document.createElement('div'); el.className = 'heart-particle';
+                        const ang = Math.random() * Math.PI * 2;
+                        const d1 = 55 + Math.random() * 100, d2 = 150 + Math.random() * 380;
+                        const dur = 1.6 + Math.random() * 2, sz = 14 + Math.random() * 20;
+                        el.innerHTML = `<svg width="${sz}" height="${sz}" viewBox="0 0 30 30" style="opacity:.9"><line x1="15" y1="2" x2="15" y2="28" stroke="white" stroke-width="1.5"/><line x1="2" y1="15" x2="28" y2="15" stroke="white" stroke-width="1.5"/><line x1="5" y1="5" x2="25" y2="25" stroke="white" stroke-width="1.2"/><line x1="25" y1="5" x2="5" y2="25" stroke="white" stroke-width="1.2"/></svg>`;
+                        el.style.setProperty('--dur', dur + 's'); el.style.setProperty('--sz', sz + 'px');
+                        el.style.setProperty('--dx15', Math.cos(ang) * d1 + 'px'); el.style.setProperty('--dy15', Math.sin(ang) * d1 + 'px');
+                        el.style.setProperty('--dx', Math.cos(ang) * d2 + (Math.random() - .5) * 70 + 'px'); el.style.setProperty('--dy', Math.sin(ang) * d2 - 40 + 'px');
+                        el.style.setProperty('--rot', (Math.random() - .5) * 540 + 'deg');
+                        el.style.left = cx + 'px'; el.style.top = cy + 'px';
+                        document.body.appendChild(el); setTimeout(() => el.remove(), (dur + .3) * 1000);
+                    }, i * 28);
+                }
+                const ring = document.createElement('div'); ring.className = 'burst-ring';
+                ring.style.background = 'radial-gradient(circle,rgba(230,246,255,.9),rgba(180,220,255,.05))';
+                document.body.appendChild(ring); setTimeout(() => ring.remove(), 900);
             }
         }
 
-        function gerarVariacoesCor(hex, n) {
-            // Retorna n variações de luminosidade/saturação da cor base
-            const result = [];
-            for (let i = 0; i < n; i++) {
-                const t = i / n;
-                // Mistura com branco e rosa
-                result.push(hex);
-                result.push('#fff');
-                result.push('#ffb3d9');
-            }
-            return result.slice(0, n);
-        }
-
-        // ════════════════════════
-        //  ABERTURA CARTA
-        // ════════════════════════
+        // ═══════════════════════════════════════
+        //  ANIMAÇÃO ABERTURA CARTA
+        // ═══════════════════════════════════════
         function iniciarAbertura() {
             if (cartaAberta) return;
             cartaAberta = true;
             $('cartaWrap').style.animation = 'none';
             const scene = $('envelopeScene');
-
-            // Fase 1: tampa abre
             scene.classList.add('abrindo');
 
-            // Fase 2: cresce
             setTimeout(() => {
                 scene.style.transition = 'transform .6s cubic-bezier(.4,0,.2,1),opacity .4s';
-                scene.style.transform = 'scale(1.3)';
-
-                // Fase 3: explosão elegante
+                scene.style.transform = 'scale(1.28)';
                 setTimeout(() => {
-                    // Anel
-                    const ring = document.createElement('div');
-                    ring.className = 'burst-ring';
-                    ring.style.background = 'radial-gradient(circle,rgba(255,255,255,.85),rgba(255,105,180,.2))';
-                    document.body.appendChild(ring);
-                    setTimeout(() => ring.remove(), 900);
-
-                    // Explosão carta → corações
-                    explodir_carta();
-
-                    // Some wrap
+                    explodir(true);
                     const wrap = $('cartaWrap');
                     wrap.style.transition = 'opacity .5s,transform .5s';
                     wrap.style.opacity = '0';
-                    wrap.style.transform = 'translate(-50%,-50%) scale(.35)';
-                    setTimeout(() => { wrap.style.display = 'none'; }, 550);
-
-                    // Mostra conteúdo
+                    wrap.style.transform = 'translate(-50%,-50%) scale(.3)';
+                    setTimeout(() => { wrap.style.display = 'none'; }, 520);
                     setTimeout(() => {
-                        $('container').classList.add('visible');
+                        const cont = $('container');
+                        cont.classList.add('visible');
                         const nome = $('nome').value || config.nome || '';
                         const msg = $('msgTexto').value || config.mensagem || 'Você é incrível e especial ✨';
-                        digitar(nome ? 'Para ' + nome + ' ❤️' : 'Para você 💖', $('titulo'), 52);
-                        setTimeout(() => digitar(msg, $('mensagem'), 36), 820);
-                    }, 260);
-                }, 640);
-            }, 700);
+                        digitar(nome ? 'Para ' + nome + ' ❤️' : 'Para você 💖', $('titulo'), 50);
+                        setTimeout(() => digitar(msg, $('mensagem'), 36), 860);
+                    }, 240);
+                }, 650);
+            }, 720);
         }
 
-        // ════════════════════════
-        //  EXPLOSÃO BOTÃO (mais elegante)
-        // ════════════════════════
-        function explosaoCoracoes() {
-            const cx = innerWidth / 2, cy = innerHeight / 2;
-            const em = ['💖', '💗', '💝', '💕', '✨', '🌸', '💫', '🌺', '💞', '🥰'];
-            const waves = 3;
-            for (let w = 0; w < waves; w++) {
-                setTimeout(() => {
-                    for (let i = 0; i < 18; i++) {
+        // ═══════════════════════════════════════
+        //  RECOMEÇAR — FLUIDO
+        // ═══════════════════════════════════════
+        function reabrirCarta() {
+            // Limpa texto IMEDIATAMENTE antes de mostrar o envelope
+            clearInterval($('titulo')._iv); clearInterval($('mensagem')._iv);
+            $('titulo').innerHTML = ''; $('mensagem').innerHTML = '';
+
+            const cont = $('container');
+            cont.style.transition = 'opacity .4s';
+            cont.style.opacity = '0';
+
+            setTimeout(() => {
+                cont.classList.remove('visible');
+                cont.style.opacity = ''; cont.style.transition = '';
+
+                cartaAberta = false;
+                const wrap = $('cartaWrap');
+                wrap.style.display = 'flex';
+                // Força reflow antes de remover as transições inline
+                wrap.offsetHeight;
+                wrap.style.transition = 'none'; wrap.style.opacity = '0'; wrap.style.transform = 'translate(-50%,-50%) scale(.5)';
+
+                // Anima entrada do envelope
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        wrap.style.transition = 'opacity .6s cubic-bezier(.34,1.56,.64,1),transform .6s cubic-bezier(.34,1.56,.64,1)';
+                        wrap.style.opacity = '1'; wrap.style.transform = 'translate(-50%,-50%) scale(1)';
                         setTimeout(() => {
-                            const el = document.createElement('div');
-                            el.className = 'heart-particle';
-                            const ang = Math.random() * Math.PI * 2;
-                            const d1 = 80 + Math.random() * 140, d2 = 200 + Math.random() * 460;
-                            const dur = 1.5 + Math.random() * 1.6, sz = 14 + Math.random() * 26;
-                            el.textContent = em[Math.floor(Math.random() * em.length)];
-                            el.style.setProperty('--dur', dur + 's'); el.style.setProperty('--sz', sz + 'px');
-                            el.style.setProperty('--dx15', Math.cos(ang) * d1 + 'px');
-                            el.style.setProperty('--dy15', Math.sin(ang) * d1 + 'px');
-                            el.style.setProperty('--dx', Math.cos(ang) * d2 + (Math.random() - .5) * 100 + 'px');
-                            el.style.setProperty('--dy', Math.sin(ang) * d2 - 70 + 'px');
-                            el.style.setProperty('--rot', (Math.random() - .5) * 400 + 'deg');
-                            el.style.left = (cx + (Math.random() - .5) * 50) + 'px';
-                            el.style.top = (cy + (Math.random() - .5) * 50) + 'px';
-                            document.body.appendChild(el);
-                            setTimeout(() => el.remove(), (dur + .3) * 1000);
-                        }, i * 30);
-                    }
-                }, w * 220);
-            }
+                            wrap.style.transform = ''; wrap.style.opacity = ''; wrap.style.transition = '';
+                            wrap.style.animation = 'floatCard 3.5s ease-in-out infinite';
+                        }, 700);
+                    });
+                });
+
+                const scene = $('envelopeScene');
+                scene.classList.remove('abrindo');
+                scene.style.transform = ''; scene.style.opacity = '1'; scene.style.transition = '';
+            }, 420);
         }
 
-        // ════════════════════════
+        // ═══════════════════════════════════════
         //  DIGITAÇÃO
-        // ════════════════════════
+        // ═══════════════════════════════════════
         function digitar(texto, el, vel = 40) {
             el.innerHTML = ''; let i = 0;
             clearInterval(el._iv);
             el._iv = setInterval(() => {
-                el.innerHTML += texto[i]; i++;
-                if (i >= texto.length) clearInterval(el._iv);
+                if (i < texto.length) { el.innerHTML += texto[i]; i++; }
+                else clearInterval(el._iv);
             }, vel);
         }
 
-        // ════════════════════════
+        // ═══════════════════════════════════════
         //  EMOJI PICKER
-        // ════════════════════════
+        // ═══════════════════════════════════════
         document.querySelectorAll('.emoji-opt').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.emoji-opt').forEach(b => b.classList.remove('sel'));
-                btn.classList.add('sel');
-                emojiAtual = btn.dataset.e;
-                $('envEmoji').textContent = emojiAtual;
-                $('envCartaInterna').textContent = emojiAtual;
-                config.emoji = emojiAtual;
+                btn.classList.add('sel'); emojiAtual = btn.dataset.e;
+                $('envEmoji').textContent = emojiAtual; $('envCartaInterna').textContent = emojiAtual; config.emoji = emojiAtual;
             });
         });
 
-        // ════════════════════════
-        //  RECOMEÇAR
-        // ════════════════════════
-        function reabrirCarta() {
-            cartaAberta = false;
-            $('container').classList.remove('visible');
-            $('titulo').innerHTML = ''; $('mensagem').innerHTML = '';
-            const wrap = $('cartaWrap');
-            wrap.style.display = 'flex'; wrap.style.opacity = '1';
-            wrap.style.transform = ''; wrap.style.transition = '';
-            wrap.style.animation = 'floatCard 3.5s ease-in-out infinite';
-            const scene = $('envelopeScene');
-            scene.classList.remove('abrindo');
-            scene.style.transform = ''; scene.style.opacity = '1'; scene.style.transition = '';
-        }
-
-        // ════════════════════════
+        // ═══════════════════════════════════════
         //  YOUTUBE
-        // ════════════════════════
-        function extrairYTid(url) {
-            const m = url.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([A-Za-z0-9_-]{11})/);
-            return m ? m[1] : null;
-        }
+        // ═══════════════════════════════════════
+        function extrairYTid(url) { const m = url.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([A-Za-z0-9_-]{11})/); return m ? m[1] : null; }
         function loadYTApi() {
             return new Promise(res => {
                 if (ytReady) { res(); return; }
                 if (window.YT && window.YT.Player) { ytReady = true; res(); return; }
-                const tag = document.createElement('script');
-                tag.src = 'https://www.youtube.com/iframe_api';
-                document.head.appendChild(tag);
+                const tag = document.createElement('script'); tag.src = 'https://www.youtube.com/iframe_api'; document.head.appendChild(tag);
                 window.onYouTubeIframeAPIReady = () => { ytReady = true; res(); };
             });
         }
         async function tocarYT(videoId) {
             await loadYTApi();
-            if (ytPlayer) { ytPlayer.loadVideoById(videoId); ytPlayer.playVideo(); musicaTocando = true; mostrarMusicaInfo('YouTube 🎵'); }
+            if (ytPlayer) { ytPlayer.loadVideoById(videoId); ytPlayer.playVideo(); }
             else {
                 ytPlayer = new YT.Player('ytPlayer', {
                     height: '1', width: '1', videoId,
                     playerVars: { autoplay: 1, loop: 1, controls: 0, playlist: videoId },
                     events: {
                         onReady(e) { e.target.setVolume(75); e.target.playVideo(); },
-                        onStateChange(e) {
-                            if (e.data === YT.PlayerState.PLAYING) { musicaTocando = true; mostrarMusicaInfo('YouTube 🎵'); }
-                        }
+                        onStateChange(e) { if (e.data === YT.PlayerState.PLAYING) { musicaTocando = true; mostrarMusicaInfo('YouTube 🎵'); } }
                     }
                 });
             }
+            customAudioActive = true; stopBgMusic(); musicaTocando = true; mostrarMusicaInfo('YouTube 🎵');
         }
 
-        // ════════════════════════
-        //  MÚSICA
-        // ════════════════════════
+        // ═══════════════════════════════════════
+        //  MÚSICA TOGGLE
+        // ═══════════════════════════════════════
         function toggleMusica() {
             const link = $('linkMusica').value.trim();
             const ytId = extrairYTid(link);
             if (ytId) {
-                if (ytPlayer) {
-                    const s = ytPlayer.getPlayerState();
-                    if (s === 1) { ytPlayer.pauseVideo(); $('musicaInfo').classList.remove('visivel'); musicaTocando = false; }
-                    else { ytPlayer.playVideo(); mostrarMusicaInfo('YouTube 🎵'); musicaTocando = true; }
-                } else tocarYT(ytId);
+                if (ytPlayer) { const s = ytPlayer.getPlayerState(); if (s === 1) { ytPlayer.pauseVideo(); $('musicaInfo').classList.remove('visivel'); musicaTocando = false; } else { ytPlayer.playVideo(); mostrarMusicaInfo('YouTube 🎵'); } }
+                else tocarYT(ytId); return;
+            }
+            if (!audioCustom.src && !bgGain) { toast('Adicione uma música no painel ⚙️'); return; }
+            if (bgGain) {
+                // Música de fundo procedural: pause/resume gain
+                if (musicaTocando) { bgGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 1); musicaTocando = false; $('musicaInfo').classList.remove('visivel'); }
+                else { bgGain.gain.linearRampToValueAtTime(.18, audioCtx.currentTime + 1); musicaTocando = true; mostrarMusicaInfo(); }
                 return;
             }
-            if (!audio.src) { toast('Adicione uma música no painel ⚙️'); return; }
-            if (audio.paused) { audio.play(); musicaTocando = true; mostrarMusicaInfo(); }
-            else { audio.pause(); musicaTocando = false; $('musicaInfo').classList.remove('visivel'); }
+            if (audioCustom.paused) { audioCustom.play(); musicaTocando = true; mostrarMusicaInfo(); }
+            else { audioCustom.pause(); musicaTocando = false; $('musicaInfo').classList.remove('visivel'); }
         }
-        function mostrarMusicaInfo(label = 'Tocando música') {
-            $('musicaInfo').classList.add('visivel');
-            $('musicaLabel').textContent = label;
-        }
+        function mostrarMusicaInfo(label = 'Tocando') { $('musicaInfo').classList.add('visivel'); $('musicaLabel').textContent = label; }
 
-        // ════════════════════════
+        // ═══════════════════════════════════════
         //  DROP + VIDEO
-        // ════════════════════════
+        // ═══════════════════════════════════════
         const dz = $('dropZone');
         dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('dragover'); });
         dz.addEventListener('dragleave', () => dz.classList.remove('dragover'));
@@ -1548,8 +1827,9 @@
             e.preventDefault(); dz.classList.remove('dragover');
             const f = e.dataTransfer.files[0];
             if (f && f.type.startsWith('audio/')) {
-                audio.src = URL.createObjectURL(f); audio.play(); musicaTocando = true;
-                mostrarMusicaInfo(f.name.replace(/\.[^.]+$/, '')); toast('🎵 Música carregada!');
+                customAudioActive = true; stopBgMusic();
+                audioCustom.src = URL.createObjectURL(f); audioCustom.play();
+                musicaTocando = true; mostrarMusicaInfo(f.name.replace(/\.[^.]+$/, '')); toast('🎵 Música carregada!');
             }
         });
         $('videoInput').addEventListener('change', e => {
@@ -1557,30 +1837,28 @@
             if (f) { video.src = URL.createObjectURL(f); video.style.opacity = '.35'; toast('🎬 Vídeo carregado!'); }
         });
 
-        // ════════════════════════
+        // ═══════════════════════════════════════
         //  APLICAR
-        // ════════════════════════
+        // ═══════════════════════════════════════
         function aplicar() {
-            config.tema = $('tema').value;
-            config.particula = $('particula').value;
-            config.velocidade = parseFloat($('velocidade').value);
-            config.corDestaque = $('corDestaque').value;
-            config.nome = $('nome').value;
-            config.mensagem = $('msgTexto').value;
-
-            // Atualiza CSS var de cor destaque
+            config.tema = $('tema').value; config.velocidade = parseFloat($('velocidade').value);
+            config.corDestaque = $('corDestaque').value; config.nome = $('nome').value; config.mensagem = $('msgTexto').value;
             document.documentElement.style.setProperty('--accent', config.corDestaque);
-            document.documentElement.style.setProperty('--glow', config.corDestaque + '88');
-
             $('overlay').style.background = temas[config.tema].overlay;
             criarParticulas();
-
+            // Música
             const link = $('linkMusica').value.trim();
             const ytId = extrairYTid(link);
-            if (ytId) tocarYT(ytId).catch(() => { });
-            else if (link) {
-                audio.src = link;
-                audio.play().then(() => { musicaTocando = true; mostrarMusicaInfo(); }).catch(() => toast('⚠️ Link inválido.'));
+            if (ytId) { tocarYT(ytId).catch(() => { }); }
+            else if (link && link !== '') {
+                customAudioActive = true; stopBgMusic();
+                audioCustom.src = link;
+                audioCustom.play().then(() => { musicaTocando = true; mostrarMusicaInfo(); }).catch(() => toast('⚠️ Link inválido.'));
+            } else {
+                // Sem link customizado: toca a música do tema
+                customAudioActive = false;
+                initAudio();
+                startBgMusic(temas[config.tema].musicType);
             }
             if (cartaAberta) {
                 if (config.nome) digitar('Para ' + config.nome + ' ❤️', $('titulo'), 48);
@@ -1589,48 +1867,52 @@
             salvar(); togglePainelFn(); toast('✨ Aplicado!');
         }
 
-        // ════════════════════════
-        //  DRAG CONTAINER (desktop)
-        // ════════════════════════
+        // ═══════════════════════════════════════
+        //  DRAG (desktop)
+        // ═══════════════════════════════════════
         let dragging = false, ox = 0, oy = 0;
         const cont = $('container');
         cont.addEventListener('mousedown', e => {
             if (e.target.tagName === 'BUTTON') return;
-            dragging = true;
-            const r = cont.getBoundingClientRect();
+            dragging = true; const r = cont.getBoundingClientRect();
             ox = e.clientX - r.left - r.width / 2; oy = e.clientY - r.top - r.height / 2;
         });
-        document.addEventListener('mousemove', e => {
-            if (!dragging) return;
-            cont.style.left = (e.clientX - ox) + 'px'; cont.style.top = (e.clientY - oy) + 'px';
-            cont.style.transform = 'translate(-50%,-50%)';
-        });
+        document.addEventListener('mousemove', e => { if (!dragging) return; cont.style.left = (e.clientX - ox) + 'px'; cont.style.top = (e.clientY - oy) + 'px'; cont.style.transform = 'translate(-50%,-50%)'; });
         document.addEventListener('mouseup', () => dragging = false);
 
-        // ════════════════════════
+        // ═══════════════════════════════════════
         //  TOGGLE PAINEL
-        // ════════════════════════
+        // ═══════════════════════════════════════
         function togglePainelFn() { $('painel').classList.toggle('aberto'); }
 
-        // ════════════════════════
+        // ═══════════════════════════════════════
         //  TOAST
-        // ════════════════════════
-        function toast(msg) {
-            const t = $('toast'); t.textContent = msg; t.classList.add('show');
-            setTimeout(() => t.classList.remove('show'), 2800);
-        }
+        // ═══════════════════════════════════════
+        function toast(msg) { const t = $('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2800); }
 
-        // ════════════════════════
+        // ═══════════════════════════════════════
+        //  FLOATING USERNAME
+        // ═══════════════════════════════════════
+        function spawnUsername() {
+            const el = document.createElement('div'); el.className = 'floating-username'; el.textContent = '@biel_medeiros48';
+            const side = Math.random();
+            let sx, sy;
+            if (side < .5) { sx = -200; sy = Math.random() * innerHeight; } else { sx = Math.random() * innerWidth; sy = -40; }
+            el.style.left = sx + 'px'; el.style.top = sy + 'px';
+            const dur = 9 + Math.random() * 10;
+            el.style.setProperty('--ux', (Math.random() - .3) * innerWidth * 1.4 + 'px');
+            el.style.setProperty('--uy', (Math.random() - .3) * innerHeight * 1.4 + 'px');
+            el.style.setProperty('--us', .3 + Math.random() * .7);
+            el.style.animationDuration = dur + 's';
+            document.body.appendChild(el); setTimeout(() => el.remove(), (dur + .5) * 1000);
+        }
+        setInterval(spawnUsername, 8000); setTimeout(spawnUsername, 2200);
+
+        // ═══════════════════════════════════════
         //  SALVAR / CARREGAR
-        // ════════════════════════
+        // ═══════════════════════════════════════
         function salvar() {
-            try {
-                localStorage.setItem('cfg_biel48', JSON.stringify({
-                    nome: config.nome, mensagem: config.mensagem,
-                    tema: config.tema, particula: config.particula, emoji: config.emoji,
-                    corDestaque: config.corDestaque
-                }));
-            } catch (e) { }
+            try { localStorage.setItem('cfg_biel48', JSON.stringify({ nome: config.nome, mensagem: config.mensagem, tema: config.tema, emoji: config.emoji, corDestaque: config.corDestaque })); } catch (e) { }
         }
         function carregar() {
             try {
@@ -1638,269 +1920,266 @@
                 if (s.nome) { $('nome').value = s.nome; config.nome = s.nome; }
                 if (s.mensagem) { $('msgTexto').value = s.mensagem; config.mensagem = s.mensagem; }
                 if (s.tema) { $('tema').value = s.tema; config.tema = s.tema; }
-                if (s.particula) { $('particula').value = s.particula; config.particula = s.particula; }
-                if (s.corDestaque) {
-                    $('corDestaque').value = s.corDestaque; config.corDestaque = s.corDestaque;
-                    document.documentElement.style.setProperty('--accent', s.corDestaque);
-                }
-                if (s.emoji) {
-                    emojiAtual = s.emoji; config.emoji = s.emoji;
-                    $('envEmoji').textContent = s.emoji; $('envCartaInterna').textContent = s.emoji;
-                    document.querySelectorAll('.emoji-opt').forEach(b => b.classList.toggle('sel', b.dataset.e === s.emoji));
-                }
+                if (s.corDestaque) { $('corDestaque').value = s.corDestaque; config.corDestaque = s.corDestaque; document.documentElement.style.setProperty('--accent', s.corDestaque); }
+                if (s.emoji) { emojiAtual = s.emoji; config.emoji = s.emoji; $('envEmoji').textContent = s.emoji; $('envCartaInterna').textContent = s.emoji; document.querySelectorAll('.emoji-opt').forEach(b => b.classList.toggle('sel', b.dataset.e === s.emoji)); }
             } catch (e) { }
         }
 
-        // ════════════════════════════════════════
-        //  MINI GAME — Coração Espacial
-        //  Nave coração desvia de asteroides, coleta corações
-        // ════════════════════════════════════════
+        // ═══════════════════════════════════════════════════════
+        //  MINI GAME — CORAÇÃO ESPACIAL (reescrito, fluido)
+        // ═══════════════════════════════════════════════════════
         const gc = $('gameCanvas');
         const gctx = gc.getContext('2d');
-        let gameRunning = false;
-        let gameScore = 0, gameVidas = 3, gameRecord = 0;
-        let gameAnim = null;
-        let player, obstacles, collectibles, gameFrame;
-        let gameShield = false, shieldCooldown = false;
-        let touchX = null;
+        let gameRunning = false, gameAnimId = null;
+        let gScore = 0, gVidas = 6, gRecord = 0; // vidas em meios corações (6 = 3 corações)
+        let gPlayer, gObstacles, gCollectibles, gFrame, gSpeed;
+        let gTouchX = null, gShield = false, gShieldCooldown = false;
+        let gMilestones = [100, 200, 350, 500, 750, 1000];
+        let gMilestoneIdx = 0;
+        let gMascots = ['🐱', '🦎', '🐸', '🦊', '🐧', '🌟'];
+        let gMessages = ['Incrível! 🎉', 'Vai fundo! 🚀', 'Você é fera! 🔥', 'Sem parar! ⚡', 'Lendário! 👑', '100% viciante! 💖'];
+        let gSubMessages = ['Continue acelerando!', 'Ficou ainda mais difícil!', 'Quase impossível...', 'Você consegue!', 'Absurdo!', 'Compartilha no Instagram!'];
 
         function abrirGame() {
             $('gameOverlay').classList.add('ativo');
-            // Ajusta canvas para mobile
-            const maxW = Math.min(420, innerWidth - 32);
-            gc.width = maxW;
-            gc.height = Math.min(500, innerHeight - 200);
+            const maxW = Math.min(400, innerWidth - 24);
+            gc.width = maxW; gc.height = Math.min(520, innerHeight - 180);
+            gc.style.setProperty('--gw', maxW + 'px');
+            $('gameUI').style.width = maxW + 'px';
+            gMilestoneIdx = 0;
             gameReset(false);
+            // Giroscópio
+            if (typeof DeviceOrientationEvent !== 'undefined' && DeviceOrientationEvent.requestPermission) {
+                DeviceOrientationEvent.requestPermission().then(r => { if (r === 'granted') window.addEventListener('deviceorientation', gyroHandler); }).catch(() => { });
+            } else window.addEventListener('deviceorientation', gyroHandler);
         }
         function fecharGame() {
             $('gameOverlay').classList.remove('ativo');
-            if (gameAnim) { cancelAnimationFrame(gameAnim); gameAnim = null; }
-            gameRunning = false;
+            if (gameAnimId) { cancelAnimationFrame(gameAnimId); gameAnimId = null; }
+            gameRunning = false; window.removeEventListener('deviceorientation', gyroHandler);
+        }
+        function gyroHandler(e) {
+            if (!gameRunning || !gPlayer) return;
+            const tilt = e.gamma; // -90 a 90
+            if (tilt !== null) gTouchX = gc.width / 2 + (tilt / 45) * gc.width * .4;
         }
 
         function gameReset(start = true) {
-            gameScore = 0; gameVidas = 3; gameShield = false; shieldCooldown = false;
-            player = {
-                x: gc.width / 2, y: gc.height - 80,
-                w: 36, h: 36,
-                vx: 0, speed: 5,
-                shield: false, shieldTimer: 0
-            };
-            obstacles = []; collectibles = []; gameFrame = 0;
+            gScore = 0; gVidas = 6; gShield = false; gShieldCooldown = false; gMilestoneIdx = 0; gSpeed = 1;
+            gPlayer = { x: gc.width / 2, y: gc.height - 70, w: 32, h: 32, vx: 0, speed: 5.5, shieldTimer: 0 };
+            gObstacles = []; gCollectibles = []; gFrame = 0;
             updateGameUI();
-            if (start) gameStart();
-            else {
-                gctx.clearRect(0, 0, gc.width, gc.height);
-                drawGameBg();
-                drawPlayer();
-                $('gameBtnStart').textContent = '▶ Iniciar';
-            }
+            if (start) { gameStart(); }
+            else { gctx.clearRect(0, 0, gc.width, gc.height); drawGameBg(); drawGPlayer(); $('gameBtnStart').textContent = '▶ Iniciar'; }
         }
-
         function gameStart() {
-            gameRunning = true;
-            $('gameBtnStart').textContent = '↺ Reiniciar';
-            $('gameMsg').textContent = 'Desvie dos ☄️ e colete os 💖!';
-            if (gameAnim) { cancelAnimationFrame(gameAnim); gameAnim = null; }
+            gameRunning = true; $('gameBtnStart').textContent = '↺ Reiniciar';
+            $('gameMsgEl').textContent = 'Desvie dos ☄️ — colete 💖 — Espaço = escudo!';
+            if (gameAnimId) { cancelAnimationFrame(gameAnimId); gameAnimId = null; }
             gameLoop();
         }
 
         function gameLoop() {
             if (!gameRunning) return;
-            gameFrame++;
-            gctx.clearRect(0, 0, gc.width, gc.height);
-            drawGameBg();
+            gFrame++; gctx.clearRect(0, 0, gc.width, gc.height); drawGameBg();
 
-            // Spawn obstáculos
-            if (gameFrame % Math.max(20, 50 - Math.floor(gameScore / 20)) === 0) {
-                obstacles.push({
-                    x: Math.random() * (gc.width - 30) + 15,
-                    y: -30, r: 12 + Math.random() * 10,
-                    vy: 1.5 + Math.random() * 2 + gameScore * .015,
-                    vx: (Math.random() - .5) * .8,
-                    rot: 0, rotS: (Math.random() - .5) * .1
+            // Velocidade crescente
+            gSpeed = 1 + gScore * .008;
+
+            // Spawn obstáculos — 3 tamanhos
+            const spawnInterval = Math.max(15, 48 - Math.floor(gScore / 25));
+            if (gFrame % spawnInterval === 0) {
+                const rnd = Math.random();
+                let size, dmg, col;
+                if (rnd < .5) { size = 10 + Math.random() * 5; dmg = 1; col = 'rgba(150,80,220,.75)'; } // pequeno, tira 0.5 corações
+                else if (rnd < .82) { size = 17 + Math.random() * 6; dmg = 2; col = 'rgba(200,60,180,.8)'; }  // médio, 1 coração
+                else { size = 24 + Math.random() * 8; dmg = 4; col = 'rgba(255,40,100,.85)'; }          // grande, 2 corações
+                gObstacles.push({
+                    x: Math.random() * (gc.width - size * 2) + size, y: -size * 2,
+                    r: size, vy: (1.2 + Math.random() * 1.6) * gSpeed, vx: (Math.random() - .5) * .7,
+                    rot: 0, rotS: (Math.random() - .5) * .08, dmg, col
                 });
             }
-            // Spawn corações
-            if (gameFrame % 70 === 0) {
-                collectibles.push({
-                    x: Math.random() * (gc.width - 40) + 20,
-                    y: -30, vy: 1.2 + Math.random() * 1.5,
-                    tw: 0
-                });
+            // Spawn coletáveis
+            if (gFrame % 65 === 0) {
+                gCollectibles.push({ x: Math.random() * (gc.width - 40) + 20, y: -30, vy: (1 + Math.random() * 1.2) * gSpeed, tw: 0 });
             }
 
-            // Mover player pelo toque/mouse
-            if (touchX !== null) {
-                const dx = touchX - player.x;
-                player.vx = Math.sign(dx) * Math.min(Math.abs(dx) * .12, player.speed);
-            } else player.vx *= .88;
-            player.x = Math.max(player.w / 2, Math.min(gc.width - player.w / 2, player.x + player.vx));
+            // Mover player
+            if (gTouchX !== null) {
+                const dx = gTouchX - gPlayer.x;
+                gPlayer.vx += dx * .08; gPlayer.vx *= .82;
+            } else gPlayer.vx *= .85;
+            gPlayer.vx = Math.max(-gPlayer.speed * gSpeed, Math.min(gPlayer.speed * gSpeed, gPlayer.vx));
+            gPlayer.x = Math.max(gPlayer.w / 2, Math.min(gc.width - gPlayer.w / 2, gPlayer.x + gPlayer.vx));
 
             // Shield timer
-            if (player.shield) {
-                player.shieldTimer--;
-                if (player.shieldTimer <= 0) { player.shield = false; }
-            }
+            if (gPlayer.shieldTimer > 0) gPlayer.shieldTimer--; else gShield = false;
 
             // Obstáculos
-            obstacles = obstacles.filter(o => {
+            gObstacles = gObstacles.filter(o => {
                 o.x += o.vx; o.y += o.vy; o.rot += o.rotS;
-                drawAsteroid(o);
-                // Colisão
-                if (!player.shield) {
-                    const dx = o.x - player.x, dy = o.y - player.y;
-                    if (Math.sqrt(dx * dx + dy * dy) < o.r + 14) {
-                        gameVidas--; updateGameUI();
-                        obstacles = obstacles.filter(a => a !== o);
-                        blink();
-                        if (gameVidas <= 0) { gameOver(); return false; }
+                drawGAsteroid(o);
+                if (!gShield) {
+                    const dx = o.x - gPlayer.x, dy = o.y - gPlayer.y;
+                    if (Math.sqrt(dx * dx + dy * dy) < o.r + 13) {
+                        gVidas = Math.max(0, gVidas - o.dmg); updateGameUI();
+                        blinkCanvas();
+                        if (gVidas <= 0) { gameOver(); return false; }
                         return false;
                     }
                 }
-                return o.y < gc.height + 50;
+                return o.y < gc.height + 60;
             });
 
             // Coletáveis
-            collectibles = collectibles.filter(c => {
-                c.y += c.vy; c.tw += .07;
-                const sx = 1 + Math.sin(c.tw) * .12;
-                drawHeartGC(c.x, c.y, 14 * sx);
-                const dx = c.x - player.x, dy = c.y - player.y;
+            gCollectibles = gCollectibles.filter(c => {
+                c.y += c.vy; c.tw += .08;
+                drawGHeart(c.x, c.y, 13 * (1 + Math.sin(c.tw) * .1), '#ff69b4', 1);
+                const dx = c.x - gPlayer.x, dy = c.y - gPlayer.y;
                 if (Math.sqrt(dx * dx + dy * dy) < 22) {
-                    gameScore += 10; updateGameUI();
-                    spawnScorePopup(c.x, c.y, '+10');
-                    return false;
+                    gScore += 10; updateGameUI(); spawnPopup(c.x, c.y, '+10 ⭐');
+                    checkMilestone(); return false;
                 }
                 return c.y < gc.height + 40;
             });
 
-            drawPlayer();
-            drawHUD();
-            gameAnim = requestAnimationFrame(gameLoop);
+            drawGPlayer();
+            drawGHUD();
+            gameAnimId = requestAnimationFrame(gameLoop);
+        }
+
+        function checkMilestone() {
+            if (gMilestoneIdx < gMilestones.length && gScore >= gMilestones[gMilestoneIdx]) {
+                const mi = gMilestoneIdx; gMilestoneIdx++;
+                const b = $('milestoneBanner');
+                $('mb-emoji').textContent = gMascots[mi % gMascots.length];
+                $('mb-text').textContent = gMessages[mi % gMessages.length];
+                $('mb-sub').textContent = gSubMessages[mi % gSubMessages.length] + ' — ' + gScore + ' pts!';
+                b.classList.add('show'); setTimeout(() => b.classList.remove('show'), 3000);
+                // Mascote aparece
+                const m = $('mascote'); const mm = $('mascote-msg');
+                m.textContent = gMascots[mi % gMascots.length]; m.classList.add('visivel');
+                mm.textContent = gMessages[mi % gMessages.length]; mm.classList.add('visivel');
+                setTimeout(() => { m.classList.remove('visivel'); mm.classList.remove('visivel'); }, 4000);
+            }
         }
 
         function drawGameBg() {
-            // Gradiente escuro estrelado
             const grd = gctx.createLinearGradient(0, 0, 0, gc.height);
-            grd.addColorStop(0, '#06000f'); grd.addColorStop(1, '#120018');
+            grd.addColorStop(0, '#04000d'); grd.addColorStop(1, '#100015');
             gctx.fillStyle = grd; gctx.fillRect(0, 0, gc.width, gc.height);
-            // Mini estrelas estáticas
-            gctx.fillStyle = 'rgba(255,255,255,.35)';
-            for (let i = 0; i < 40; i++) {
-                const seed = i * 137.5;
-                const x = (seed % 1) * gc.width; // pseudo-random mas estável
-                const y = ((seed * seed) % 1) * gc.height;
-                gctx.fillRect((i * 73.1) % gc.width, ((i * 41.7 + gameFrame * .2) % gc.height), 1, 1);
-            }
+            // Estrelas estáticas simples
+            gctx.fillStyle = 'rgba(255,255,255,.3)';
+            for (let i = 0; i < 35; i++) { gctx.fillRect((i * 83.7 + gFrame * .15) % gc.width, ((i * 61.3 + gFrame * .08) % gc.height), 1, 1); }
         }
 
-        function drawPlayer() {
-            const { x, y, shield } = player;
+        function drawGPlayer() {
+            const { x, y, shieldTimer } = gPlayer;
             gctx.save();
-            if (shield) {
-                // Escudo brilhante
-                gctx.beginPath(); gctx.arc(x, y, 28, 0, Math.PI * 2);
-                const sg = gctx.createRadialGradient(x, y, 10, x, y, 28);
-                sg.addColorStop(0, 'rgba(120,180,255,0)');
-                sg.addColorStop(1, 'rgba(100,160,255,.45)');
+            if (gShield && shieldTimer > 0) {
+                const pulse = Math.sin(gFrame * .15) * .15 + .85;
+                gctx.beginPath(); gctx.arc(x, y, 28 * pulse, 0, Math.PI * 2);
+                const sg = gctx.createRadialGradient(x, y, 8, x, y, 28);
+                sg.addColorStop(0, 'rgba(120,180,255,0)'); sg.addColorStop(1, 'rgba(100,160,255,.38)');
                 gctx.fillStyle = sg; gctx.fill();
-                gctx.strokeStyle = 'rgba(120,200,255,.7)'; gctx.lineWidth = 2; gctx.stroke();
+                gctx.strokeStyle = `rgba(120,200,255,${.5 + Math.sin(gFrame * .2) * .2})`; gctx.lineWidth = 1.5; gctx.stroke();
             }
-            // Nave = grande coração rosa
-            gctx.shadowColor = config.corDestaque || '#ff2d87';
-            gctx.shadowBlur = 18;
-            drawHeartGC(x, y, 20, config.corDestaque || '#ff2d87');
             // Propulsão
-            gctx.shadowBlur = 0;
-            const grd = gctx.createLinearGradient(x, y + 20, x, y + 34);
-            grd.addColorStop(0, 'rgba(255,120,200,.8)');
-            grd.addColorStop(1, 'transparent');
-            gctx.fillStyle = grd;
-            gctx.beginPath(); gctx.ellipse(x, y + 24, 5, 10 + (Math.random() * 4), 0, 0, Math.PI * 2); gctx.fill();
+            const flameH = 12 + Math.random() * 8;
+            const flameG = gctx.createLinearGradient(x, y + 16, x, y + 16 + flameH);
+            flameG.addColorStop(0, 'rgba(255,120,200,.85)'); flameG.addColorStop(1, 'rgba(255,60,180,0)');
+            gctx.fillStyle = flameG; gctx.beginPath(); gctx.ellipse(x, y + 18, 4, flameH, 0, 0, Math.PI * 2); gctx.fill();
+            // Coração principal
+            gctx.shadowColor = config.corDestaque || '#ff2d87'; gctx.shadowBlur = 16;
+            drawGHeart(x, y, 18, config.corDestaque || '#ff2d87', 1);
             gctx.restore();
         }
 
-        function drawHeartGC(x, y, s, col) {
-            const c = col || '#ff2d87';
-            gctx.save();
-            gctx.fillStyle = c;
-            gctx.shadowColor = c; gctx.shadowBlur = s * .8;
+        function drawGHeart(x, y, s, col, a) {
+            gctx.save(); gctx.globalAlpha = a; gctx.fillStyle = col || '#ff2d87';
+            gctx.shadowColor = col || '#ff2d87'; gctx.shadowBlur = s * .7;
             gctx.translate(x, y); gctx.scale(s / 12, s / 12);
             gctx.beginPath(); gctx.moveTo(0, -3);
-            gctx.bezierCurveTo(0, -6, -6, -6, -6, -2);
-            gctx.bezierCurveTo(-6, 3, 0, 6, 0, 9);
-            gctx.bezierCurveTo(0, 6, 6, 3, 6, -2);
-            gctx.bezierCurveTo(6, -6, 0, -6, 0, -3);
+            gctx.bezierCurveTo(0, -6, -6, -6, -6, -2); gctx.bezierCurveTo(-6, 3, 0, 6, 0, 9);
+            gctx.bezierCurveTo(0, 6, 6, 3, 6, -2); gctx.bezierCurveTo(6, -6, 0, -6, 0, -3);
             gctx.fill(); gctx.restore();
         }
 
-        function drawAsteroid(o) {
+        function drawGAsteroid(o) {
             gctx.save(); gctx.translate(o.x, o.y); gctx.rotate(o.rot);
-            gctx.strokeStyle = 'rgba(180,100,255,.7)'; gctx.lineWidth = 2;
-            gctx.shadowColor = '#9b59b6'; gctx.shadowBlur = 10;
-            gctx.fillStyle = 'rgba(60,0,80,.7)';
+            gctx.strokeStyle = o.col.replace('.75', '.9').replace('.8', '.9').replace('.85', '.9');
+            gctx.lineWidth = 1.8; gctx.shadowColor = o.col; gctx.shadowBlur = o.r * .8;
+            gctx.fillStyle = o.col.replace('.75', '.4').replace('.8', '.4').replace('.85', '.4');
             gctx.beginPath();
-            for (let i = 0; i < 7; i++) {
-                const ang = (i / 7) * Math.PI * 2;
-                const r = o.r * (0.8 + Math.sin(i * 2.3) * .2);
+            const pts = 6 + Math.floor(o.r / 8);
+            for (let i = 0; i < pts; i++) {
+                const ang = (i / pts) * Math.PI * 2; const r = o.r * (0.78 + Math.sin(i * 2.7) * .22);
                 i === 0 ? gctx.moveTo(Math.cos(ang) * r, Math.sin(ang) * r) : gctx.lineTo(Math.cos(ang) * r, Math.sin(ang) * r);
             }
-            gctx.closePath(); gctx.fill(); gctx.stroke();
-            gctx.restore();
+            gctx.closePath(); gctx.fill(); gctx.stroke(); gctx.restore();
         }
 
-        function drawHUD() {
-            // Barra de progresso de velocidade
-            gctx.fillStyle = 'rgba(255,255,255,.06)';
-            gctx.fillRect(8, 8, 100, 4); gctx.borderRadius = '2px';
-            const speedPct = Math.min(gameScore / 300, 1);
-            gctx.fillStyle = config.corDestaque || '#ff2d87';
-            gctx.fillRect(8, 8, 100 * speedPct, 4);
+        function drawGHUD() {
+            // Barra de velocidade
+            const speedPct = Math.min((gSpeed - 1) / 4, 1);
+            gctx.fillStyle = 'rgba(255,255,255,.06)'; gctx.beginPath(); gctx.roundRect(8, 8, 90, 5, 3); gctx.fill();
+            const cg = gctx.createLinearGradient(8, 0, 98, 0);
+            cg.addColorStop(0, '#ff2d87'); cg.addColorStop(1, '#9b59b6');
+            gctx.fillStyle = cg; gctx.beginPath(); gctx.roundRect(8, 8, 90 * speedPct, 5, 3); gctx.fill();
+            gctx.fillStyle = 'rgba(255,255,255,.2)'; gctx.font = '9px Outfit'; gctx.textAlign = 'left';
+            gctx.fillText('velocidade', 8, 22); gctx.textAlign = 'start';
         }
 
         let blinkTimer = 0;
-        function blink() {
-            blinkTimer = 18;
-            const interval = setInterval(() => {
-                blinkTimer--;
-                gc.style.opacity = (blinkTimer % 4 < 2) ? '.4' : '1';
-                if (blinkTimer <= 0) { clearInterval(interval); gc.style.opacity = '1'; }
-            }, 50);
+        function blinkCanvas() {
+            let t = 16; const iv = setInterval(() => { t--; gc.style.opacity = (t % 4 < 2) ? '.35' : '1'; if (t <= 0) { clearInterval(iv); gc.style.opacity = '1'; } }, 55);
         }
 
-        let scorePopups = [];
-        function spawnScorePopup(x, y, txt) {
-            scorePopups.push({ x, y, txt, life: 40 });
-            // Usa canvas de forma simples
-            const pop = document.createElement('div');
-            pop.style.cssText = `position:fixed;left:${gc.getBoundingClientRect().left + x}px;top:${gc.getBoundingClientRect().top + y}px;color:#ff80c0;font-size:13px;font-weight:600;pointer-events:none;z-index:210;animation:heartFloat .8s ease-out forwards;font-family:Outfit,sans-serif`;
-            pop.style.setProperty('--dur', '.8s');
-            pop.style.setProperty('--dx', '0px'); pop.style.setProperty('--dy', '-50px');
-            pop.style.setProperty('--dx15', '0px'); pop.style.setProperty('--dy15', '-20px');
-            pop.style.setProperty('--rot', '0deg'); pop.style.setProperty('--sz', '13px');
-            pop.textContent = txt;
-            document.body.appendChild(pop);
-            setTimeout(() => pop.remove(), 900);
+        function spawnPopup(x, y, txt) {
+            const rect = gc.getBoundingClientRect();
+            const el = document.createElement('div');
+            el.style.cssText = `position:fixed;left:${rect.left + x}px;top:${rect.top + y}px;color:#ffb3d9;font-size:12px;font-weight:600;pointer-events:none;z-index:220;font-family:Outfit,sans-serif;`;
+            el.className = 'heart-particle';
+            el.style.setProperty('--dur', '.75s'); el.style.setProperty('--sz', '12px');
+            el.style.setProperty('--dx', '0px'); el.style.setProperty('--dy', '-50px');
+            el.style.setProperty('--dx15', '0px'); el.style.setProperty('--dy15', '-20px');
+            el.style.setProperty('--rot', '0deg'); el.textContent = txt;
+            document.body.appendChild(el); setTimeout(() => el.remove(), 850);
         }
 
         function updateGameUI() {
-            $('gameVidas').textContent = '❤️'.repeat(Math.max(0, gameVidas));
-            $('gameScore').textContent = gameScore;
-            $('gameRecord').textContent = Math.max(gameRecord, gameScore);
+            // Meios corações
+            const full = Math.floor(gVidas / 2), half = gVidas % 2;
+            let str = '';
+            for (let i = 0; i < full; i++)str += '❤️';
+            if (half) str += '🩷';
+            for (let i = 0; i < 3 - full - (half ? 1 : 0); i++)str += '🖤';
+            $('gameVidasEl').textContent = str;
+            $('gameScore').textContent = gScore;
+            if (gScore > gRecord) gRecord = gScore;
+            $('gameRecord').textContent = gRecord;
         }
 
         function gameOver() {
-            gameRunning = false;
-            cancelAnimationFrame(gameAnim);
-            if (gameScore > gameRecord) gameRecord = gameScore;
+            gameRunning = false; if (gameAnimId) { cancelAnimationFrame(gameAnimId); gameAnimId = null; }
             updateGameUI();
-            $('gameMsg').textContent = `Game Over! Pontuação: ${gameScore} ${gameScore >= gameRecord ? '🏆 Novo recorde!' : ''}`;
+            const isRecord = gScore >= gRecord && gScore > 0;
+            $('gameMsgEl').textContent = `Fim de jogo! ${gScore} pontos ${isRecord ? '🏆 Novo recorde!' : ''}`;
             $('gameBtnStart').textContent = '↺ Jogar de novo';
-            // Explosão de corações no game over
-            for (let i = 0; i < 20; i++) {
+            // Chuva de corações triste/feliz
+            for (let i = 0; i < 15; i++) {
                 setTimeout(() => {
-                    drawHeartGC(Math.random() * gc.width, Math.random() * gc.height, 8 + Math.random() * 14);
+                    const rect = gc.getBoundingClientRect();
+                    const el = document.createElement('div'); el.className = 'heart-particle';
+                    el.textContent = isRecord ? '🏆' : '💔';
+                    const ang = Math.random() * Math.PI * 2, d = 80 + Math.random() * 160, dur = 1 + Math.random();
+                    el.style.setProperty('--dur', dur + 's'); el.style.setProperty('--sz', '20px');
+                    el.style.setProperty('--dx15', Math.cos(ang) * 40 + 'px'); el.style.setProperty('--dy15', Math.sin(ang) * 40 + 'px');
+                    el.style.setProperty('--dx', Math.cos(ang) * d + 'px'); el.style.setProperty('--dy', Math.sin(ang) * d - 40 + 'px');
+                    el.style.setProperty('--rot', (Math.random() - .5) * 360 + 'deg');
+                    el.style.left = (rect.left + gc.width / 2) + 'px'; el.style.top = (rect.top + gc.height / 2) + 'px';
+                    document.body.appendChild(el); setTimeout(() => el.remove(), (dur + .3) * 1000);
                 }, i * 60);
             }
         }
@@ -1908,44 +2187,52 @@
         // ─── Controles teclado ───
         document.addEventListener('keydown', e => {
             if (!gameRunning) return;
-            if (e.key === 'ArrowLeft' || e.key === 'a') player.vx = -player.speed;
-            if (e.key === 'ArrowRight' || e.key === 'd') player.vx = player.speed;
-            if (e.key === ' ' && !shieldCooldown) {
-                player.shield = true; player.shieldTimer = 90;
-                shieldCooldown = true; setTimeout(() => shieldCooldown = false, 5000);
+            if (e.key === 'ArrowLeft' || e.key === 'a') { gTouchX = gPlayer.x - 80; }
+            if (e.key === 'ArrowRight' || e.key === 'd') { gTouchX = gPlayer.x + 80; }
+            if (e.key === ' ') { e.preventDefault(); ativarEscudo(); }
+        });
+        document.addEventListener('keyup', e => { if (['ArrowLeft', 'a', 'ArrowRight', 'd'].includes(e.key)) gTouchX = null; });
+
+        function ativarEscudo() {
+            if (!gShieldCooldown && gameRunning) {
+                gShield = true; gPlayer.shieldTimer = 90; gShieldCooldown = true;
+                setTimeout(() => gShieldCooldown = false, 5000);
+                toast('🛡️ Escudo ativado! (5s cooldown)');
             }
-        });
-        document.addEventListener('keyup', e => {
-            if (['ArrowLeft', 'a', 'ArrowRight', 'd'].includes(e.key)) player.vx = 0;
-        });
+        }
 
-        // ─── Controles touch ───
-        gc.addEventListener('touchmove', e => {
-            e.preventDefault();
-            const rect = gc.getBoundingClientRect();
-            touchX = e.touches[0].clientX - rect.left;
-        }, { passive: false });
-        gc.addEventListener('touchstart', e => {
-            const rect = gc.getBoundingClientRect();
-            touchX = e.touches[0].clientX - rect.left;
-        });
-        gc.addEventListener('touchend', () => touchX = null);
+        // ─── Touch no canvas ───
+        gc.addEventListener('touchmove', e => { e.preventDefault(); const r = gc.getBoundingClientRect(); gTouchX = e.touches[0].clientX - r.left; }, { passive: false });
+        gc.addEventListener('touchstart', e => { const r = gc.getBoundingClientRect(); gTouchX = e.touches[0].clientX - r.left; });
+        gc.addEventListener('touchend', () => gTouchX = null);
+        gc.addEventListener('touchstart', e => { if (e.touches.length === 2) ativarEscudo(); });
+        gc.addEventListener('mousemove', e => { if (!gameRunning) return; const r = gc.getBoundingClientRect(); gTouchX = e.clientX - r.left; });
+        gc.addEventListener('mouseleave', () => gTouchX = null);
 
-        gc.addEventListener('mousemove', e => {
-            if (!gameRunning) return;
-            const rect = gc.getBoundingClientRect();
-            touchX = e.clientX - rect.left;
-        });
-        gc.addEventListener('mouseleave', () => touchX = null);
-
-        // ════════════════════════
+        // ═══════════════════════════════════════
         //  INIT
-        // ════════════════════════
+        // ═══════════════════════════════════════
         carregar();
         $('overlay').style.background = temas[config.tema].overlay;
         criarParticulas();
         animarParticulas();
+
+        // Inicia música de fundo com interação do usuário
+        function iniciarMusicaComInteracao() {
+            document.removeEventListener('click', iniciarMusicaComInteracao);
+            document.removeEventListener('touchstart', iniciarMusicaComInteracao);
+            if (!customAudioActive) {
+                initAudio();
+                startBgMusic(temas[config.tema].musicType);
+            }
+        }
+        document.addEventListener('click', iniciarMusicaComInteracao);
+        document.addEventListener('touchstart', iniciarMusicaComInteracao);
     </script>
+    <!-- YouTube iframe -->
+    <div style="position:fixed;top:-9999px;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none">
+        <div id="ytPlayer"></div>
+    </div>
 </body>
 
 </html>
